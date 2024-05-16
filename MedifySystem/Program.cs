@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MedifySystem.MedifyCommon.DataAccess;
+using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyCommon.Services.Implementations;
 
 namespace MedifySystem;
 
@@ -38,10 +40,10 @@ internal static class Program
                 services.AddSingleton<IUserService, UserService>();
                 services.AddDbContext<MedifyDatabaseContext>(options =>
                     options.UseSqlite("Data Source=VotifyDB.db"));
-                services.AddSingleton<IDbService>(provider =>
+                services.AddSingleton<IDBService>(provider =>
                 {
                     var dbContext = provider.GetRequiredService<MedifyDatabaseContext>();
-                    return new DbService(dbContext);
+                    return new DBService(dbContext);
                 });
             });
     }
