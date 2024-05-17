@@ -1,7 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace MedifySystem.MedifyCommon.DataAccess;
-internal class MedifyDatabaseContext : DbContext
+
+/// <summary>
+/// 
+/// </summary>
+public class MedifyDatabaseContext : DbContext
 {
 
 }
