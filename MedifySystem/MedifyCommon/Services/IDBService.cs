@@ -51,4 +51,11 @@ public interface IDBService
     /// <param name="ids"></param>
     /// <returns></returns>
     IEnumerable<T>? GetEntitiesById<T>(List<string> ids) where T : class;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    List<T>? GetEntitiesByType<T>() where T : class;
 }

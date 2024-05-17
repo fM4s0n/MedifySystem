@@ -96,4 +96,20 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
+
+    //<inheritdoc/>
+    public List<T>? GetEntitiesByType<T>() where T : class
+    {
+        try
+        {
+            List<T>? entities = _dbContext.Set<T>().ToList();
+
+            return entities ?? throw new KeyNotFoundException("Entity not found");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return null;
+        }
+    }
 }
