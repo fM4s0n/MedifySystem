@@ -21,7 +21,6 @@ internal static class Program
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
 
-
         var host = CreateHostBuilder().Build();
         ServiceProvider = host.Services;
 
@@ -39,7 +38,7 @@ internal static class Program
             .ConfigureServices((context, services) => {
                 services.AddSingleton<IUserService, UserService>();
                 services.AddDbContext<MedifyDatabaseContext>(options =>
-                    options.UseSqlite("Data Source=VotifyDB.db"));
+                    options.UseSqlite("Data Source=MedifyDB.db"));
                 services.AddSingleton<IDBService>(provider =>
                 {
                     var dbContext = provider.GetRequiredService<MedifyDatabaseContext>();
@@ -47,4 +46,4 @@ internal static class Program
                 });
             });
     }
-}2
+}

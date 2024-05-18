@@ -3,13 +3,13 @@
 namespace MedifySystem.MedifyCommon.Models;
 
 /// <summary>
-/// 
+/// User class, this can be a hostpital official or a system admin
 /// </summary>
-public class User : Person
+public class User(string email, UserRole userRole, string firstName, string lastName) : Person(firstName, lastName)
 {
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = email;
     public string PasswordHash { get; set; } = string.Empty;
-    public UserRole Role { get; set; }
+    public UserRole Role { get; set; } = userRole;
 
     /// <summary>
     /// Is the user a hospital official

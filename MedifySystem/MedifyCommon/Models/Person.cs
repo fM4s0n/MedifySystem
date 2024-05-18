@@ -3,10 +3,10 @@
 /// <summary>
 /// Abstract person class - not to be implemented directly
 /// </summary>
-public abstract class Person
+public abstract class Person(string firstName, string lastName)
 {
-    public int Id { get; set; }
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string FirstName { get; set; } = firstName;
+    public string LastName { get; set; } = lastName;
     public string FullName => $"{FirstName} {LastName}";
 }

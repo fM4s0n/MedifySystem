@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace MedifySystem.MedifyCommon.DataAccess;
-public class MedifyDatabaseContext : DbContext
+public class MedifyDatabaseContext(DbContextOptions<MedifyDatabaseContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
     public DbSet<Patient> Patients { get; set; }

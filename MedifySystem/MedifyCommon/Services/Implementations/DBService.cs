@@ -112,4 +112,14 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
             return null;
         }
     }
+
+    public T GetEntity<T>(int id) where T : class
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<T> GetEntities<T>() where T : class
+    {
+        throw new NotImplementedException();
+    }
 }
