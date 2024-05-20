@@ -29,6 +29,7 @@ partial class FrmMain
     private void InitializeComponent()
     {
         pnlMenu = new Panel();
+        flpMainMenu = new FlowLayoutPanel();
         panel1 = new Panel();
         pictureBox1 = new PictureBox();
         pnlTitleBar = new Panel();
@@ -41,31 +42,40 @@ partial class FrmMain
         // pnlMenu
         // 
         pnlMenu.BackColor = Color.FromArgb(58, 110, 165);
+        pnlMenu.Controls.Add(flpMainMenu);
         pnlMenu.Controls.Add(panel1);
         pnlMenu.Dock = DockStyle.Left;
         pnlMenu.Location = new Point(0, 0);
-        pnlMenu.Margin = new Padding(3, 4, 3, 4);
         pnlMenu.Name = "pnlMenu";
-        pnlMenu.Size = new Size(263, 603);
+        pnlMenu.Size = new Size(230, 458);
         pnlMenu.TabIndex = 0;
+        // 
+        // flpMainMenu
+        // 
+        flpMainMenu.AutoScroll = true;
+        flpMainMenu.Dock = DockStyle.Fill;
+        flpMainMenu.FlowDirection = FlowDirection.TopDown;
+        flpMainMenu.Location = new Point(0, 85);
+        flpMainMenu.Name = "flpMainMenu";
+        flpMainMenu.Size = new Size(230, 373);
+        flpMainMenu.TabIndex = 1;
         // 
         // panel1
         // 
         panel1.Controls.Add(pictureBox1);
         panel1.Dock = DockStyle.Top;
         panel1.Location = new Point(0, 0);
-        panel1.Margin = new Padding(3, 4, 3, 4);
         panel1.Name = "panel1";
-        panel1.Size = new Size(263, 113);
+        panel1.Size = new Size(230, 85);
         panel1.TabIndex = 0;
         // 
         // pictureBox1
         // 
-        pictureBox1.Location = new Point(78, 13);
-        pictureBox1.Margin = new Padding(3, 4, 3, 4);
+        pictureBox1.Image = Properties.Resources.RectangleTransparentBackground;
+        pictureBox1.Location = new Point(24, 3);
         pictureBox1.Name = "pictureBox1";
-        pictureBox1.Size = new Size(100, 50);
-        pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+        pictureBox1.Size = new Size(180, 79);
+        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         pictureBox1.TabIndex = 0;
         pictureBox1.TabStop = false;
         // 
@@ -73,36 +83,32 @@ partial class FrmMain
         // 
         pnlTitleBar.BackColor = Color.White;
         pnlTitleBar.Dock = DockStyle.Top;
-        pnlTitleBar.Location = new Point(263, 0);
-        pnlTitleBar.Margin = new Padding(3, 4, 3, 4);
+        pnlTitleBar.Location = new Point(230, 0);
         pnlTitleBar.Name = "pnlTitleBar";
-        pnlTitleBar.Size = new Size(669, 80);
+        pnlTitleBar.Size = new Size(587, 60);
         pnlTitleBar.TabIndex = 1;
         // 
         // pnlDesktop
         // 
         pnlDesktop.Dock = DockStyle.Fill;
-        pnlDesktop.Location = new Point(263, 80);
-        pnlDesktop.Margin = new Padding(3, 4, 3, 4);
+        pnlDesktop.Location = new Point(230, 60);
         pnlDesktop.Name = "pnlDesktop";
-        pnlDesktop.Size = new Size(669, 523);
+        pnlDesktop.Size = new Size(587, 398);
         pnlDesktop.TabIndex = 2;
         // 
         // FrmMain
         // 
-        AutoScaleDimensions = new SizeF(8F, 20F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(932, 603);
+        ClientSize = new Size(817, 458);
         Controls.Add(pnlDesktop);
         Controls.Add(pnlTitleBar);
         Controls.Add(pnlMenu);
-        Margin = new Padding(3, 4, 3, 4);
-        MinimumSize = new Size(950, 650);
+        MinimumSize = new Size(833, 497);
         Name = "FrmMain";
         Text = "Medify | Home";
         pnlMenu.ResumeLayout(false);
         panel1.ResumeLayout(false);
-        panel1.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ResumeLayout(false);
     }
@@ -114,4 +120,5 @@ partial class FrmMain
     private Panel panel1;
     private Panel pnlDesktop;
     private PictureBox pictureBox1;
+    private FlowLayoutPanel flpMainMenu;
 }
