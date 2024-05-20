@@ -53,4 +53,6 @@ public interface IUserService
     /// <param name="id"></param>
     /// <returns></returns>
     User? GetUserById(string id);
+
+    bool AuthenticateUser(string email, string password);
 }

@@ -1,4 +1,5 @@
 using FontAwesome.Sharp;
+using MedifySystem.MedifyDesktop.Forms;
 
 namespace MedifySystem;
 
@@ -59,13 +60,31 @@ public partial class FrmMain : Form
             Name = name,
             Size = new Size(180, 23),
             TextAlign = ContentAlignment.MiddleLeft,
-            UseVisualStyleBackColor = true
+            UseVisualStyleBackColor = true            
         };
 
         // these have to be added outside of the initializer
         button.FlatAppearance.BorderSize = 0;
         button.FlatStyle = FlatStyle.Flat;
 
+        button.Click += HandleClickMainMenuClickEvent;
         flpMainMenu.Controls.Add(button);
+    }
+
+    private void HandleClickMainMenuClickEvent(object? sender, EventArgs e)
+    {
+        if (sender is IconButton button)
+        {
+            switch (button.Name)
+            {
+                case BTN_SIGN_IN_NAME:
+                    FrmSignIn frmSignIn = new();
+                    frmSignIn.ShowDialog();
+                    break;
+                case BTN_SIGN_OUT_NAME:
+
+                    break;
+            }
+        }
     }
 }

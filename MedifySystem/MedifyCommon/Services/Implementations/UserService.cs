@@ -1,4 +1,6 @@
-﻿using MedifySystem.MedifyCommon.Models;
+﻿using MedifySystem.MedifyCommon.Helpers;
+using MedifySystem.MedifyCommon.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace MedifySystem.MedifyCommon.Services.Implementations;
 
@@ -56,5 +58,24 @@ public class UserService(IDBService? dbService = null) : IUserService
     public void UpdateUser(User user)
     {
         _dbService?.UpdateEntity(user);
+    }
+
+    public bool AuthenticateUser(string email, string password)
+    {
+        List<User>? users = GetAllUsers();
+        if (users == null)
+            return false;
+
+        foreach (User user in users)
+        {
+            if (user.Email == email)
+            {
+                bool result = PasswordHelper.VerifyPassword(user, password) != PasswordVerificationResult.Failed;
+
+                return result;
+            }
+        }
+
+        return false;
     }
 }

@@ -35,6 +35,7 @@ partial class FrmSignIn
         lblPassword = new Label();
         btnSignIn = new FontAwesome.Sharp.IconButton();
         btnCancel = new FontAwesome.Sharp.IconButton();
+        btnCreateAccount = new FontAwesome.Sharp.IconButton();
         ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
         SuspendLayout();
         // 
@@ -118,12 +119,32 @@ partial class FrmSignIn
         btnCancel.Text = "Cancel";
         btnCancel.TextAlign = ContentAlignment.MiddleLeft;
         btnCancel.UseVisualStyleBackColor = false;
+        btnCancel.Click += btnCancel_Click;
+        // 
+        // btnCreateAccount
+        // 
+        btnCreateAccount.BackColor = Color.White;
+        btnCreateAccount.FlatStyle = FlatStyle.Flat;
+        btnCreateAccount.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+        btnCreateAccount.IconColor = Color.Black;
+        btnCreateAccount.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnCreateAccount.IconSize = 30;
+        btnCreateAccount.ImageAlign = ContentAlignment.MiddleRight;
+        btnCreateAccount.Location = new Point(175, 320);
+        btnCreateAccount.Name = "btnCreateAccount";
+        btnCreateAccount.Size = new Size(153, 38);
+        btnCreateAccount.TabIndex = 7;
+        btnCreateAccount.Text = "Create Account";
+        btnCreateAccount.TextAlign = ContentAlignment.MiddleLeft;
+        btnCreateAccount.UseVisualStyleBackColor = false;
+        btnCreateAccount.Click += btnCreateAccount_Click;
         // 
         // FrmSignIn
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(511, 338);
+        ClientSize = new Size(511, 370);
+        Controls.Add(btnCreateAccount);
         Controls.Add(btnCancel);
         Controls.Add(btnSignIn);
         Controls.Add(lblPassword);
@@ -148,4 +169,5 @@ partial class FrmSignIn
     private Label lblPassword;
     private FontAwesome.Sharp.IconButton btnSignIn;
     private FontAwesome.Sharp.IconButton btnCancel;
+    private FontAwesome.Sharp.IconButton btnCreateAccount;
 }
