@@ -58,7 +58,7 @@ public partial class FrmMain : Form
             IconSize = 35,
             ImageAlign = ContentAlignment.MiddleRight,
             Name = name,
-            Size = new Size(180, 23),
+            Size = new Size(180, 35),
             TextAlign = ContentAlignment.MiddleLeft,
             UseVisualStyleBackColor = true            
         };

@@ -36,10 +36,7 @@ public class UserService(IDBService? dbService = null) : IUserService
     }
 
     //<inheritdoc/>
-    public void InsertUser(User user)
-    {
-        _dbService?.InsertEntity(user);
-    }
+    public void InsertUser(User user) => _dbService?.InsertEntity(user);
 
     //<inheritdoc/>
     public void LoginUser(User user)
@@ -49,10 +46,7 @@ public class UserService(IDBService? dbService = null) : IUserService
     }
 
     //<inheritdoc/>
-    public void LogoutUser()
-    {
-        _currentUser = null;
-    }
+    public void LogoutUser() => _currentUser = null;    
 
     //<inheritdoc/>
     public void UpdateUser(User user)
@@ -60,6 +54,7 @@ public class UserService(IDBService? dbService = null) : IUserService
         _dbService?.UpdateEntity(user);
     }
 
+    //<inheritdoc/>
     public bool AuthenticateUser(string email, string password)
     {
         List<User>? users = GetAllUsers();
@@ -71,6 +66,9 @@ public class UserService(IDBService? dbService = null) : IUserService
             if (user.Email == email)
             {
                 bool result = PasswordHelper.VerifyPassword(user, password) != PasswordVerificationResult.Failed;
+                
+                if (result)
+                    LoginUser(user);
 
                 return result;
             }

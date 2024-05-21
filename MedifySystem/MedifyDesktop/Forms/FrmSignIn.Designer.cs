@@ -36,6 +36,8 @@ partial class FrmSignIn
         btnSignIn = new FontAwesome.Sharp.IconButton();
         btnCancel = new FontAwesome.Sharp.IconButton();
         btnCreateAccount = new FontAwesome.Sharp.IconButton();
+        lblWarnEmail = new Label();
+        lblWarnPassword = new Label();
         ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
         SuspendLayout();
         // 
@@ -60,7 +62,7 @@ partial class FrmSignIn
         // txtPassword
         // 
         txtPassword.Font = new Font("Verdana", 9.75F);
-        txtPassword.Location = new Point(73, 230);
+        txtPassword.Location = new Point(69, 257);
         txtPassword.Name = "txtPassword";
         txtPassword.Size = new Size(358, 23);
         txtPassword.TabIndex = 2;
@@ -69,6 +71,7 @@ partial class FrmSignIn
         // 
         lblEmail.AutoSize = true;
         lblEmail.Font = new Font("Verdana", 9.75F);
+        lblEmail.ForeColor = Color.White;
         lblEmail.Location = new Point(73, 160);
         lblEmail.Name = "lblEmail";
         lblEmail.Size = new Size(103, 16);
@@ -79,7 +82,8 @@ partial class FrmSignIn
         // 
         lblPassword.AutoSize = true;
         lblPassword.Font = new Font("Verdana", 9.75F);
-        lblPassword.Location = new Point(73, 211);
+        lblPassword.ForeColor = Color.White;
+        lblPassword.Location = new Point(69, 238);
         lblPassword.Name = "lblPassword";
         lblPassword.Size = new Size(75, 16);
         lblPassword.TabIndex = 4;
@@ -94,7 +98,7 @@ partial class FrmSignIn
         btnSignIn.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnSignIn.IconSize = 30;
         btnSignIn.ImageAlign = ContentAlignment.MiddleRight;
-        btnSignIn.Location = new Point(341, 268);
+        btnSignIn.Location = new Point(337, 325);
         btnSignIn.Name = "btnSignIn";
         btnSignIn.Size = new Size(90, 38);
         btnSignIn.TabIndex = 5;
@@ -112,7 +116,7 @@ partial class FrmSignIn
         btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnCancel.IconSize = 25;
         btnCancel.ImageAlign = ContentAlignment.MiddleRight;
-        btnCancel.Location = new Point(73, 268);
+        btnCancel.Location = new Point(69, 325);
         btnCancel.Name = "btnCancel";
         btnCancel.Size = new Size(90, 38);
         btnCancel.TabIndex = 6;
@@ -130,7 +134,7 @@ partial class FrmSignIn
         btnCreateAccount.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnCreateAccount.IconSize = 30;
         btnCreateAccount.ImageAlign = ContentAlignment.MiddleRight;
-        btnCreateAccount.Location = new Point(175, 320);
+        btnCreateAccount.Location = new Point(171, 377);
         btnCreateAccount.Name = "btnCreateAccount";
         btnCreateAccount.Size = new Size(153, 38);
         btnCreateAccount.TabIndex = 7;
@@ -139,11 +143,40 @@ partial class FrmSignIn
         btnCreateAccount.UseVisualStyleBackColor = false;
         btnCreateAccount.Click += btnCreateAccount_Click;
         // 
+        // lblWarnEmail
+        // 
+        lblWarnEmail.AutoSize = true;
+        lblWarnEmail.Font = new Font("Verdana", 9.75F);
+        lblWarnEmail.ForeColor = Color.White;
+        lblWarnEmail.Location = new Point(73, 205);
+        lblWarnEmail.Name = "lblWarnEmail";
+        lblWarnEmail.Size = new Size(204, 16);
+        lblWarnEmail.TabIndex = 8;
+        lblWarnEmail.Text = "Please enter an email address";
+        lblWarnEmail.Visible = false;
+        lblWarnEmail.Click += lblWarnEmail_Click;
+        // 
+        // lblWarnPassword
+        // 
+        lblWarnPassword.AutoSize = true;
+        lblWarnPassword.Font = new Font("Verdana", 9.75F);
+        lblWarnPassword.ForeColor = Color.White;
+        lblWarnPassword.Location = new Point(69, 283);
+        lblWarnPassword.Name = "lblWarnPassword";
+        lblWarnPassword.Size = new Size(169, 16);
+        lblWarnPassword.TabIndex = 9;
+        lblWarnPassword.Text = "Please enter a password";
+        lblWarnPassword.Visible = false;
+        lblWarnPassword.Click += this.lblWarnPassword_Click;
+        // 
         // FrmSignIn
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(511, 370);
+        BackColor = Color.FromArgb(58, 110, 165);
+        ClientSize = new Size(511, 435);
+        Controls.Add(lblWarnPassword);
+        Controls.Add(lblWarnEmail);
         Controls.Add(btnCreateAccount);
         Controls.Add(btnCancel);
         Controls.Add(btnSignIn);
@@ -170,4 +203,6 @@ partial class FrmSignIn
     private FontAwesome.Sharp.IconButton btnSignIn;
     private FontAwesome.Sharp.IconButton btnCancel;
     private FontAwesome.Sharp.IconButton btnCreateAccount;
+    private Label lblWarnEmail;
+    private Label lblWarnPassword;
 }
