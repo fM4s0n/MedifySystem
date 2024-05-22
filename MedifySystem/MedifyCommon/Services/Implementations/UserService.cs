@@ -9,6 +9,13 @@ public class UserService(IDBService? dbService = null) : IUserService
 {
     private readonly IDBService? _dbService = dbService ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
 
+    // Login and Logout event handlers
+    public delegate void LogoutEventHandler(object sender, EventArgs e);
+    public delegate void LoginEventHandler(object sender, EventArgs e);
+
+    public event LogoutEventHandler? LogOutEvent;
+    public event LoginEventHandler? LogInEvent;
+
     private User? _currentUser = null;
 
     //<inheritdoc/>
@@ -43,11 +50,17 @@ public class UserService(IDBService? dbService = null) : IUserService
     {
         if (user != null)
             _currentUser = user;
+
+        OnLogin();
     }
 
     //<inheritdoc/>
-    public void LogoutUser() => _currentUser = null;    
-
+    public void LogoutUser()
+    {
+        _currentUser = null;
+        OnLogout();
+    }
+ 
     //<inheritdoc/>
     public void UpdateUser(User user)
     {
@@ -76,4 +89,15 @@ public class UserService(IDBService? dbService = null) : IUserService
 
         return false;
     }
+
+    /// <summary>
+    /// Login Event
+    /// </summary>
+    public void OnLogin() => LogInEvent?.Invoke(this, EventArgs.Empty);
+
+    /// <summary>
+    /// Logout Event
+    /// </summary>
+    public void OnLogout() => LogOutEvent?.Invoke(this, EventArgs.Empty);
+
 }

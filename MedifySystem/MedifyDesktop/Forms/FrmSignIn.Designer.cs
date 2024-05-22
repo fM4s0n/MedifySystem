@@ -35,7 +35,6 @@ partial class FrmSignIn
         lblPassword = new Label();
         btnSignIn = new FontAwesome.Sharp.IconButton();
         btnCancel = new FontAwesome.Sharp.IconButton();
-        btnCreateAccount = new FontAwesome.Sharp.IconButton();
         lblWarnEmail = new Label();
         lblWarnPassword = new Label();
         ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
@@ -125,24 +124,6 @@ partial class FrmSignIn
         btnCancel.UseVisualStyleBackColor = false;
         btnCancel.Click += btnCancel_Click;
         // 
-        // btnCreateAccount
-        // 
-        btnCreateAccount.BackColor = Color.White;
-        btnCreateAccount.FlatStyle = FlatStyle.Flat;
-        btnCreateAccount.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
-        btnCreateAccount.IconColor = Color.Black;
-        btnCreateAccount.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        btnCreateAccount.IconSize = 30;
-        btnCreateAccount.ImageAlign = ContentAlignment.MiddleRight;
-        btnCreateAccount.Location = new Point(171, 377);
-        btnCreateAccount.Name = "btnCreateAccount";
-        btnCreateAccount.Size = new Size(153, 38);
-        btnCreateAccount.TabIndex = 7;
-        btnCreateAccount.Text = "Create Account";
-        btnCreateAccount.TextAlign = ContentAlignment.MiddleLeft;
-        btnCreateAccount.UseVisualStyleBackColor = false;
-        btnCreateAccount.Click += btnCreateAccount_Click;
-        // 
         // lblWarnEmail
         // 
         lblWarnEmail.AutoSize = true;
@@ -167,17 +148,15 @@ partial class FrmSignIn
         lblWarnPassword.TabIndex = 9;
         lblWarnPassword.Text = "Please enter a password";
         lblWarnPassword.Visible = false;
-        lblWarnPassword.Click += this.lblWarnPassword_Click;
         // 
         // FrmSignIn
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(58, 110, 165);
-        ClientSize = new Size(511, 435);
+        ClientSize = new Size(511, 382);
         Controls.Add(lblWarnPassword);
         Controls.Add(lblWarnEmail);
-        Controls.Add(btnCreateAccount);
         Controls.Add(btnCancel);
         Controls.Add(btnSignIn);
         Controls.Add(lblPassword);
@@ -202,7 +181,6 @@ partial class FrmSignIn
     private Label lblPassword;
     private FontAwesome.Sharp.IconButton btnSignIn;
     private FontAwesome.Sharp.IconButton btnCancel;
-    private FontAwesome.Sharp.IconButton btnCreateAccount;
     private Label lblWarnEmail;
     private Label lblWarnPassword;
 }
