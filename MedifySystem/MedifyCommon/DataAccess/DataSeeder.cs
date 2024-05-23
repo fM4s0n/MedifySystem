@@ -1,11 +1,7 @@
 ﻿using MedifySystem.MedifyCommon.Enums;
+using MedifySystem.MedifyCommon.Helpers;
 using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedifySystem.MedifyCommon.DataAccess;
 
@@ -30,7 +26,11 @@ public class DataSeeder
 
         if (users == null || users.Any(u => u.Email == "admin@test.com") == false)
         {
-            _userService!.InsertUser(new User("admin@test.com", UserRole.SystemAdmin, "Default", "Admin"));
+            User defaultAdmin = new("admin@test.com", UserRole.SystemAdmin, "Default", "Admin");
+
+            defaultAdmin.PasswordHash = PasswordHelper.HashPassword(defaultAdmin, "Password");
+
+            _userService!.InsertUser(defaultAdmin);
         }
     }
 }

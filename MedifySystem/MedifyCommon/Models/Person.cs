@@ -1,12 +1,15 @@
-﻿namespace MedifySystem.MedifyCommon.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MedifySystem.MedifyCommon.Models;
 
 /// <summary>
 /// Abstract person class - not to be implemented directly
 /// </summary>
-public abstract class Person(string firstName, string lastName)
-{
+public abstract class Person()
+{    
     public string Id { get; set; } = Guid.NewGuid().ToString();
-    public string FirstName { get; set; } = firstName;
-    public string LastName { get; set; } = lastName;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;    
+    [NotMapped]
     public string FullName => $"{FirstName} {LastName}";
 }

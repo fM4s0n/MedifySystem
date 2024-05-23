@@ -43,7 +43,22 @@ public class UserService(IDBService? dbService = null) : IUserService
     }
 
     //<inheritdoc/>
-    public void InsertUser(User user) => _dbService?.InsertEntity(user);
+    public void InsertUser(User user) 
+    {
+        // check for duplicate email
+        List<User>? users = GetAllUsers();
+
+        if (users != null)
+        {
+            foreach (User u in users)
+            {
+                if (u.Email == user.Email)
+                    return;
+            }
+        }
+
+        _dbService?.InsertEntity(user);
+    } 
 
     //<inheritdoc/>
     public void LoginUser(User user)

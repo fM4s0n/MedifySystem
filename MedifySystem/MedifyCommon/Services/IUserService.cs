@@ -20,13 +20,13 @@ public interface IUserService
     /// <summary>
     /// get the current user
     /// </summary>
-    /// <returns>Iser object of the current user if set, null otherwise</returns>
+    /// <returns>User object of the current user if set, null otherwise</returns>
     User? GetCurrentUser();
 
     /// <summary>
     /// gets every user in the database
     /// </summary>
-    /// <returns>List of User</returns>
+    /// <returns>List/returns>
     List<User>? GetAllUsers();
 
     /// <summary>

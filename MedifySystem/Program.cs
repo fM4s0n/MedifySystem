@@ -24,6 +24,9 @@ internal static class Program
         var host = CreateHostBuilder().Build();
         ServiceProvider = host.Services;
 
+        DataSeeder dataSeeder = new();
+        dataSeeder.SeedData();
+
         Application.Run(new FrmMain());
     }
 
