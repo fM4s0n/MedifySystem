@@ -27,6 +27,8 @@ public partial class FrmSignIn : Form
             MessageBox.Show("Invalid email or password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
+
+        Close();
     }
 
     private void btnCancel_Click(object sender, EventArgs e) => Close();
@@ -70,10 +72,5 @@ public partial class FrmSignIn : Form
         txtPassword.Text = string.Empty;
         lblWarnEmail.Visible = false;
         lblWarnPassword.Visible = false;
-    }
-
-    private void lblWarnEmail_Click(object sender, EventArgs e)
-    {
-
     }
 }

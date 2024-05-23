@@ -1,4 +1,7 @@
 using FontAwesome.Sharp;
+using MedifySystem.MedifyCommon.Enums;
+using MedifySystem.MedifyCommon.Models;
+using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyDesktop.Forms;
 
 namespace MedifySystem;
@@ -8,6 +11,8 @@ namespace MedifySystem;
 /// </summary>
 public partial class FrmMain : Form
 {
+    private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
+
     private const string BTN_SIGN_IN_TEXT = "Sign In";
     private const string BTN_SIGN_IN_NAME = "btnSignIn";
     private const string BTN_SIGN_OUT_TEXT = "Sign Out";
@@ -26,6 +31,41 @@ public partial class FrmMain : Form
     private void Init()
     {
         AddSignInButton();
+
+        _userService!.LogInEvent += HandleLogInEvent;
+        _userService!.LogOutEvent += HandleLogOutEvent;
+    }
+
+    private void HandleLogInEvent(object sender, EventArgs e)
+    {
+        User? user = _userService!.GetCurrentUser();
+
+        if (user != null)
+        {
+            RemoveMenuButton(BTN_SIGN_IN_NAME);
+            AddSignOutButton();
+
+            switch (user.Role)
+            {
+                case UserRole.SystemAdmin:
+                    break;
+                case UserRole.Doctor:
+                case UserRole.Receptionist:
+                case UserRole.Nurse:
+                    break;
+            }
+        }
+        else
+        {
+            // something went wrong
+            _userService.LogoutUser();
+        }
+    }
+
+    private void HandleLogOutEvent(object sender, EventArgs e)
+    {
+        RemoveMenuButton(BTN_SIGN_OUT_NAME);
+        AddSignInButton();
     }
 
     private void AddSignInButton()
@@ -35,12 +75,14 @@ public partial class FrmMain : Form
 
     private void AddSignOutButton()
     {
+        Reset();
         AddMenuButton(BTN_SIGN_OUT_TEXT, BTN_SIGN_OUT_NAME, IconChar.SignOutAlt);
     }
 
-    private void RemoveMenuButton(string text)
+    private void RemoveMenuButton(string name)
     {
-        Control[] controls = flpMainMenu.Controls.Find($"btn{text}", false);
+        Control[] controls = flpMainMenu.Controls.Find($"btn{name}", false);
+
         if (controls.Length > 0)        
             flpMainMenu.Controls.Remove(controls[0]);        
     }    
@@ -84,6 +126,17 @@ public partial class FrmMain : Form
                 case BTN_SIGN_OUT_NAME:
 
                     break;
+            }
+        }
+    }
+
+    private void Reset()
+    {
+        foreach (Control control in flpMainMenu.Controls)
+        {
+            if (control is IconButton button)
+            {
+                button.Dispose();
             }
         }
     }

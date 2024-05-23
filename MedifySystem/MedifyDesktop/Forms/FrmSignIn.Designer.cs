@@ -135,7 +135,6 @@ partial class FrmSignIn
         lblWarnEmail.TabIndex = 8;
         lblWarnEmail.Text = "Please enter an email address";
         lblWarnEmail.Visible = false;
-        lblWarnEmail.Click += lblWarnEmail_Click;
         // 
         // lblWarnPassword
         // 
