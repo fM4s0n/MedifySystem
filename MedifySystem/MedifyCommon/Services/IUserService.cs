@@ -1,5 +1,5 @@
 ﻿using MedifySystem.MedifyCommon.Models;
-using static MedifySystem.MedifyCommon.Services.Implementations.UserService;
+using MedifySystem.MedifyCommon.Services.Implementations;
 
 namespace MedifySystem.MedifyCommon.Services;
 
@@ -9,8 +9,8 @@ namespace MedifySystem.MedifyCommon.Services;
 public interface IUserService
 {
     // Login and Logout event handlers
-    public event LogoutEventHandler? LogOutEvent;
-    public event LoginEventHandler? LogInEvent;
+    event UserService.LogoutEventHandler LogOutEvent;
+    event UserService.LoginEventHandler LogInEvent;
 
     /// <summary>
     /// Logs in the user
