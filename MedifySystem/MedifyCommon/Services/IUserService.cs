@@ -76,4 +76,11 @@ public interface IUserService
     /// logout event
     /// </summary>
     void OnLogout();
+
+    /// <summary>
+    /// Populates the active patients for a user
+    /// </summary>
+    /// <param name="users">List of users</param>
+    /// <returns>List of User with ActivePatients populated</returns>
+    List<User> UpdateActivePatientsForUsers(List<User> users);
 }

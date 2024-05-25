@@ -40,6 +40,7 @@ internal static class Program
         return Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) => {
                 services.AddSingleton<IUserService, UserService>();
+                services.AddSingleton<IPatientService, PatientService>();
                 services.AddDbContext<MedifyDatabaseContext>(options =>
                     options.UseSqlite("Data Source=MedifyDB.db"));
                 services.AddSingleton<IDBService>(provider =>

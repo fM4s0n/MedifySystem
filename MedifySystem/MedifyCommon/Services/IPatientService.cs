@@ -35,5 +35,11 @@ public interface IPatientService
     /// </summary>
     /// <param name="patient">The patient to delete</param>
     void DeletePatient(Patient patient);
-}
+
+    /// <summary>
+    /// Retrieve all patients for a given user
+    /// </summary>
+    /// <param name="userId">user id</param>
+    /// <returns>List of active patients for a user</returns>
+    List<Patient>? GetActivePatientsByUserId(string userId);
 }

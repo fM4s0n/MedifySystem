@@ -14,6 +14,14 @@ public class PatientService : IPatientService
     }
 
     //<inheritdoc/>
+    public List<Patient>? GetActivePatientsByUserId(string userId)
+    {
+        return _dbService!.GetEntitiesByType<Patient>()!
+            .Where(p => p.IsCurrentlyAdmitted == true 
+            && == ).ToList();
+    }
+
+    //<inheritdoc/>
     public List<Patient>? GetAllPatients()
     {
         return _dbService!.GetEntitiesByType<Patient>()!;

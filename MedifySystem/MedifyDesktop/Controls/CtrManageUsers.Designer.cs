@@ -33,13 +33,22 @@ partial class CtrManageUsers
         btnShowAll = new FontAwesome.Sharp.IconButton();
         btnSearch = new FontAwesome.Sharp.IconButton();
         txtUserSearch = new TextBox();
+        grpAddUser = new GroupBox();
+        btnAddNewUser = new FontAwesome.Sharp.IconButton();
+        lblRole = new Label();
+        lblLastName = new Label();
+        lblFirstName = new Label();
+        cmbRole = new ComboBox();
+        txtLastName = new TextBox();
+        txtFirstName = new TextBox();
+        grpAddUser.SuspendLayout();
         SuspendLayout();
         // 
         // lblControlTitle
         // 
         lblControlTitle.AutoSize = true;
         lblControlTitle.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblControlTitle.Location = new Point(226, 16);
+        lblControlTitle.Location = new Point(224, 4);
         lblControlTitle.Name = "lblControlTitle";
         lblControlTitle.Size = new Size(205, 32);
         lblControlTitle.TabIndex = 0;
@@ -47,14 +56,14 @@ partial class CtrManageUsers
         // 
         // lvUsers
         // 
+        lvUsers.GridLines = true;
         lvUsers.Location = new Point(306, 95);
+        lvUsers.MultiSelect = false;
         lvUsers.Name = "lvUsers";
         lvUsers.Size = new Size(362, 327);
         lvUsers.TabIndex = 1;
         lvUsers.UseCompatibleStateImageBehavior = false;
-        lvUsers.GridLines = true;
         lvUsers.View = View.Details;
-        lvUsers.MultiSelect  = false;
         // 
         // btnShowAll
         // 
@@ -91,10 +100,93 @@ partial class CtrManageUsers
         txtUserSearch.Size = new Size(241, 23);
         txtUserSearch.TabIndex = 4;
         // 
+        // grpAddUser
+        // 
+        grpAddUser.Controls.Add(btnAddNewUser);
+        grpAddUser.Controls.Add(lblRole);
+        grpAddUser.Controls.Add(lblLastName);
+        grpAddUser.Controls.Add(lblFirstName);
+        grpAddUser.Controls.Add(cmbRole);
+        grpAddUser.Controls.Add(txtLastName);
+        grpAddUser.Controls.Add(txtFirstName);
+        grpAddUser.Location = new Point(3, 87);
+        grpAddUser.Name = "grpAddUser";
+        grpAddUser.Size = new Size(297, 335);
+        grpAddUser.TabIndex = 5;
+        grpAddUser.TabStop = false;
+        grpAddUser.Text = "Add New User";
+        // 
+        // btnAddNewUser
+        // 
+        btnAddNewUser.FlatStyle = FlatStyle.Flat;
+        btnAddNewUser.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+        btnAddNewUser.IconColor = Color.Black;
+        btnAddNewUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnAddNewUser.IconSize = 25;
+        btnAddNewUser.ImageAlign = ContentAlignment.MiddleRight;
+        btnAddNewUser.Location = new Point(191, 124);
+        btnAddNewUser.Name = "btnAddNewUser";
+        btnAddNewUser.Size = new Size(100, 32);
+        btnAddNewUser.TabIndex = 6;
+        btnAddNewUser.Text = "Add User";
+        btnAddNewUser.TextAlign = ContentAlignment.MiddleLeft;
+        btnAddNewUser.UseVisualStyleBackColor = true;
+        btnAddNewUser.Click += btnAddNewUser_Click;
+        // 
+        // lblRole
+        // 
+        lblRole.AutoSize = true;
+        lblRole.Location = new Point(7, 97);
+        lblRole.Name = "lblRole";
+        lblRole.Size = new Size(34, 16);
+        lblRole.TabIndex = 5;
+        lblRole.Text = "Role";
+        // 
+        // lblLastName
+        // 
+        lblLastName.AutoSize = true;
+        lblLastName.Location = new Point(6, 68);
+        lblLastName.Name = "lblLastName";
+        lblLastName.Size = new Size(76, 16);
+        lblLastName.TabIndex = 4;
+        lblLastName.Text = "Last Name";
+        // 
+        // lblFirstName
+        // 
+        lblFirstName.AutoSize = true;
+        lblFirstName.Location = new Point(4, 39);
+        lblFirstName.Name = "lblFirstName";
+        lblFirstName.Size = new Size(77, 16);
+        lblFirstName.TabIndex = 3;
+        lblFirstName.Text = "First Name";
+        // 
+        // cmbRole
+        // 
+        cmbRole.FormattingEnabled = true;
+        cmbRole.Location = new Point(87, 94);
+        cmbRole.Name = "cmbRole";
+        cmbRole.Size = new Size(204, 24);
+        cmbRole.TabIndex = 2;
+        // 
+        // txtLastName
+        // 
+        txtLastName.Location = new Point(87, 65);
+        txtLastName.Name = "txtLastName";
+        txtLastName.Size = new Size(204, 23);
+        txtLastName.TabIndex = 1;
+        // 
+        // txtFirstName
+        // 
+        txtFirstName.Location = new Point(87, 36);
+        txtFirstName.Name = "txtFirstName";
+        txtFirstName.Size = new Size(204, 23);
+        txtFirstName.TabIndex = 0;
+        // 
         // CtrManageUsers
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(grpAddUser);
         Controls.Add(txtUserSearch);
         Controls.Add(btnSearch);
         Controls.Add(btnShowAll);
@@ -103,6 +195,8 @@ partial class CtrManageUsers
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "CtrManageUsers";
         Size = new Size(671, 425);
+        grpAddUser.ResumeLayout(false);
+        grpAddUser.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -114,4 +208,12 @@ partial class CtrManageUsers
     private FontAwesome.Sharp.IconButton btnShowAll;
     private FontAwesome.Sharp.IconButton btnSearch;
     private TextBox txtUserSearch;
+    private GroupBox grpAddUser;
+    private TextBox txtLastName;
+    private TextBox txtFirstName;
+    private Label lblRole;
+    private Label lblLastName;
+    private Label lblFirstName;
+    private ComboBox cmbRole;
+    private FontAwesome.Sharp.IconButton btnAddNewUser;
 }

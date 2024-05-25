@@ -1,4 +1,5 @@
 ﻿using MedifySystem.MedifyCommon.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using Windows.Networking;
 
 namespace MedifySystem.MedifyCommon.Models;
@@ -21,6 +22,8 @@ public class User : Person
     public string Email { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public UserRole Role { get; set; } = UserRole.SystemAdmin;
+    [NotMapped]
+    public List<Patient> ActivePatients { get; set; } = [];
 
     /// <summary>
     /// Is the user a hospital official

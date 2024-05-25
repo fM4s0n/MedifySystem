@@ -1,4 +1,5 @@
-﻿using MedifySystem.MedifyCommon.Helpers;
+﻿using MedifySystem.MedifyCommon.Enums;
+using MedifySystem.MedifyCommon.Helpers;
 using MedifySystem.MedifyCommon.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -8,6 +9,7 @@ namespace MedifySystem.MedifyCommon.Services.Implementations;
 public class UserService(IDBService? dbService = null) : IUserService
 {
     private readonly IDBService? _dbService = dbService ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
+    private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
     // Login and Logout event handlers
     public delegate void LogoutEventHandler(object sender, EventArgs e);
@@ -115,4 +117,14 @@ public class UserService(IDBService? dbService = null) : IUserService
     /// </summary>
     public void OnLogout() => LogOutEvent?.Invoke(this, EventArgs.Empty);
 
+    public List<User> UpdateActivePatientsForUsers(List<User> users)
+    {
+        foreach (User user in users)
+        {
+            if (user.Role == UserRole.Receptionist || user.Role == UserRole.SystemAdmin)            
+                user.ActivePatients = [];
+            
+            user.ActivePatients = _patientService!.GetActivePatientsForUser(user);
+        }
+    }
 }
