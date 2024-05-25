@@ -46,7 +46,7 @@ public partial class FrmMain : Form
             switch (user.Role)
             {
                 case UserRole.SystemAdmin:
-                    ShowSystemAdminHome();
+                    InitSystemAdminUI();
                     break;
                 case UserRole.Doctor:
                 case UserRole.Receptionist:
@@ -86,6 +86,9 @@ public partial class FrmMain : Form
 
     private void AddSystemAdminMainMenuButtons() 
     {
+        // add home button
+        AddMenuButton(BTN_SYSTEM_ADMIN_HOME_TEXT, BTN_SYSTEM_ADMIN_HOME_NAME, IconChar.Home);
+
         // add Manage staff button
         AddMenuButton(BTN_MANAGE_USERS_TEXT, BTN_MANAGE_USERS_NAME, IconChar.Users);
     }
@@ -135,11 +138,13 @@ public partial class FrmMain : Form
             switch (button.Name)
             {
                 case BTN_SIGN_IN_NAME:
-                    FrmSignIn frmSignIn = new();
-                    frmSignIn.ShowDialog();
+                    HandleSignInMenuButtonClick();
                     break;
                 case BTN_SIGN_OUT_NAME:
-
+                    HandleSignOutMenuButtonClick();
+                    break;
+                case BTN_MANAGE_USERS_NAME:
+                    HandleManageUsersMenuButtonClick();
                     break;
             }
         }
@@ -148,7 +153,7 @@ public partial class FrmMain : Form
     /// <summary>
     /// Shows the system admin home and adds main menu buttons
     /// </summary>
-    private void ShowSystemAdminHome()
+    private void InitSystemAdminUI()
     {
         CtrSystemAdminHome systemAdminHome = new()
         {
@@ -166,6 +171,23 @@ public partial class FrmMain : Form
     {
         CtrHospitalOfficialHome hospitalOfficialHome = new();
         pnlMain.Controls.Add(hospitalOfficialHome);
+    }
+
+    private void HandleSignInMenuButtonClick()
+    {
+        FrmSignIn frmSignIn = new();
+        frmSignIn.ShowDialog(this);
+    }
+
+    private void HandleSignOutMenuButtonClick()
+    {
+        _userService!.LogoutUser();
+    }
+
+    private void HandleManageUsersMenuButtonClick()
+    { 
+        CtrManageUsers ctrManageUsers = new();
+        pnlMain.Controls.Add(ctrManageUsers);
     }
 
     /// <summary>

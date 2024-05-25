@@ -164,7 +164,9 @@ partial class FrmSignIn
         Controls.Add(txtEmail);
         Controls.Add(pbLogo);
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        MaximizeBox = false;
         Name = "FrmSignIn";
+        StartPosition = FormStartPosition.CenterParent;
         Text = "Medify | Sign In";
         ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();
         ResumeLayout(false);

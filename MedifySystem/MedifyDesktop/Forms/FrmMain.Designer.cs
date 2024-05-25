@@ -30,26 +30,26 @@ partial class FrmMain
     {
         pnlMenu = new Panel();
         flpMainMenu = new FlowLayoutPanel();
-        panel1 = new Panel();
-        pictureBox1 = new PictureBox();
-        pnlTitleBar = new Panel();
-        pnlMain = new Panel();
+        pnlLogo = new Panel();
+        pbLogo = new PictureBox();
+        pnlTopBar = new Panel();
         lblWelcome = new Label();
+        pnlMain = new Panel();
         pnlMenu.SuspendLayout();
-        panel1.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-        pnlTitleBar.SuspendLayout();
+        pnlLogo.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
+        pnlTopBar.SuspendLayout();
         SuspendLayout();
         // 
         // pnlMenu
         // 
         pnlMenu.BackColor = Color.FromArgb(58, 110, 165);
         pnlMenu.Controls.Add(flpMainMenu);
-        pnlMenu.Controls.Add(panel1);
+        pnlMenu.Controls.Add(pnlLogo);
         pnlMenu.Dock = DockStyle.Left;
         pnlMenu.Location = new Point(0, 0);
         pnlMenu.Name = "pnlMenu";
-        pnlMenu.Size = new Size(230, 458);
+        pnlMenu.Size = new Size(200, 458);
         pnlMenu.TabIndex = 0;
         // 
         // flpMainMenu
@@ -59,45 +59,37 @@ partial class FrmMain
         flpMainMenu.FlowDirection = FlowDirection.TopDown;
         flpMainMenu.Location = new Point(0, 85);
         flpMainMenu.Name = "flpMainMenu";
-        flpMainMenu.Size = new Size(230, 373);
+        flpMainMenu.Size = new Size(200, 373);
         flpMainMenu.TabIndex = 1;
         // 
-        // panel1
+        // pnlLogo
         // 
-        panel1.Controls.Add(pictureBox1);
-        panel1.Dock = DockStyle.Top;
-        panel1.Location = new Point(0, 0);
-        panel1.Name = "panel1";
-        panel1.Size = new Size(230, 85);
-        panel1.TabIndex = 0;
+        pnlLogo.Controls.Add(pbLogo);
+        pnlLogo.Dock = DockStyle.Top;
+        pnlLogo.Location = new Point(0, 0);
+        pnlLogo.Name = "pnlLogo";
+        pnlLogo.Size = new Size(200, 85);
+        pnlLogo.TabIndex = 0;
         // 
-        // pictureBox1
+        // pbLogo
         // 
-        pictureBox1.Image = Properties.Resources.RectangleTransparentBackground;
-        pictureBox1.Location = new Point(24, 3);
-        pictureBox1.Name = "pictureBox1";
-        pictureBox1.Size = new Size(180, 79);
-        pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-        pictureBox1.TabIndex = 0;
-        pictureBox1.TabStop = false;
+        pbLogo.Image = Properties.Resources.RectangleTransparentBackground;
+        pbLogo.Location = new Point(12, 0);
+        pbLogo.Name = "pbLogo";
+        pbLogo.Size = new Size(180, 79);
+        pbLogo.SizeMode = PictureBoxSizeMode.StretchImage;
+        pbLogo.TabIndex = 0;
+        pbLogo.TabStop = false;
         // 
-        // pnlTitleBar
+        // pnlTopBar
         // 
-        pnlTitleBar.BackColor = Color.White;
-        pnlTitleBar.Controls.Add(lblWelcome);
-        pnlTitleBar.Dock = DockStyle.Top;
-        pnlTitleBar.Location = new Point(230, 0);
-        pnlTitleBar.Name = "pnlTitleBar";
-        pnlTitleBar.Size = new Size(587, 60);
-        pnlTitleBar.TabIndex = 1;
-        // 
-        // pnlMain
-        // 
-        pnlMain.Dock = DockStyle.Fill;
-        pnlMain.Location = new Point(230, 60);
-        pnlMain.Name = "pnlMain";
-        pnlMain.Size = new Size(587, 398);
-        pnlMain.TabIndex = 2;
+        pnlTopBar.BackColor = Color.White;
+        pnlTopBar.Controls.Add(lblWelcome);
+        pnlTopBar.Dock = DockStyle.Top;
+        pnlTopBar.Location = new Point(200, 0);
+        pnlTopBar.Name = "pnlTopBar";
+        pnlTopBar.Size = new Size(617, 60);
+        pnlTopBar.TabIndex = 1;
         // 
         // lblWelcome
         // 
@@ -109,32 +101,41 @@ partial class FrmMain
         lblWelcome.TabIndex = 0;
         lblWelcome.Text = "Welcome";
         // 
+        // pnlMain
+        // 
+        pnlMain.Dock = DockStyle.Fill;
+        pnlMain.Location = new Point(200, 60);
+        pnlMain.Name = "pnlMain";
+        pnlMain.Size = new Size(617, 398);
+        pnlMain.TabIndex = 2;
+        // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(817, 458);
         Controls.Add(pnlMain);
-        Controls.Add(pnlTitleBar);
+        Controls.Add(pnlTopBar);
         Controls.Add(pnlMenu);
         MinimumSize = new Size(833, 497);
         Name = "FrmMain";
         Text = "Medify | Home";
         pnlMenu.ResumeLayout(false);
-        panel1.ResumeLayout(false);
-        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-        pnlTitleBar.ResumeLayout(false);
-        pnlTitleBar.PerformLayout();
+        pnlLogo.ResumeLayout(false);
+        StartPosition = FormStartPosition.CenterScreen;
+        ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();
+        pnlTopBar.ResumeLayout(false);
+        pnlTopBar.PerformLayout();
         ResumeLayout(false);
     }
 
     #endregion
 
     private Panel pnlMenu;
-    private Panel pnlTitleBar;
-    private Panel panel1;
+    private Panel pnlTopBar;
+    private Panel pnlLogo;
     private Panel pnlMain;
-    private PictureBox pictureBox1;
+    private PictureBox pbLogo;
     private FlowLayoutPanel flpMainMenu;
     private Label lblWelcome;
 }

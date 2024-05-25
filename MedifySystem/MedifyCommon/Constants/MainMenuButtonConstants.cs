@@ -16,4 +16,6 @@ public static class MainMenuButtonConstants
     // system admin
     public const string BTN_MANAGE_USERS_TEXT = "Manage Users";
     public const string BTN_MANAGE_USERS_NAME = "btnManageUsers";
+    public const string BTN_SYSTEM_ADMIN_HOME_TEXT = "Home";
+    public const string BTN_SYSTEM_ADMIN_HOME_NAME = "btnSystemAdminHome";
 }
