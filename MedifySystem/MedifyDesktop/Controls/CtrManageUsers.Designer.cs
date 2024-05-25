@@ -1,6 +1,6 @@
 ﻿namespace MedifySystem.MedifyDesktop.Controls;
 
-partial class CtrHospitalOfficialHome
+partial class CtrManageUsers
 {
     /// <summary> 
     /// Required designer variable.
@@ -30,12 +30,13 @@ partial class CtrHospitalOfficialHome
     {
         SuspendLayout();
         // 
-        // CtrHospitalOfficialHome
+        // CtrManageUsers
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        Name = "CtrHospitalOfficialHome";
-        Size = new Size(587, 398);
+        Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        Name = "CtrManageUsers";
+        Size = new Size(671, 425);
         ResumeLayout(false);
     }
 

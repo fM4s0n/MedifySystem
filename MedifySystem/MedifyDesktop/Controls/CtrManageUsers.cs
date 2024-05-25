@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MedifySystem.MedifyDesktop.Controls;
-public partial class CtrHospitalOfficialHome : UserControl
+public partial class CtrManageUsers : UserControl
 {
-    public CtrHospitalOfficialHome()
+    public CtrManageUsers()
     {
         InitializeComponent();
     }

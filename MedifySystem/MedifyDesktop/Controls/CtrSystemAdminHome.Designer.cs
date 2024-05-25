@@ -32,8 +32,9 @@ partial class CtrSystemAdminHome
         // 
         // CtrSystemAdminHome
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
+        Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "CtrSystemAdminHome";
         Size = new Size(587, 398);
         ResumeLayout(false);

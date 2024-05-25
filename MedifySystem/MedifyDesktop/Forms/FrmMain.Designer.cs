@@ -34,9 +34,11 @@ partial class FrmMain
         pictureBox1 = new PictureBox();
         pnlTitleBar = new Panel();
         pnlMain = new Panel();
+        lblWelcome = new Label();
         pnlMenu.SuspendLayout();
         panel1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+        pnlTitleBar.SuspendLayout();
         SuspendLayout();
         // 
         // pnlMenu
@@ -82,6 +84,7 @@ partial class FrmMain
         // pnlTitleBar
         // 
         pnlTitleBar.BackColor = Color.White;
+        pnlTitleBar.Controls.Add(lblWelcome);
         pnlTitleBar.Dock = DockStyle.Top;
         pnlTitleBar.Location = new Point(230, 0);
         pnlTitleBar.Name = "pnlTitleBar";
@@ -95,6 +98,16 @@ partial class FrmMain
         pnlMain.Name = "pnlMain";
         pnlMain.Size = new Size(587, 398);
         pnlMain.TabIndex = 2;
+        // 
+        // lblWelcome
+        // 
+        lblWelcome.AutoSize = true;
+        lblWelcome.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblWelcome.Location = new Point(6, 13);
+        lblWelcome.Name = "lblWelcome";
+        lblWelcome.Size = new Size(135, 32);
+        lblWelcome.TabIndex = 0;
+        lblWelcome.Text = "Welcome";
         // 
         // FrmMain
         // 
@@ -110,6 +123,8 @@ partial class FrmMain
         pnlMenu.ResumeLayout(false);
         panel1.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+        pnlTitleBar.ResumeLayout(false);
+        pnlTitleBar.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -121,4 +136,5 @@ partial class FrmMain
     private Panel pnlMain;
     private PictureBox pictureBox1;
     private FlowLayoutPanel flpMainMenu;
+    private Label lblWelcome;
 }

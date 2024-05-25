@@ -2,7 +2,9 @@ using FontAwesome.Sharp;
 using MedifySystem.MedifyCommon.Enums;
 using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyDesktop.Controls;
 using MedifySystem.MedifyDesktop.Forms;
+using static MedifySystem.MedifyCommon.Constants.MainMenuButtonConstants;
 
 namespace MedifySystem;
 
@@ -12,11 +14,6 @@ namespace MedifySystem;
 public partial class FrmMain : Form
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
-
-    private const string BTN_SIGN_IN_TEXT = "Sign In";
-    private const string BTN_SIGN_IN_NAME = "btnSignIn";
-    private const string BTN_SIGN_OUT_TEXT = "Sign Out";
-    private const string BTN_SIGN_OUT_NAME = "btnSignOut";
 
     public FrmMain()
     {
@@ -44,16 +41,17 @@ public partial class FrmMain : Form
         {
             RemoveMenuButton(BTN_SIGN_IN_NAME);
             AddSignOutButton();
+            UpdateWelcomeLabel(user.FullName);
 
             switch (user.Role)
             {
                 case UserRole.SystemAdmin:
-                    ShowSystemAdminControl();
+                    ShowSystemAdminHome();
                     break;
                 case UserRole.Doctor:
                 case UserRole.Receptionist:
                 case UserRole.Nurse:
-                    ShowHospitalOfficialControl();
+                    ShowHospitalOfficialHome();
                     break;
             }
         }
@@ -62,6 +60,11 @@ public partial class FrmMain : Form
             // something went wrong
             _userService.LogoutUser();
         }
+    }
+
+    private void UpdateWelcomeLabel(string fullName)
+    {
+        lblWelcome.Text = $"Welcome, {fullName}";
     }
 
     private void HandleLogOutEvent(object sender, EventArgs e)
@@ -79,6 +82,12 @@ public partial class FrmMain : Form
     {
         Reset();
         AddMenuButton(BTN_SIGN_OUT_TEXT, BTN_SIGN_OUT_NAME, IconChar.SignOutAlt);
+    }
+
+    private void AddSystemAdminMainMenuButtons() 
+    {
+        // add Manage staff button
+        AddMenuButton(BTN_MANAGE_USERS_TEXT, BTN_MANAGE_USERS_NAME, IconChar.Users);
     }
 
     private void RemoveMenuButton(string name)
@@ -136,14 +145,27 @@ public partial class FrmMain : Form
         }
     }
 
-    private void ShowSystemAdminControl()
+    /// <summary>
+    /// Shows the system admin home and adds main menu buttons
+    /// </summary>
+    private void ShowSystemAdminHome()
     {
+        CtrSystemAdminHome systemAdminHome = new()
+        {
+            Dock = DockStyle.Fill
+        };
+        pnlMain.Controls.Add(systemAdminHome);
 
+        AddSystemAdminMainMenuButtons();
     }
 
-    private void ShowHospitalOfficialControl()
+    /// <summary>
+    /// Shows the hospital official home and adds main menu buttons
+    /// </summary>
+    private void ShowHospitalOfficialHome()
     {
-
+        CtrHospitalOfficialHome hospitalOfficialHome = new();
+        pnlMain.Controls.Add(hospitalOfficialHome);
     }
 
     /// <summary>
