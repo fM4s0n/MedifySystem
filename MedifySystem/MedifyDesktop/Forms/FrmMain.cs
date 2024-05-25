@@ -7,7 +7,7 @@ using MedifySystem.MedifyDesktop.Forms;
 namespace MedifySystem;
 
 /// <summary>
-/// 
+/// Main form
 /// </summary>
 public partial class FrmMain : Form
 {
@@ -48,10 +48,12 @@ public partial class FrmMain : Form
             switch (user.Role)
             {
                 case UserRole.SystemAdmin:
+                    ShowSystemAdminControl();
                     break;
                 case UserRole.Doctor:
                 case UserRole.Receptionist:
                 case UserRole.Nurse:
+                    ShowHospitalOfficialControl();
                     break;
             }
         }
@@ -113,6 +115,10 @@ public partial class FrmMain : Form
         flpMainMenu.Controls.Add(button);
     }
 
+    /// <summary>
+    /// Generic handler for the main menu buttons
+    /// as they are implemented programmatically
+    /// </summary>
     private void HandleClickMainMenuClickEvent(object? sender, EventArgs e)
     {
         if (sender is IconButton button)
@@ -130,6 +136,19 @@ public partial class FrmMain : Form
         }
     }
 
+    private void ShowSystemAdminControl()
+    {
+
+    }
+
+    private void ShowHospitalOfficialControl()
+    {
+
+    }
+
+    /// <summary>
+    /// Reset the form
+    /// </summary>
     private void Reset()
     {
         foreach (Control control in flpMainMenu.Controls)

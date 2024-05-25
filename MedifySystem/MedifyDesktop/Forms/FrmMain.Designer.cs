@@ -33,7 +33,7 @@ partial class FrmMain
         panel1 = new Panel();
         pictureBox1 = new PictureBox();
         pnlTitleBar = new Panel();
-        pnlDesktop = new Panel();
+        pnlMain = new Panel();
         pnlMenu.SuspendLayout();
         panel1.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -88,20 +88,20 @@ partial class FrmMain
         pnlTitleBar.Size = new Size(587, 60);
         pnlTitleBar.TabIndex = 1;
         // 
-        // pnlDesktop
+        // pnlMain
         // 
-        pnlDesktop.Dock = DockStyle.Fill;
-        pnlDesktop.Location = new Point(230, 60);
-        pnlDesktop.Name = "pnlDesktop";
-        pnlDesktop.Size = new Size(587, 398);
-        pnlDesktop.TabIndex = 2;
+        pnlMain.Dock = DockStyle.Fill;
+        pnlMain.Location = new Point(230, 60);
+        pnlMain.Name = "pnlMain";
+        pnlMain.Size = new Size(587, 398);
+        pnlMain.TabIndex = 2;
         // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(817, 458);
-        Controls.Add(pnlDesktop);
+        Controls.Add(pnlMain);
         Controls.Add(pnlTitleBar);
         Controls.Add(pnlMenu);
         MinimumSize = new Size(833, 497);
@@ -118,7 +118,7 @@ partial class FrmMain
     private Panel pnlMenu;
     private Panel pnlTitleBar;
     private Panel panel1;
-    private Panel pnlDesktop;
+    private Panel pnlMain;
     private PictureBox pictureBox1;
     private FlowLayoutPanel flpMainMenu;
 }
