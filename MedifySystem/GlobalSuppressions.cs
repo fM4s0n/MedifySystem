@@ -5,4 +5,5 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "btn method names can start lowercase as the control name is lower case also", Scope = "member", Target = "~M:MedifySystem.MedifyDesktop.Forms.FrmSignIn.btnCancel_Click(System.Object,System.EventArgs)")]
+[assembly: SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "btn method names can start lowercase as the control name is lower case also")]
+

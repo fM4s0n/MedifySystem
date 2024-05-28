@@ -49,7 +49,7 @@ partial class FrmMain
         pnlMenu.Dock = DockStyle.Left;
         pnlMenu.Location = new Point(0, 0);
         pnlMenu.Name = "pnlMenu";
-        pnlMenu.Size = new Size(200, 458);
+        pnlMenu.Size = new Size(200, 565);
         pnlMenu.TabIndex = 0;
         // 
         // flpMainMenu
@@ -59,7 +59,7 @@ partial class FrmMain
         flpMainMenu.FlowDirection = FlowDirection.TopDown;
         flpMainMenu.Location = new Point(0, 85);
         flpMainMenu.Name = "flpMainMenu";
-        flpMainMenu.Size = new Size(200, 373);
+        flpMainMenu.Size = new Size(200, 480);
         flpMainMenu.TabIndex = 1;
         // 
         // pnlLogo
@@ -88,7 +88,7 @@ partial class FrmMain
         pnlTopBar.Dock = DockStyle.Top;
         pnlTopBar.Location = new Point(200, 0);
         pnlTopBar.Name = "pnlTopBar";
-        pnlTopBar.Size = new Size(617, 60);
+        pnlTopBar.Size = new Size(696, 60);
         pnlTopBar.TabIndex = 1;
         // 
         // lblWelcome
@@ -105,24 +105,25 @@ partial class FrmMain
         // 
         pnlMain.Dock = DockStyle.Fill;
         pnlMain.Location = new Point(200, 60);
+        pnlMain.MinimumSize = new Size(696, 505);
         pnlMain.Name = "pnlMain";
-        pnlMain.Size = new Size(617, 398);
+        pnlMain.Size = new Size(696, 505);
         pnlMain.TabIndex = 2;
         // 
         // FrmMain
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(817, 458);
+        ClientSize = new Size(896, 565);
         Controls.Add(pnlMain);
         Controls.Add(pnlTopBar);
         Controls.Add(pnlMenu);
-        MinimumSize = new Size(833, 497);
+        MinimumSize = new Size(912, 604);
         Name = "FrmMain";
+        StartPosition = FormStartPosition.CenterScreen;
         Text = "Medify | Home";
         pnlMenu.ResumeLayout(false);
         pnlLogo.ResumeLayout(false);
-        StartPosition = FormStartPosition.CenterScreen;
         ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();
         pnlTopBar.ResumeLayout(false);
         pnlTopBar.PerformLayout();

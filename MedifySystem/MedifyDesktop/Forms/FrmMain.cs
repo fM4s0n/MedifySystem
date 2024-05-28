@@ -186,8 +186,19 @@ internal partial class FrmMain : Form
 
     private void HandleManageUsersMenuButtonClick()
     { 
+        ClearMainPanel();
         CtrManageUsers ctrManageUsers = new();
         pnlMain.Controls.Add(ctrManageUsers);
+        ctrManageUsers.Dock = DockStyle.Fill;
+        ctrManageUsers.Visible = true;
+    }
+
+    private void ClearMainPanel()
+    {
+        foreach (Control control in pnlMain.Controls)
+        {
+            control.Dispose();
+        }
     }
 
     /// <summary>
