@@ -12,13 +12,7 @@ public interface IPatientAdmittanceService
     /// </summary>
     /// <param name="patientAdmittance"></param>
     void DeletePatientAdmittance(PatientAdmittance patientAdmittance);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="patientId"></param>
-    /// <returns></returns>
-    List<PatientAdmittance>? GetAllAdmittancesForPateintByPatientId(string patientId);
+    List<PatientAdmittance>? GetAllPatientAdmittances();
 
     /// <summary>
     /// 

@@ -24,4 +24,17 @@ public class PatientAdmittanceService : IPatientAdmittanceService
     {
         _dbService!.UpdateEntity(patientAdmittance);
     }
+
+    //<inheritdoc/>
+    public List<PatientAdmittance>? GetAllPatientAdmittances()
+    {
+        return _dbService!.GetEntitiesByType<PatientAdmittance>();
+    }
+
+    //<inheritdoc/>
+    public List<PatientAdmittance>? GetAllPatientAdmittanceByHospitalOfficialId(string hospitalOfficialId)
+    {
+        return GetAllPatientAdmittances()?
+            .Where(pa => pa.HospitalOfficialId == hospitalOfficialId).ToList() ?? null;
+    }
 }

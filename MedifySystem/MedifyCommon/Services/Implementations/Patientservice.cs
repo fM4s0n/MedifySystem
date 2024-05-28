@@ -56,4 +56,26 @@ public class PatientService : IPatientService
 
         return patient;
     }
+
+    //<inheritdoc/>
+    public Patient? DischargePatient(Patient patient, string patientAdmittanceId, string dischargeReason)
+    {
+        PatientAdmittance? admittance = patient.Admittances.Find(a => a.Id == patientAdmittanceId);
+        int index = patient.Admittances.FindIndex(a => a.Id == patientAdmittanceId);
+
+        if (admittance == null || index == -1)        
+            return null;        
+
+        admittance.DischargePatient(dischargeReason);
+        admittance.EndDate = DateTime.Now;
+
+        _patientAdmittanceService?.UpdatePatientAdmittance(admittance);
+
+        patient.Admittances[index].DischargePatient(dischargeReason);
+        patient.Admittances[index].EndDate = DateTime.Now; 
+
+        UpdatePatient(patient);
+
+        return patient;
+    }
 }

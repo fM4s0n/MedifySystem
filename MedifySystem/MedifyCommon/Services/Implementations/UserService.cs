@@ -10,6 +10,7 @@ public class UserService(IDBService? dbService = null) : IUserService
 {
     private readonly IDBService? _dbService = dbService ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
+    private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
     // Login and Logout event handlers
     public delegate void LogoutEventHandler(object sender, EventArgs e);
@@ -117,14 +118,24 @@ public class UserService(IDBService? dbService = null) : IUserService
     /// </summary>
     public void OnLogout() => LogOutEvent?.Invoke(this, EventArgs.Empty);
 
-    public List<User> UpdateActivePatientsForUsers(List<User> users)
+    //<inheritdoc/>
+    public List<Patient>? GetAllActivePatientsForUser(string userId)
     {
-        foreach (User user in users)
+        List<PatientAdmittance>? admittances = _patientAdmittanceService?.GetAllPatientAdmittances()?.Where(pa => pa.HospitalOfficialId == userId).ToList();
+
+        if (admittances == null)
+            return null;
+
+        List<Patient>? patients = [];
+
+        foreach (PatientAdmittance admittance in admittances)
         {
-            if (user.Role == UserRole.Receptionist || user.Role == UserRole.SystemAdmin)            
-                user.ActivePatients = [];
-            
-            user.ActivePatients = _patientService!.GetActivePatientsForUser(user);
+            Patient? patient = _patientService?.GetPatientById(admittance.PatientId);
+
+            if (patient != null)
+                patients.Add(patient);
         }
+
+        return patients;
     }
 }

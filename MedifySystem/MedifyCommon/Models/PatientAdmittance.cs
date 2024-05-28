@@ -3,9 +3,6 @@
 /// <summary>
 /// 
 /// </summary>
-/// <param name="patientId"></param>
-/// <param name="startDate"></param>
-/// <param name="reason"></param>
 public class PatientAdmittance
 {
     public PatientAdmittance() { }
@@ -14,7 +11,7 @@ public class PatientAdmittance
     {
         PatientId = patientId;
         StartDate = startDate;
-        Reason = reason;
+        AdmittanceReason = reason;
         HospitalOfficialId = hospitalOfficialId;
     }
 
@@ -22,6 +19,13 @@ public class PatientAdmittance
     public string PatientId { get; private set; } = string.Empty;
     public string HospitalOfficialId { get; private set; } = string.Empty;
     public DateTime? StartDate { get; private set; } = null;
-    public DateTime? EndDate { get; private set; } = null;
-    public string Reason { get; private set; } = string.Empty;
+    public DateTime? EndDate { get; set; } = null;
+    public string AdmittanceReason { get; private set; } = string.Empty;
+    public string? DischargeReason { get; set; } = null;
+
+    public void DischargePatient(string reason)
+    {
+        EndDate = DateTime.Now;
+        DischargeReason = reason;
+    }
 }

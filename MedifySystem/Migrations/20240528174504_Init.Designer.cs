@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedifySystem.Migrations
 {
     [DbContext(typeof(MedifyDatabaseContext))]
-    [Migration("20240523182306_init")]
-    partial class init
+    [Migration("20240528174504_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,9 +29,6 @@ namespace MedifySystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsCurrentlyAdmitted")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -46,21 +43,30 @@ namespace MedifySystem.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AdmittanceReason")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DischargeReason")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HospitalOfficialId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("PatientAdmittances", (string)null);
                 });
@@ -131,6 +137,20 @@ namespace MedifySystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("MedifySystem.MedifyCommon.Models.PatientAdmittance", b =>
+                {
+                    b.HasOne("MedifySystem.MedifyCommon.Models.Patient", null)
+                        .WithMany("Admittances")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedifySystem.MedifyCommon.Models.Patient", b =>
+                {
+                    b.Navigation("Admittances");
                 });
 #pragma warning restore 612, 618
         }
