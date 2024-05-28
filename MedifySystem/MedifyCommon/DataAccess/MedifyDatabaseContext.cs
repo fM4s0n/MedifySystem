@@ -18,6 +18,12 @@ public class MedifyDatabaseContext(DbContextOptions<MedifyDatabaseContext> optio
         modelBuilder.Entity<PatientRecord>().ToTable("PatientRecords");
         modelBuilder.Entity<PatientRecordDataEntry>().ToTable("PatientRecordDataEntries");
 
+        modelBuilder.Entity<Patient>()
+            .HasMany(p => p.Admittances)
+            .WithOne()
+            .HasForeignKey(pa => pa.PatientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         base.OnModelCreating(modelBuilder);
     }
 }

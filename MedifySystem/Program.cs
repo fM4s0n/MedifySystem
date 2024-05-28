@@ -41,6 +41,7 @@ internal static class Program
             .ConfigureServices((context, services) => {
                 services.AddSingleton<IUserService, UserService>();
                 services.AddSingleton<IPatientService, PatientService>();
+                services.AddSingleton<IPatientAdmittanceService, PatientAdmittanceService>();
                 services.AddDbContext<MedifyDatabaseContext>(options =>
                     options.UseSqlite("Data Source=MedifyDB.db"));
                 services.AddSingleton<IDBService>(provider =>

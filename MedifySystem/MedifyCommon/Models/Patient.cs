@@ -8,23 +8,14 @@ public class Patient : Person
         LastName = lastName;
     }
 
-    public bool IsCurrentlyAdmitted 
-    {
-        get 
-        {
-            if (Admittances?.Count == 0)
-                return false;
-
-            PatientAdmittance lastAdmittance = Admittances!.OrderByDescending(a => a.StartDate).First();
-
-            return lastAdmittance.EndDate == null;
-        }
-    }
-
     public List<PatientAdmittance> Admittances { get; set; } = [];
 
-    public void AdmitPatient(string hospitalOfficialId, string admissionReason)
+    /// <summary>
+    /// Checks if the patient is currently admitted
+    /// </summary>
+    public bool IsCurrentlyAdmitted()
     {
-        PatientAdmittance admittance = new (Id, DateTime.Now, admissionReason);
+        return Admittances?.OrderByDescending(a => a.StartDate)
+                           .FirstOrDefault()?.EndDate == null;
     }
 }

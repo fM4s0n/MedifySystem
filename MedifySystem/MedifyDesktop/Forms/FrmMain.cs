@@ -11,7 +11,7 @@ namespace MedifySystem;
 /// <summary>
 /// Main form
 /// </summary>
-public partial class FrmMain : Form
+internal partial class FrmMain : Form
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
 

@@ -5,7 +5,7 @@ namespace MedifySystem.MedifyDesktop.Forms;
 /// <summary>
 /// 
 /// </summary>
-public partial class FrmSignIn : Form
+internal partial class FrmSignIn : Form
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
 

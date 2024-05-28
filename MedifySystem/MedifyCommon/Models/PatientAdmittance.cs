@@ -9,11 +9,13 @@
 public class PatientAdmittance
 {
     public PatientAdmittance() { }
-    public PatientAdmittance(string patientId, DateTime startDate, string reason)
+
+    public PatientAdmittance(string patientId, DateTime startDate, string reason, string hospitalOfficialId)
     {
         PatientId = patientId;
         StartDate = startDate;
         Reason = reason;
+        HospitalOfficialId = hospitalOfficialId;
     }
 
     public string Id { get; private set; } = Guid.NewGuid().ToString();
