@@ -1,9 +1,11 @@
 ﻿using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyCommon.Models;
+using MedifySystem.MedifyCommon.Helpers;
 
 namespace MedifySystem.MedifyDesktop.Forms;
 
 /// <summary>
-/// 
+/// Sign in form
 /// </summary>
 internal partial class FrmSignIn : Form
 {
@@ -12,14 +14,26 @@ internal partial class FrmSignIn : Form
     public FrmSignIn()
     {
         InitializeComponent();
+
+        _userService!.LogOutEvent += HandleLogOutEvent;
+        _userService.LogInEvent += HandleLogInEvent;
+        _userService.ResetPasswordEvent += HandleResetPasswordEvent;
     }
+
+    private void HandleResetPasswordEvent(object sender, EventArgs e)
+    {
+        ShowPasswordResetControls();
+    }
+
+    private void HandleLogInEvent(object sender, EventArgs e) => Close();    
+
+    private void HandleLogOutEvent(object sender, EventArgs e) => Close();
+
+    private void btnCancel_Click(object sender, EventArgs e) => Close();
 
     private void btnSignIn_Click(object sender, EventArgs e)
     {
-        if (ValidateEmail() == false)
-            return;
-
-        if (ValidatePassword() == false)
+        if (ValidateEmail() == false || ValidatePassword() == false)
             return;
 
         if (_userService!.AuthenticateUser(txtEmail.Text, txtPassword.Text) == false)
@@ -28,10 +42,8 @@ internal partial class FrmSignIn : Form
             return;
         }
 
-        Close();
+        return;
     }
-
-    private void btnCancel_Click(object sender, EventArgs e) => Close();
 
     private bool ValidateEmail()
     {
@@ -72,5 +84,51 @@ internal partial class FrmSignIn : Form
         txtPassword.Text = string.Empty;
         lblWarnEmail.Visible = false;
         lblWarnPassword.Visible = false;
+    }
+
+    private void ShowPasswordResetControls()
+    {
+        txtNewPassword.Visible = true;
+        lblNewPassword.Visible = true;
+        lblNewPasswordHelp.Visible = true;
+        btnConfirmReset.Visible = true;
+
+        lblEmail.Visible = false;
+        txtEmail.Visible = false;
+        lblPassword.Visible = false;
+        txtPassword.Visible = false;
+        btnSignIn.Visible = false;
+        btnSignIn.Enabled = false;
+    }
+
+    private void btnConfirmReset_Click(object sender, EventArgs e) => ResetPassword();
+
+    private void ResetPassword()
+    {
+        txtNewPassword.Text = txtNewPassword.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(txtNewPassword.Text))
+        {
+            MessageBox.Show("New password is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        User currentUser = _userService!.GetCurrentUser()!;
+        currentUser.PasswordHash = PasswordHelper.HashPassword(currentUser, txtNewPassword.Text);
+        currentUser.RequiresPasswordReset = false;
+
+        _userService!.UpdateUser(currentUser);
+
+        _userService!.LogOutUser();
+    }
+
+    /// <summary>
+    /// overrride close method to remove event handlers
+    /// </summary>
+    protected override void OnClosed(EventArgs e)
+    {
+        _userService!.LogOutEvent -= HandleLogOutEvent;
+        _userService.LogInEvent -= HandleLogInEvent;
+        base.OnClosed(e);
     }
 }

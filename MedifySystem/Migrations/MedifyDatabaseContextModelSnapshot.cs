@@ -128,6 +128,9 @@ namespace MedifySystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("RequiresPasswordReset")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Role")
                         .HasColumnType("INTEGER");
 

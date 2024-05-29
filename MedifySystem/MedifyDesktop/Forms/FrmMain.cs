@@ -40,7 +40,7 @@ internal partial class FrmMain : Form
         if (user != null)
         {
             RemoveMenuButton(BTN_SIGN_IN_NAME);
-            AddSignOutButton();
+
             UpdateWelcomeLabel(user.FullName);
 
             switch (user.Role)
@@ -54,11 +54,13 @@ internal partial class FrmMain : Form
                     ShowHospitalOfficialHome();
                     break;
             }
+
+            AddSignOutButton(true);
         }
         else
         {
             // something went wrong
-            _userService.LogoutUser();
+            _userService.LogOutUser();
         }
     }
 
@@ -70,7 +72,7 @@ internal partial class FrmMain : Form
     private void HandleLogOutEvent(object sender, EventArgs e)
     {
         RemoveMenuButton(BTN_SIGN_OUT_NAME);
-        AddSignInButton();
+        SetMenuButtonsNoUser();
     }
 
     private void AddSignInButton()
@@ -78,10 +80,10 @@ internal partial class FrmMain : Form
         AddMenuButton(BTN_SIGN_IN_TEXT, BTN_SIGN_IN_NAME, IconChar.SignInAlt);
     }
 
-    private void AddSignOutButton()
+    private void AddSignOutButton(bool insertAtBottom = false)
     {
         Reset();
-        AddMenuButton(BTN_SIGN_OUT_TEXT, BTN_SIGN_OUT_NAME, IconChar.SignOutAlt);
+        AddMenuButton(BTN_SIGN_OUT_TEXT, BTN_SIGN_OUT_NAME, IconChar.SignOutAlt, insertAtBottom);
     }
 
     private void AddSystemAdminMainMenuButtons() 
@@ -101,7 +103,7 @@ internal partial class FrmMain : Form
             flpMainMenu.Controls.Remove(controls[0]);        
     }    
 
-    private void AddMenuButton(string text, string name, IconChar iconChar)
+    private void AddMenuButton(string text, string name, IconChar iconChar, bool insertAtBottom = false)
     {
         IconButton button = new()
         {
@@ -124,7 +126,11 @@ internal partial class FrmMain : Form
         button.FlatStyle = FlatStyle.Flat;
 
         button.Click += HandleClickMainMenuClickEvent;
-        flpMainMenu.Controls.Add(button);
+
+        flpMainMenu.Controls.Add(button);       
+
+        if (insertAtBottom)
+            flpMainMenu.Controls.SetChildIndex(button, flpMainMenu.Controls.Count - 1);
     }
 
     /// <summary>
@@ -181,7 +187,7 @@ internal partial class FrmMain : Form
 
     private void HandleSignOutMenuButtonClick()
     {
-        _userService!.LogoutUser();
+        _userService!.LogOutUser();
     }
 
     private void HandleManageUsersMenuButtonClick()
@@ -213,5 +219,12 @@ internal partial class FrmMain : Form
                 button.Dispose();
             }
         }
+    }
+
+    private void SetMenuButtonsNoUser()
+    {
+        flpMainMenu.Controls.Clear();
+
+        AddSignInButton();
     }
 }

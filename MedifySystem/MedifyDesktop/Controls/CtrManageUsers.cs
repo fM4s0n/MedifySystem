@@ -102,18 +102,19 @@ public partial class CtrManageUsers : UserControl
 
     private void btnAddNewUser_Click(object sender, EventArgs e)
     {
-        if (AddNewUserFromFeilds())
+        if (AddNewUserFromFields())
             RefreshUsersListView();
         else
             MessageBox.Show("Failed to add new user", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 
-    private bool AddNewUserFromFeilds()
+    private bool AddNewUserFromFields()
     {
         if (ValidateAddUserFields() == false)
             return false;
 
-        UserRole role = (UserRole)cmbRole.SelectedItem;
+        if (cmbRole.SelectedItem is UserRole role == false)
+            return false;
 
         User newUser = new(txtEmail.Text, role, txtFirstName.Text, txtLastName.Text);
 

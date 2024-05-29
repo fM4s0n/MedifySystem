@@ -11,16 +11,17 @@ public interface IUserService
     // Login and Logout event handlers
     event UserService.LogoutEventHandler LogOutEvent;
     event UserService.LoginEventHandler LogInEvent;
+    event UserService.ResetPasswordHandler ResetPasswordEvent;
 
     /// <summary>
     /// Logs in the user
     /// </summary>
-    void LoginUser(User user);
+    void LogInUser(User user, bool requiresRest = false);
 
     /// <summary>
     /// logs out the user
     /// </summary>
-    void LogoutUser();
+    void LogOutUser();
 
     /// <summary>
     /// get the current user

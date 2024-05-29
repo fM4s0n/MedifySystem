@@ -1,5 +1,4 @@
-﻿using MedifySystem.MedifyCommon.Enums;
-using MedifySystem.MedifyCommon.Helpers;
+﻿using MedifySystem.MedifyCommon.Helpers;
 using MedifySystem.MedifyCommon.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,9 +14,11 @@ public class UserService(IDBService? dbService = null) : IUserService
     // Login and Logout event handlers
     public delegate void LogoutEventHandler(object sender, EventArgs e);
     public delegate void LoginEventHandler(object sender, EventArgs e);
+    public delegate void ResetPasswordHandler(object sender, EventArgs e);
 
     public event LogoutEventHandler? LogOutEvent;
     public event LoginEventHandler? LogInEvent;
+    public event ResetPasswordHandler? ResetPasswordEvent;
 
     private User? _currentUser = null;
 
@@ -64,16 +65,17 @@ public class UserService(IDBService? dbService = null) : IUserService
     } 
 
     //<inheritdoc/>
-    public void LoginUser(User user)
+    public void LogInUser(User user, bool requiresReset = false)
     {
         if (user != null)
             _currentUser = user;
 
-        OnLogin();
+        if (requiresReset == false)
+            OnLogin();
     }
 
     //<inheritdoc/>
-    public void LogoutUser()
+    public void LogOutUser()
     {
         _currentUser = null;
         OnLogout();
@@ -99,7 +101,18 @@ public class UserService(IDBService? dbService = null) : IUserService
                 bool result = PasswordHelper.VerifyPassword(user, password) != PasswordVerificationResult.Failed;
                 
                 if (result)
-                    LoginUser(user);
+                {
+                    if (user.RequiresPasswordReset)
+                    {
+                        ResetPasswordEvent?.Invoke(this, EventArgs.Empty);
+                        LogInUser(user, true);
+
+                        return true;
+                    }
+
+
+                    LogInUser(user);
+                }
 
                 return result;
             }

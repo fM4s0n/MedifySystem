@@ -37,6 +37,10 @@ partial class FrmSignIn
         btnCancel = new FontAwesome.Sharp.IconButton();
         lblWarnEmail = new Label();
         lblWarnPassword = new Label();
+        lblNewPasswordHelp = new Label();
+        lblNewPassword = new Label();
+        txtNewPassword = new TextBox();
+        btnConfirmReset = new FontAwesome.Sharp.IconButton();
         ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
         SuspendLayout();
         // 
@@ -61,7 +65,7 @@ partial class FrmSignIn
         // txtPassword
         // 
         txtPassword.Font = new Font("Verdana", 9.75F);
-        txtPassword.Location = new Point(69, 257);
+        txtPassword.Location = new Point(69, 249);
         txtPassword.Name = "txtPassword";
         txtPassword.Size = new Size(358, 23);
         txtPassword.TabIndex = 2;
@@ -82,7 +86,7 @@ partial class FrmSignIn
         lblPassword.AutoSize = true;
         lblPassword.Font = new Font("Verdana", 9.75F);
         lblPassword.ForeColor = Color.White;
-        lblPassword.Location = new Point(69, 238);
+        lblPassword.Location = new Point(69, 230);
         lblPassword.Name = "lblPassword";
         lblPassword.Size = new Size(75, 16);
         lblPassword.TabIndex = 4;
@@ -97,7 +101,7 @@ partial class FrmSignIn
         btnSignIn.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnSignIn.IconSize = 30;
         btnSignIn.ImageAlign = ContentAlignment.MiddleRight;
-        btnSignIn.Location = new Point(337, 325);
+        btnSignIn.Location = new Point(337, 379);
         btnSignIn.Name = "btnSignIn";
         btnSignIn.Size = new Size(90, 38);
         btnSignIn.TabIndex = 5;
@@ -115,7 +119,7 @@ partial class FrmSignIn
         btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnCancel.IconSize = 25;
         btnCancel.ImageAlign = ContentAlignment.MiddleRight;
-        btnCancel.Location = new Point(69, 325);
+        btnCancel.Location = new Point(69, 379);
         btnCancel.Name = "btnCancel";
         btnCancel.Size = new Size(90, 38);
         btnCancel.TabIndex = 6;
@@ -141,19 +145,75 @@ partial class FrmSignIn
         lblWarnPassword.AutoSize = true;
         lblWarnPassword.Font = new Font("Verdana", 9.75F);
         lblWarnPassword.ForeColor = Color.White;
-        lblWarnPassword.Location = new Point(69, 283);
+        lblWarnPassword.Location = new Point(69, 275);
         lblWarnPassword.Name = "lblWarnPassword";
         lblWarnPassword.Size = new Size(169, 16);
         lblWarnPassword.TabIndex = 9;
         lblWarnPassword.Text = "Please enter a password";
         lblWarnPassword.Visible = false;
         // 
+        // lblNewPasswordHelp
+        // 
+        lblNewPasswordHelp.AutoSize = true;
+        lblNewPasswordHelp.Font = new Font("Verdana", 9.75F);
+        lblNewPasswordHelp.ForeColor = Color.White;
+        lblNewPasswordHelp.Location = new Point(69, 350);
+        lblNewPasswordHelp.Name = "lblNewPasswordHelp";
+        lblNewPasswordHelp.Size = new Size(222, 16);
+        lblNewPasswordHelp.TabIndex = 12;
+        lblNewPasswordHelp.Text = "Please enter your new password";
+        lblNewPasswordHelp.Visible = false;
+        // 
+        // lblNewPassword
+        // 
+        lblNewPassword.AutoSize = true;
+        lblNewPassword.Font = new Font("Verdana", 9.75F);
+        lblNewPassword.ForeColor = Color.White;
+        lblNewPassword.Location = new Point(69, 305);
+        lblNewPassword.Name = "lblNewPassword";
+        lblNewPassword.Size = new Size(75, 16);
+        lblNewPassword.TabIndex = 11;
+        lblNewPassword.Text = "Password:";
+        lblNewPassword.Visible = false;
+        // 
+        // txtNewPassword
+        // 
+        txtNewPassword.Font = new Font("Verdana", 9.75F);
+        txtNewPassword.Location = new Point(69, 324);
+        txtNewPassword.Name = "txtNewPassword";
+        txtNewPassword.Size = new Size(358, 23);
+        txtNewPassword.TabIndex = 10;
+        txtNewPassword.Visible = false;
+        // 
+        // btnConfirmReset
+        // 
+        btnConfirmReset.BackColor = Color.White;
+        btnConfirmReset.FlatStyle = FlatStyle.Flat;
+        btnConfirmReset.IconChar = FontAwesome.Sharp.IconChar.Lock;
+        btnConfirmReset.IconColor = Color.Black;
+        btnConfirmReset.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnConfirmReset.IconSize = 30;
+        btnConfirmReset.ImageAlign = ContentAlignment.MiddleRight;
+        btnConfirmReset.Location = new Point(165, 379);
+        btnConfirmReset.Name = "btnConfirmReset";
+        btnConfirmReset.Size = new Size(166, 38);
+        btnConfirmReset.TabIndex = 13;
+        btnConfirmReset.Text = "Confirm Password";
+        btnConfirmReset.TextAlign = ContentAlignment.MiddleLeft;
+        btnConfirmReset.UseVisualStyleBackColor = false;
+        btnConfirmReset.Visible = false;
+        btnConfirmReset.Click += btnConfirmReset_Click;
+        // 
         // FrmSignIn
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(58, 110, 165);
-        ClientSize = new Size(511, 382);
+        ClientSize = new Size(511, 429);
+        Controls.Add(btnConfirmReset);
+        Controls.Add(lblNewPasswordHelp);
+        Controls.Add(lblNewPassword);
+        Controls.Add(txtNewPassword);
         Controls.Add(lblWarnPassword);
         Controls.Add(lblWarnEmail);
         Controls.Add(btnCancel);
@@ -184,4 +244,8 @@ partial class FrmSignIn
     private FontAwesome.Sharp.IconButton btnCancel;
     private Label lblWarnEmail;
     private Label lblWarnPassword;
+    private Label lblNewPasswordHelp;
+    private Label lblNewPassword;
+    private TextBox txtNewPassword;
+    private FontAwesome.Sharp.IconButton btnConfirmReset;
 }
