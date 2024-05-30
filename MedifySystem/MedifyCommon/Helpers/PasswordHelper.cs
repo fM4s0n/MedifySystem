@@ -32,6 +32,8 @@ public static class PasswordHelper
         PasswordHasher<User> ph = new();
         string hashedPassword = user.PasswordHash;
 
-        return ph.VerifyHashedPassword(user, hashedPassword, providedPassword);
+        PasswordVerificationResult result = ph.VerifyHashedPassword(user, hashedPassword, providedPassword);
+
+        return result;
     }
 }

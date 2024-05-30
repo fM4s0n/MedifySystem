@@ -82,7 +82,6 @@ internal partial class FrmMain : Form
 
     private void AddSignOutButton(bool insertAtBottom = false)
     {
-        Reset();
         AddMenuButton(BTN_SIGN_OUT_TEXT, BTN_SIGN_OUT_NAME, IconChar.SignOutAlt, insertAtBottom);
     }
 
@@ -97,7 +96,7 @@ internal partial class FrmMain : Form
 
     private void RemoveMenuButton(string name)
     {
-        Control[] controls = flpMainMenu.Controls.Find($"btn{name}", false);
+        Control[] controls = flpMainMenu.Controls.Find(name, false);
 
         if (controls.Length > 0)        
             flpMainMenu.Controls.Remove(controls[0]);        

@@ -39,6 +39,7 @@ internal partial class FrmSignIn : Form
         if (_userService!.AuthenticateUser(txtEmail.Text, txtPassword.Text) == false)
         {
             MessageBox.Show("Invalid email or password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ResetForm();
             return;
         }
 
@@ -84,6 +85,12 @@ internal partial class FrmSignIn : Form
         txtPassword.Text = string.Empty;
         lblWarnEmail.Visible = false;
         lblWarnPassword.Visible = false;
+
+        txtNewPassword.Text = string.Empty;
+        txtNewPassword.Visible = false;
+        lblNewPassword.Visible = false;
+        lblNewPasswordHelp.Visible = false;
+        btnConfirmReset.Visible = false;
     }
 
     private void ShowPasswordResetControls()
