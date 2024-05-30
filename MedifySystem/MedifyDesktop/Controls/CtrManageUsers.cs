@@ -12,7 +12,7 @@ public partial class CtrManageUsers : UserControl
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
 
-    private readonly List<User>? _allUsers;
+    private List<User>? _allUsers;
 
     private readonly List<User> _lvUsersDataSource = [];
 
@@ -23,7 +23,7 @@ public partial class CtrManageUsers : UserControl
         if (DesignMode)
             return;
 
-        _allUsers = _userService!.GetAllUsers();
+        RefreshAllUsers();
 
         Init();
     }
@@ -44,6 +44,11 @@ public partial class CtrManageUsers : UserControl
     }
 
     private void ShowAllUsers() => Search(string.Empty);    
+
+    private void RefreshAllUsers()
+    {
+        _allUsers = _userService!.GetAllUsers();
+    }
 
     private void btnSearch_Click(object sender, EventArgs e)
     {
@@ -103,7 +108,10 @@ public partial class CtrManageUsers : UserControl
     private void btnAddNewUser_Click(object sender, EventArgs e)
     {
         if (AddNewUserFromFields())
+        {
+            RefreshAllUsers();
             RefreshUsersListView();
+        }
         else
             MessageBox.Show("Failed to add new user", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }

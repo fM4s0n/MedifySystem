@@ -206,20 +206,6 @@ internal partial class FrmMain : Form
         }
     }
 
-    /// <summary>
-    /// Reset the form
-    /// </summary>
-    private void Reset()
-    {
-        foreach (Control control in flpMainMenu.Controls)
-        {
-            if (control is IconButton button)
-            {
-                button.Dispose();
-            }
-        }
-    }
-
     private void SetMenuButtonsNoUser()
     {
         flpMainMenu.Controls.Clear();

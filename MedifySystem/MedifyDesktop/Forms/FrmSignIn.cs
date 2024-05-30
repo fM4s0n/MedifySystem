@@ -18,6 +18,9 @@ internal partial class FrmSignIn : Form
         _userService!.LogOutEvent += HandleLogOutEvent;
         _userService.LogInEvent += HandleLogInEvent;
         _userService.ResetPasswordEvent += HandleResetPasswordEvent;
+
+        // listen for enter key press to click the sign in button
+        AcceptButton = btnSignIn;
     }
 
     private void HandleResetPasswordEvent(object sender, EventArgs e)
