@@ -18,4 +18,10 @@ public static class MainMenuButtonConstants
     public const string BTN_MANAGE_USERS_NAME = "btnManageUsers";
     public const string BTN_SYSTEM_ADMIN_HOME_TEXT = "Home";
     public const string BTN_SYSTEM_ADMIN_HOME_NAME = "btnSystemAdminHome";
+
+    // hospital official
+    public const string BTN_MANAGE_PATIENTS_TEXT = "Manage Patients";
+    public const string BTN_MANAGE_PATIENTS_NAME = "btnManagePatients";
+    public const string BTN_HOSPITAL_OFFICIAL_HOME_TEXT = "Home";
+    public const string BTN_HOSPITAL_OFFICIAL_HOME_NAME = "btnHospitalOfficialHome";
 }

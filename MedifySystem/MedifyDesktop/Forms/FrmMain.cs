@@ -51,7 +51,7 @@ internal partial class FrmMain : Form
                 case UserRole.Doctor:
                 case UserRole.Receptionist:
                 case UserRole.Nurse:
-                    ShowHospitalOfficialHome();
+                    InitHospitalOfficialUI();
                     break;
             }
 
@@ -124,7 +124,7 @@ internal partial class FrmMain : Form
         button.FlatAppearance.BorderSize = 0;
         button.FlatStyle = FlatStyle.Flat;
 
-        button.Click += HandleClickMainMenuClickEvent;
+        button.Click += HandleMainMenuButtonClickEvent;
 
         flpMainMenu.Controls.Add(button);       
 
@@ -136,7 +136,7 @@ internal partial class FrmMain : Form
     /// Generic handler for the main menu buttons
     /// as they are implemented programmatically
     /// </summary>
-    private void HandleClickMainMenuClickEvent(object? sender, EventArgs e)
+    private void HandleMainMenuButtonClickEvent(object? sender, EventArgs e)
     {
         if (sender is IconButton button)
         {
@@ -150,6 +150,11 @@ internal partial class FrmMain : Form
                     break;
                 case BTN_MANAGE_USERS_NAME:
                     HandleManageUsersMenuButtonClick();
+                    break;
+                case BTN_HOSPITAL_OFFICIAL_HOME_NAME:
+                    break;
+                case BTN_MANAGE_PATIENTS_NAME:
+                    HandleManagePatientsMenuButtonClick();
                     break;
             }
         }
@@ -172,10 +177,25 @@ internal partial class FrmMain : Form
     /// <summary>
     /// Shows the hospital official home and adds main menu buttons
     /// </summary>
-    private void ShowHospitalOfficialHome()
+    private void InitHospitalOfficialUI()
     {
-        CtrHospitalOfficialHome hospitalOfficialHome = new();
+        pnlMain.Controls.Clear();
+
+        CtrHospitalOfficialHome hospitalOfficialHome = new()
+        {
+            Dock = DockStyle.Fill,
+            Visible = true
+        };
         pnlMain.Controls.Add(hospitalOfficialHome);
+
+        AddHospitalOfficialMainMenuButtons();
+    }
+
+    private void AddHospitalOfficialMainMenuButtons()
+    {
+        AddMenuButton(BTN_HOSPITAL_OFFICIAL_HOME_TEXT, BTN_HOSPITAL_OFFICIAL_HOME_NAME, IconChar.Home);
+
+        AddMenuButton(BTN_MANAGE_PATIENTS_TEXT, BTN_MANAGE_PATIENTS_NAME, IconChar.UserMd);
     }
 
     private void HandleSignInMenuButtonClick()
@@ -189,21 +209,43 @@ internal partial class FrmMain : Form
         _userService!.LogOutUser();
     }
 
-    private void HandleManageUsersMenuButtonClick()
-    { 
-        ClearMainPanel();
-        CtrManageUsers ctrManageUsers = new();
-        pnlMain.Controls.Add(ctrManageUsers);
-        ctrManageUsers.Dock = DockStyle.Fill;
-        ctrManageUsers.Visible = true;
+    private void HandleManagePatientsMenuButtonClick() 
+    {
+        pnlMain.Controls.Clear();
+
+        CtrManagePatients ctrManagePatients = new()
+        {
+            Dock = DockStyle.Fill,
+            Visible = true
+        };
+
+        pnlMain.Controls.Add(ctrManagePatients);
     }
 
-    private void ClearMainPanel()
+    private void HandleHospitalOfficialHomeMenuButtonClick() 
     {
-        foreach (Control control in pnlMain.Controls)
+        pnlMain.Controls.Clear();
+
+        CtrHospitalOfficialHome ctrHospitalOfficialHome = new()
         {
-            control.Dispose();
-        }
+            Dock = DockStyle.Fill,
+            Visible = true
+        };
+
+        pnlMain.Controls.Add(ctrHospitalOfficialHome);    
+    }
+
+    private void HandleManageUsersMenuButtonClick()
+    {
+        pnlMain.Controls.Clear();
+
+        CtrManageUsers ctrManageUsers = new()
+        {
+            Dock = DockStyle.Fill,
+            Visible = true
+        };
+
+        pnlMain.Controls.Add(ctrManageUsers);
     }
 
     private void SetMenuButtonsNoUser()
