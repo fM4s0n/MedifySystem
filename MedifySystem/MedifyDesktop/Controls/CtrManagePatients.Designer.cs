@@ -30,15 +30,17 @@ partial class CtrManagePatients
     {
         lblControlTitle = new Label();
         grpRegisterPatient = new GroupBox();
+        btnClearNewPatient = new FontAwesome.Sharp.IconButton();
+        btnRegisterPatient = new FontAwesome.Sharp.IconButton();
+        txtLastName = new TextBox();
+        txtFirstName = new TextBox();
+        lblLastName = new Label();
+        lblFirstName = new Label();
         lvPatients = new ListView();
         txtUserSearch = new TextBox();
         btnSearch = new FontAwesome.Sharp.IconButton();
         btnShowAll = new FontAwesome.Sharp.IconButton();
         btnViewPatientDetails = new FontAwesome.Sharp.IconButton();
-        lblFirstName = new Label();
-        lblLastName = new Label();
-        txtFirstName = new TextBox();
-        txtLastName = new TextBox();
         btnAdmitPatient = new FontAwesome.Sharp.IconButton();
         grpRegisterPatient.SuspendLayout();
         SuspendLayout();
@@ -55,16 +57,82 @@ partial class CtrManagePatients
         // 
         // grpRegisterPatient
         // 
+        grpRegisterPatient.Controls.Add(btnClearNewPatient);
+        grpRegisterPatient.Controls.Add(btnRegisterPatient);
         grpRegisterPatient.Controls.Add(txtLastName);
         grpRegisterPatient.Controls.Add(txtFirstName);
         grpRegisterPatient.Controls.Add(lblLastName);
         grpRegisterPatient.Controls.Add(lblFirstName);
         grpRegisterPatient.Location = new Point(3, 87);
         grpRegisterPatient.Name = "grpRegisterPatient";
-        grpRegisterPatient.Size = new Size(312, 377);
+        grpRegisterPatient.Size = new Size(312, 163);
         grpRegisterPatient.TabIndex = 2;
         grpRegisterPatient.TabStop = false;
         grpRegisterPatient.Text = "Register new patient";
+        // 
+        // btnClearNewPatient
+        // 
+        btnClearNewPatient.IconChar = FontAwesome.Sharp.IconChar.X;
+        btnClearNewPatient.IconColor = Color.Black;
+        btnClearNewPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnClearNewPatient.IconSize = 25;
+        btnClearNewPatient.ImageAlign = ContentAlignment.MiddleRight;
+        btnClearNewPatient.Location = new Point(8, 106);
+        btnClearNewPatient.Name = "btnClearNewPatient";
+        btnClearNewPatient.Size = new Size(87, 32);
+        btnClearNewPatient.TabIndex = 5;
+        btnClearNewPatient.Text = "Clear";
+        btnClearNewPatient.TextAlign = ContentAlignment.MiddleLeft;
+        btnClearNewPatient.UseVisualStyleBackColor = true;
+        btnClearNewPatient.Click += btnClearNewPatient_Click;
+        // 
+        // btnRegisterPatient
+        // 
+        btnRegisterPatient.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+        btnRegisterPatient.IconColor = Color.Black;
+        btnRegisterPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnRegisterPatient.IconSize = 30;
+        btnRegisterPatient.ImageAlign = ContentAlignment.MiddleRight;
+        btnRegisterPatient.Location = new Point(152, 106);
+        btnRegisterPatient.Name = "btnRegisterPatient";
+        btnRegisterPatient.Size = new Size(151, 32);
+        btnRegisterPatient.TabIndex = 4;
+        btnRegisterPatient.Text = "Register Patient";
+        btnRegisterPatient.TextAlign = ContentAlignment.MiddleLeft;
+        btnRegisterPatient.UseVisualStyleBackColor = true;
+        btnRegisterPatient.Click += btnRegisterPatient_Click;
+        // 
+        // txtLastName
+        // 
+        txtLastName.Location = new Point(89, 68);
+        txtLastName.Name = "txtLastName";
+        txtLastName.Size = new Size(214, 23);
+        txtLastName.TabIndex = 3;
+        // 
+        // txtFirstName
+        // 
+        txtFirstName.Location = new Point(89, 33);
+        txtFirstName.Name = "txtFirstName";
+        txtFirstName.Size = new Size(214, 23);
+        txtFirstName.TabIndex = 2;
+        // 
+        // lblLastName
+        // 
+        lblLastName.AutoSize = true;
+        lblLastName.Location = new Point(6, 71);
+        lblLastName.Name = "lblLastName";
+        lblLastName.Size = new Size(76, 16);
+        lblLastName.TabIndex = 1;
+        lblLastName.Text = "Last Name";
+        // 
+        // lblFirstName
+        // 
+        lblFirstName.AutoSize = true;
+        lblFirstName.Location = new Point(6, 36);
+        lblFirstName.Name = "lblFirstName";
+        lblFirstName.Size = new Size(77, 16);
+        lblFirstName.TabIndex = 0;
+        lblFirstName.Text = "First Name";
         // 
         // lvPatients
         // 
@@ -78,9 +146,9 @@ partial class CtrManagePatients
         // 
         // txtUserSearch
         // 
-        txtUserSearch.Location = new Point(331, 67);
+        txtUserSearch.Location = new Point(321, 67);
         txtUserSearch.Name = "txtUserSearch";
-        txtUserSearch.Size = new Size(241, 23);
+        txtUserSearch.Size = new Size(251, 23);
         txtUserSearch.TabIndex = 7;
         // 
         // btnSearch
@@ -128,38 +196,6 @@ partial class CtrManagePatients
         btnViewPatientDetails.UseVisualStyleBackColor = true;
         btnViewPatientDetails.Click += btnViewPatientDetails_Click;
         // 
-        // lblFirstName
-        // 
-        lblFirstName.AutoSize = true;
-        lblFirstName.Location = new Point(6, 36);
-        lblFirstName.Name = "lblFirstName";
-        lblFirstName.Size = new Size(77, 16);
-        lblFirstName.TabIndex = 0;
-        lblFirstName.Text = "First Name";
-        // 
-        // lblLastName
-        // 
-        lblLastName.AutoSize = true;
-        lblLastName.Location = new Point(6, 71);
-        lblLastName.Name = "lblLastName";
-        lblLastName.Size = new Size(76, 16);
-        lblLastName.TabIndex = 1;
-        lblLastName.Text = "Last Name";
-        // 
-        // txtFirstName
-        // 
-        txtFirstName.Location = new Point(89, 33);
-        txtFirstName.Name = "txtFirstName";
-        txtFirstName.Size = new Size(214, 23);
-        txtFirstName.TabIndex = 2;
-        // 
-        // txtLastName
-        // 
-        txtLastName.Location = new Point(89, 68);
-        txtLastName.Name = "txtLastName";
-        txtLastName.Size = new Size(214, 23);
-        txtLastName.TabIndex = 3;
-        // 
         // btnAdmitPatient
         // 
         btnAdmitPatient.FlatStyle = FlatStyle.Flat;
@@ -168,18 +204,20 @@ partial class CtrManagePatients
         btnAdmitPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnAdmitPatient.IconSize = 30;
         btnAdmitPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnAdmitPatient.Location = new Point(417, 470);
+        btnAdmitPatient.Location = new Point(321, 470);
         btnAdmitPatient.Name = "btnAdmitPatient";
         btnAdmitPatient.Size = new Size(135, 32);
         btnAdmitPatient.TabIndex = 9;
         btnAdmitPatient.Text = "Admit Patient";
         btnAdmitPatient.TextAlign = ContentAlignment.MiddleLeft;
         btnAdmitPatient.UseVisualStyleBackColor = true;
+        btnAdmitPatient.Click += btnAdmitPatient_Click;
         // 
         // CtrManagePatients
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = Color.LightGray;
         Controls.Add(btnAdmitPatient);
         Controls.Add(btnViewPatientDetails);
         Controls.Add(txtUserSearch);
@@ -211,4 +249,6 @@ partial class CtrManagePatients
     private TextBox txtLastName;
     private TextBox txtFirstName;
     private FontAwesome.Sharp.IconButton btnAdmitPatient;
+    private FontAwesome.Sharp.IconButton btnRegisterPatient;
+    private FontAwesome.Sharp.IconButton btnClearNewPatient;
 }
