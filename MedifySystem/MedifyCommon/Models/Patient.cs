@@ -2,12 +2,14 @@
 
 public class Patient : Person 
 {
-    public Patient(string firstName, string lastName)
+    public Patient(string firstName, string lastName, string nhsNumber, string gender)
     {
         FirstName = firstName;
         LastName = lastName;
+        NHSNumber = nhsNumber;
+        Gender = gender;
     }
-
+    public string NHSNumber { get; set; } = string.Empty;
     public List<PatientAdmittance> Admittances { get; set; } = [];
 
     /// <summary>

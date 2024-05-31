@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MedifySystem.MedifyCommon.Models;
 
 namespace MedifySystem.MedifyDesktop.Forms;
 public partial class FrmPatientDetails : Form
 {
-    public FrmPatientDetails()
+    private readonly Patient? _patient;
+
+    public FrmPatientDetails(Patient patient)
     {
         InitializeComponent();
+
+        if (DesignMode)
+            return;
+
+        _patient = patient;
+    }
+
+    private void Init()
+    {
+
     }
 }

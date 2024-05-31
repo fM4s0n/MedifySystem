@@ -1,5 +1,6 @@
 ﻿using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyDesktop.Forms;
 
 namespace MedifySystem.MedifyDesktop.Controls;
 public partial class CtrManagePatients : UserControl
@@ -93,7 +94,7 @@ public partial class CtrManagePatients : UserControl
             return;
         }
 
-        
+        FrmAdmitPatient frmAdmitPatient = new(patient);
     }
 
     private Patient? GetSelectedPateintFromListView()
