@@ -31,6 +31,8 @@ partial class CtrManagePatients
     {
         lblControlTitle = new Label();
         grpRegisterPatient = new GroupBox();
+        lblGPName = new Label();
+        txtGPName = new TextBox();
         lblGenderMessage = new Label();
         txtGender = new TextBox();
         lblGender = new Label();
@@ -44,11 +46,12 @@ partial class CtrManagePatients
         lblLastName = new Label();
         lblFirstName = new Label();
         lvPatients = new ListView();
-        txtUserSearch = new TextBox();
+        txtSearch = new TextBox();
         btnSearch = new FontAwesome.Sharp.IconButton();
         btnShowAll = new FontAwesome.Sharp.IconButton();
         btnViewPatientDetails = new FontAwesome.Sharp.IconButton();
         btnAdmitPatient = new FontAwesome.Sharp.IconButton();
+        btnUpdateRecord = new FontAwesome.Sharp.IconButton();
         grpRegisterPatient.SuspendLayout();
         SuspendLayout();
         // 
@@ -64,6 +67,8 @@ partial class CtrManagePatients
         // 
         // grpRegisterPatient
         // 
+        grpRegisterPatient.Controls.Add(lblGPName);
+        grpRegisterPatient.Controls.Add(txtGPName);
         grpRegisterPatient.Controls.Add(lblGenderMessage);
         grpRegisterPatient.Controls.Add(txtGender);
         grpRegisterPatient.Controls.Add(lblGender);
@@ -78,25 +83,41 @@ partial class CtrManagePatients
         grpRegisterPatient.Controls.Add(lblFirstName);
         grpRegisterPatient.Location = new Point(3, 87);
         grpRegisterPatient.Name = "grpRegisterPatient";
-        grpRegisterPatient.Size = new Size(312, 250);
+        grpRegisterPatient.Size = new Size(312, 282);
         grpRegisterPatient.TabIndex = 2;
         grpRegisterPatient.TabStop = false;
         grpRegisterPatient.Text = "Register new patient";
+        // 
+        // lblGPName
+        // 
+        lblGPName.AutoSize = true;
+        lblGPName.Location = new Point(6, 129);
+        lblGPName.Name = "lblGPName";
+        lblGPName.Size = new Size(65, 16);
+        lblGPName.TabIndex = 13;
+        lblGPName.Text = "GP Name";
+        // 
+        // txtGPName
+        // 
+        txtGPName.Location = new Point(94, 126);
+        txtGPName.Name = "txtGPName";
+        txtGPName.Size = new Size(214, 23);
+        txtGPName.TabIndex = 12;
         // 
         // lblGenderMessage
         // 
         lblGenderMessage.AutoSize = true;
         lblGenderMessage.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblGenderMessage.Location = new Point(132, 182);
+        lblGenderMessage.Location = new Point(130, 211);
         lblGenderMessage.Name = "lblGenderMessage";
         lblGenderMessage.Size = new Size(174, 13);
         lblGenderMessage.TabIndex = 11;
-        lblGenderMessage.Text = "Please enter Pateint's gender";
+        lblGenderMessage.Text = "Please enter patient's gender";
         lblGenderMessage.Visible = false;
         // 
         // txtGender
         // 
-        txtGender.Location = new Point(94, 156);
+        txtGender.Location = new Point(92, 185);
         txtGender.Name = "txtGender";
         txtGender.Size = new Size(214, 23);
         txtGender.TabIndex = 10;
@@ -105,7 +126,7 @@ partial class CtrManagePatients
         // lblGender
         // 
         lblGender.AutoSize = true;
-        lblGender.Location = new Point(6, 129);
+        lblGender.Location = new Point(4, 158);
         lblGender.Name = "lblGender";
         lblGender.Size = new Size(53, 16);
         lblGender.TabIndex = 9;
@@ -114,7 +135,7 @@ partial class CtrManagePatients
         // cmbGender
         // 
         cmbGender.FormattingEnabled = true;
-        cmbGender.Location = new Point(94, 126);
+        cmbGender.Location = new Point(94, 155);
         cmbGender.Name = "cmbGender";
         cmbGender.Size = new Size(214, 24);
         cmbGender.TabIndex = 8;
@@ -143,7 +164,7 @@ partial class CtrManagePatients
         btnClearNewPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnClearNewPatient.IconSize = 25;
         btnClearNewPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnClearNewPatient.Location = new Point(6, 216);
+        btnClearNewPatient.Location = new Point(6, 238);
         btnClearNewPatient.Name = "btnClearNewPatient";
         btnClearNewPatient.Size = new Size(87, 32);
         btnClearNewPatient.TabIndex = 5;
@@ -159,7 +180,7 @@ partial class CtrManagePatients
         btnRegisterPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnRegisterPatient.IconSize = 30;
         btnRegisterPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnRegisterPatient.Location = new Point(157, 216);
+        btnRegisterPatient.Location = new Point(157, 238);
         btnRegisterPatient.Name = "btnRegisterPatient";
         btnRegisterPatient.Size = new Size(151, 32);
         btnRegisterPatient.TabIndex = 4;
@@ -210,12 +231,12 @@ partial class CtrManagePatients
         lvPatients.UseCompatibleStateImageBehavior = false;
         lvPatients.View = View.Details;
         // 
-        // txtUserSearch
+        // txtSearch
         // 
-        txtUserSearch.Location = new Point(321, 67);
-        txtUserSearch.Name = "txtUserSearch";
-        txtUserSearch.Size = new Size(251, 23);
-        txtUserSearch.TabIndex = 7;
+        txtSearch.Location = new Point(321, 67);
+        txtSearch.Name = "txtSearch";
+        txtSearch.Size = new Size(251, 23);
+        txtSearch.TabIndex = 7;
         // 
         // btnSearch
         // 
@@ -253,9 +274,9 @@ partial class CtrManagePatients
         btnViewPatientDetails.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnViewPatientDetails.IconSize = 30;
         btnViewPatientDetails.ImageAlign = ContentAlignment.MiddleRight;
-        btnViewPatientDetails.Location = new Point(558, 470);
+        btnViewPatientDetails.Location = new Point(568, 470);
         btnViewPatientDetails.Name = "btnViewPatientDetails";
-        btnViewPatientDetails.Size = new Size(135, 32);
+        btnViewPatientDetails.Size = new Size(125, 32);
         btnViewPatientDetails.TabIndex = 8;
         btnViewPatientDetails.Text = "View Details";
         btnViewPatientDetails.TextAlign = ContentAlignment.MiddleLeft;
@@ -272,21 +293,39 @@ partial class CtrManagePatients
         btnAdmitPatient.ImageAlign = ContentAlignment.MiddleRight;
         btnAdmitPatient.Location = new Point(321, 470);
         btnAdmitPatient.Name = "btnAdmitPatient";
-        btnAdmitPatient.Size = new Size(135, 32);
+        btnAdmitPatient.Size = new Size(95, 32);
         btnAdmitPatient.TabIndex = 9;
-        btnAdmitPatient.Text = "Admit Patient";
+        btnAdmitPatient.Text = "Admit";
         btnAdmitPatient.TextAlign = ContentAlignment.MiddleLeft;
         btnAdmitPatient.UseVisualStyleBackColor = true;
         btnAdmitPatient.Click += btnAdmitPatient_Click;
+        // 
+        // btnUpdateRecord
+        // 
+        btnUpdateRecord.FlatStyle = FlatStyle.Flat;
+        btnUpdateRecord.IconChar = FontAwesome.Sharp.IconChar.FileClipboard;
+        btnUpdateRecord.IconColor = Color.Black;
+        btnUpdateRecord.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnUpdateRecord.IconSize = 30;
+        btnUpdateRecord.ImageAlign = ContentAlignment.MiddleRight;
+        btnUpdateRecord.Location = new Point(422, 470);
+        btnUpdateRecord.Name = "btnUpdateRecord";
+        btnUpdateRecord.Size = new Size(140, 32);
+        btnUpdateRecord.TabIndex = 10;
+        btnUpdateRecord.Text = "Update Record";
+        btnUpdateRecord.TextAlign = ContentAlignment.MiddleLeft;
+        btnUpdateRecord.UseVisualStyleBackColor = true;
+        btnUpdateRecord.Click += btnUpdateRecord_Click;
         // 
         // CtrManagePatients
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
+        Controls.Add(btnUpdateRecord);
         Controls.Add(btnAdmitPatient);
         Controls.Add(btnViewPatientDetails);
-        Controls.Add(txtUserSearch);
+        Controls.Add(txtSearch);
         Controls.Add(btnSearch);
         Controls.Add(btnShowAll);
         Controls.Add(lvPatients);
@@ -306,7 +345,7 @@ partial class CtrManagePatients
     private Label lblControlTitle;
     private GroupBox grpRegisterPatient;
     private ListView lvPatients;
-    private TextBox txtUserSearch;
+    private TextBox txtSearch;
     private FontAwesome.Sharp.IconButton btnSearch;
     private FontAwesome.Sharp.IconButton btnShowAll;
     private FontAwesome.Sharp.IconButton btnViewPatientDetails;
@@ -323,4 +362,7 @@ partial class CtrManagePatients
     private ComboBox cmbGender;
     private Label lblGenderMessage;
     private TextBox txtGender;
+    private FontAwesome.Sharp.IconButton btnUpdateRecord;
+    private Label lblGPName;
+    private TextBox txtGPName;
 }

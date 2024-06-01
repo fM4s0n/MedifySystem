@@ -11,6 +11,7 @@ public partial class CtrManagePatients : UserControl
     private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
     private readonly List<Patient> _allPatients = [];
+    private readonly List<Patient> _lvPatientDataSource = [];
     private readonly List<User> _allHospitalOfficials = [];
 
     public CtrManagePatients()
@@ -42,17 +43,49 @@ public partial class CtrManagePatients : UserControl
     private void InitListView()
     {
         lvPatients.Columns.Add("Full Name");
-        lvPatients.Columns.Add("Assigned Hospital Official");
+        lvPatients.Columns.Add("GP Name");
+        lvPatients.Columns.Add("Admitted");
     }
 
-    private void btnShowAll_Click(object sender, EventArgs e)
-    {
+    private void btnShowAll_Click(object sender, EventArgs e) => Search(true);
 
+    private void btnSearch_Click(object sender, EventArgs e) => Search(false);
+
+    private void Search(bool showAll)
+    {
+        string searchTerm = txtSearch.Text.Trim();
+
+        if (showAll || string.IsNullOrWhiteSpace(searchTerm))
+        {
+            _lvPatientDataSource.Clear();
+            _lvPatientDataSource.AddRange(_allPatients);
+        }
+        else
+        {
+            _lvPatientDataSource.Clear();
+            _lvPatientDataSource.AddRange(_allPatients.Where
+                    (p => p.FirstName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                    || p.LastName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase))
+                    .OrderBy(p => p.LastName));
+        }
+
+        RefreshListView();
     }
 
-    private void btnSearch_Click(object sender, EventArgs e)
+    private void RefreshListView()
     {
+        lvPatients.Items.Clear();
 
+        foreach (Patient patient in _lvPatientDataSource)
+        {
+            ListViewItem lvi = new(patient.FullName);
+
+            lvi.SubItems.Add(patient.GPName);
+            lvi.SubItems.Add(patient.IsCurrentlyAdmitted() ? "Yes" : "No");
+            lvi.Tag = patient;
+
+            lvPatients.Items.Add(lvi);
+        }
     }
 
     private void btnViewPatientDetails_Click(object sender, EventArgs e)
@@ -64,8 +97,6 @@ public partial class CtrManagePatients : UserControl
 
         if (selectedPatient == null)
             return;
-
-
     }
 
     private void btnRegisterPatient_Click(object sender, EventArgs e)
@@ -75,24 +106,19 @@ public partial class CtrManagePatients : UserControl
             Gender? gender = GetGenderFromComboBox()!;
             string genderString;
 
-            if (gender == Gender.NonBinary)
-            {
-                genderString = txtGender.Text;
-            }
-            else
-            {
-                genderString = gender.ToString()!;
-            }
+            if (gender == Gender.NonBinary)            
+                genderString = txtGender.Text;            
+            else            
+                genderString = gender.ToString()!;            
 
-            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString);
-
+            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString, txtGPName.Text);
             _patientService!.InsertPatient(newPatient);
         }
     }
 
     private bool ValidateNewPatientFields()
     {
-        foreach (TextBox tb in new[] { txtFirstName, txtLastName, txtNHSNumber })
+        foreach (TextBox tb in new[] { txtFirstName, txtLastName, txtNHSNumber, txtGPName })
         {
             tb.Text = tb.Text.Trim();
 
@@ -190,9 +216,14 @@ public partial class CtrManagePatients : UserControl
         if (cmbGender.SelectedIndex == -1)
             return null;
 
-        if (cmbGender.SelectedItem is Gender selectedOption)        
+        if (cmbGender.SelectedItem is Gender selectedOption)
             return selectedOption;
 
         return null;
-    } 
+    }
+
+    private void btnUpdateRecord_Click(object sender, EventArgs e)
+    {
+
+    }
 }
