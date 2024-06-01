@@ -113,7 +113,9 @@ public partial class CtrManageUsers : UserControl
             RefreshUsersListView();
         }
         else
+        {
             MessageBox.Show("Failed to add new user", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     private bool AddNewUserFromFields()

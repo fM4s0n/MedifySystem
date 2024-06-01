@@ -97,6 +97,9 @@ public partial class CtrManagePatients : UserControl
 
         if (selectedPatient == null)
             return;
+
+        FrmViewPatientDetails frmViewPatientDetails = new(selectedPatient);
+        frmViewPatientDetails.ShowDialog(this);
     }
 
     private void btnRegisterPatient_Click(object sender, EventArgs e)
@@ -181,6 +184,7 @@ public partial class CtrManagePatients : UserControl
         }
 
         FrmAdmitPatient frmAdmitPatient = new(patient);
+        frmAdmitPatient.ShowDialog(this);
     }
 
     private Patient? GetSelectedPatientFromListView()
@@ -224,6 +228,12 @@ public partial class CtrManagePatients : UserControl
 
     private void btnUpdateRecord_Click(object sender, EventArgs e)
     {
+        Patient? patient = GetSelectedPatientFromListView();
 
+        if (patient == null) 
+            return;
+
+        FrmUpdatePatientRecord frmUpdatePatientRecord = new(patient);
+        frmUpdatePatientRecord.ShowDialog(this);
     }
 }
