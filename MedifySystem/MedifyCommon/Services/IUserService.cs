@@ -78,6 +78,11 @@ public interface IUserService
     /// </summary>
     void OnLogout();
 
+    /// <summary>
+    /// Gets all active patients for a user
+    /// </summary>
+    /// <param name="userId">user id of the HospitalOfficial</param>
+    /// <returns>List of Patient if found any, null if not</returns>
     List<Patient>? GetAllActivePatientsForUser(string userId);
 
 }

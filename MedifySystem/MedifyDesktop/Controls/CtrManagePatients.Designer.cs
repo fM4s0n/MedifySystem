@@ -1,4 +1,5 @@
-﻿namespace MedifySystem.MedifyDesktop.Controls;
+﻿
+namespace MedifySystem.MedifyDesktop.Controls;
 
 partial class CtrManagePatients
 {
@@ -30,6 +31,12 @@ partial class CtrManagePatients
     {
         lblControlTitle = new Label();
         grpRegisterPatient = new GroupBox();
+        lblGenderMessage = new Label();
+        txtGender = new TextBox();
+        lblGender = new Label();
+        cmbGender = new ComboBox();
+        lblNHSNumber = new Label();
+        txtNHSNumber = new TextBox();
         btnClearNewPatient = new FontAwesome.Sharp.IconButton();
         btnRegisterPatient = new FontAwesome.Sharp.IconButton();
         txtLastName = new TextBox();
@@ -57,6 +64,12 @@ partial class CtrManagePatients
         // 
         // grpRegisterPatient
         // 
+        grpRegisterPatient.Controls.Add(lblGenderMessage);
+        grpRegisterPatient.Controls.Add(txtGender);
+        grpRegisterPatient.Controls.Add(lblGender);
+        grpRegisterPatient.Controls.Add(cmbGender);
+        grpRegisterPatient.Controls.Add(lblNHSNumber);
+        grpRegisterPatient.Controls.Add(txtNHSNumber);
         grpRegisterPatient.Controls.Add(btnClearNewPatient);
         grpRegisterPatient.Controls.Add(btnRegisterPatient);
         grpRegisterPatient.Controls.Add(txtLastName);
@@ -65,10 +78,63 @@ partial class CtrManagePatients
         grpRegisterPatient.Controls.Add(lblFirstName);
         grpRegisterPatient.Location = new Point(3, 87);
         grpRegisterPatient.Name = "grpRegisterPatient";
-        grpRegisterPatient.Size = new Size(312, 163);
+        grpRegisterPatient.Size = new Size(312, 250);
         grpRegisterPatient.TabIndex = 2;
         grpRegisterPatient.TabStop = false;
         grpRegisterPatient.Text = "Register new patient";
+        // 
+        // lblGenderMessage
+        // 
+        lblGenderMessage.AutoSize = true;
+        lblGenderMessage.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblGenderMessage.Location = new Point(132, 182);
+        lblGenderMessage.Name = "lblGenderMessage";
+        lblGenderMessage.Size = new Size(174, 13);
+        lblGenderMessage.TabIndex = 11;
+        lblGenderMessage.Text = "Please enter Pateint's gender";
+        lblGenderMessage.Visible = false;
+        // 
+        // txtGender
+        // 
+        txtGender.Location = new Point(94, 156);
+        txtGender.Name = "txtGender";
+        txtGender.Size = new Size(214, 23);
+        txtGender.TabIndex = 10;
+        txtGender.Visible = false;
+        // 
+        // lblGender
+        // 
+        lblGender.AutoSize = true;
+        lblGender.Location = new Point(6, 129);
+        lblGender.Name = "lblGender";
+        lblGender.Size = new Size(53, 16);
+        lblGender.TabIndex = 9;
+        lblGender.Text = "Gender";
+        // 
+        // cmbGender
+        // 
+        cmbGender.FormattingEnabled = true;
+        cmbGender.Location = new Point(94, 126);
+        cmbGender.Name = "cmbGender";
+        cmbGender.Size = new Size(214, 24);
+        cmbGender.TabIndex = 8;
+        cmbGender.SelectedIndexChanged += cmbGender_SelectedIndexChanged;
+        // 
+        // lblNHSNumber
+        // 
+        lblNHSNumber.AutoSize = true;
+        lblNHSNumber.Location = new Point(6, 100);
+        lblNHSNumber.Name = "lblNHSNumber";
+        lblNHSNumber.Size = new Size(88, 16);
+        lblNHSNumber.TabIndex = 7;
+        lblNHSNumber.Text = "NHS Number";
+        // 
+        // txtNHSNumber
+        // 
+        txtNHSNumber.Location = new Point(94, 97);
+        txtNHSNumber.Name = "txtNHSNumber";
+        txtNHSNumber.Size = new Size(214, 23);
+        txtNHSNumber.TabIndex = 6;
         // 
         // btnClearNewPatient
         // 
@@ -77,7 +143,7 @@ partial class CtrManagePatients
         btnClearNewPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnClearNewPatient.IconSize = 25;
         btnClearNewPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnClearNewPatient.Location = new Point(8, 106);
+        btnClearNewPatient.Location = new Point(6, 216);
         btnClearNewPatient.Name = "btnClearNewPatient";
         btnClearNewPatient.Size = new Size(87, 32);
         btnClearNewPatient.TabIndex = 5;
@@ -93,7 +159,7 @@ partial class CtrManagePatients
         btnRegisterPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnRegisterPatient.IconSize = 30;
         btnRegisterPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnRegisterPatient.Location = new Point(152, 106);
+        btnRegisterPatient.Location = new Point(157, 216);
         btnRegisterPatient.Name = "btnRegisterPatient";
         btnRegisterPatient.Size = new Size(151, 32);
         btnRegisterPatient.TabIndex = 4;
@@ -104,14 +170,14 @@ partial class CtrManagePatients
         // 
         // txtLastName
         // 
-        txtLastName.Location = new Point(89, 68);
+        txtLastName.Location = new Point(94, 68);
         txtLastName.Name = "txtLastName";
         txtLastName.Size = new Size(214, 23);
         txtLastName.TabIndex = 3;
         // 
         // txtFirstName
         // 
-        txtFirstName.Location = new Point(89, 33);
+        txtFirstName.Location = new Point(94, 39);
         txtFirstName.Name = "txtFirstName";
         txtFirstName.Size = new Size(214, 23);
         txtFirstName.TabIndex = 2;
@@ -128,7 +194,7 @@ partial class CtrManagePatients
         // lblFirstName
         // 
         lblFirstName.AutoSize = true;
-        lblFirstName.Location = new Point(6, 36);
+        lblFirstName.Location = new Point(5, 42);
         lblFirstName.Name = "lblFirstName";
         lblFirstName.Size = new Size(77, 16);
         lblFirstName.TabIndex = 0;
@@ -251,4 +317,10 @@ partial class CtrManagePatients
     private FontAwesome.Sharp.IconButton btnAdmitPatient;
     private FontAwesome.Sharp.IconButton btnRegisterPatient;
     private FontAwesome.Sharp.IconButton btnClearNewPatient;
+    private Label lblNHSNumber;
+    private TextBox txtNHSNumber;
+    private Label lblGender;
+    private ComboBox cmbGender;
+    private Label lblGenderMessage;
+    private TextBox txtGender;
 }

@@ -1,4 +1,5 @@
-﻿using MedifySystem.MedifyCommon.Models;
+﻿using MedifySystem.MedifyCommon.Enums;
+using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyDesktop.Forms;
 
@@ -9,7 +10,8 @@ public partial class CtrManagePatients : UserControl
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
     private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
-    private List<Patient> _allPatients = [];
+    private readonly List<Patient> _allPatients = [];
+    private readonly List<User> _allHospitalOfficials = [];
 
     public CtrManagePatients()
     {
@@ -20,13 +22,27 @@ public partial class CtrManagePatients : UserControl
 
         _allPatients = _patientService!.GetAllPatients() ?? [];
 
+        Init();
+    }
+
+    private void Init()
+    {
         InitListView();
+        InitGenderComboBox();
+    }
+
+    private void InitGenderComboBox()
+    {
+        foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+            cmbGender.Items.Add(gender);
+
+        cmbGender.SelectedIndex = -1;
     }
 
     private void InitListView()
     {
         lvPatients.Columns.Add("Full Name");
-
+        lvPatients.Columns.Add("Assigned Hospital Official");
     }
 
     private void btnShowAll_Click(object sender, EventArgs e)
@@ -56,7 +72,19 @@ public partial class CtrManagePatients : UserControl
     {
         if (ValidateNewPatientFields())
         {
-            Patient newPatient = new(txtFirstName.Text, txtLastName.Text);
+            Gender? gender = GetGenderFromComboBox()!;
+            string genderString;
+
+            if (gender == Gender.NonBinary)
+            {
+                genderString = txtGender.Text;
+            }
+            else
+            {
+                genderString = gender.ToString()!;
+            }
+
+            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString);
 
             _patientService!.InsertPatient(newPatient);
         }
@@ -64,11 +92,43 @@ public partial class CtrManagePatients : UserControl
 
     private bool ValidateNewPatientFields()
     {
-        txtFirstName.Text = txtFirstName.Text.Trim();
-        txtLastName.Text = txtLastName.Text.Trim();
+        foreach (TextBox tb in new[] { txtFirstName, txtLastName, txtNHSNumber })
+        {
+            tb.Text = tb.Text.Trim();
 
-        if (string.IsNullOrWhiteSpace(txtFirstName.Text) || string.IsNullOrWhiteSpace(txtLastName.Text))
+            if (string.IsNullOrWhiteSpace(tb.Text))
+            {
+                MessageBox.Show("Please fill in all fields", "Incomplete details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+
+        if (ValidateGender() == false)
             return false;
+
+        return true;
+    }
+
+    private bool ValidateGender()
+    {
+        Gender? gender = GetGenderFromComboBox();
+
+        if (gender == null)
+        {
+            MessageBox.Show("Please select a gender", "Incomplete details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
+        }
+
+        if (gender == Gender.NonBinary)
+        {
+            txtGender.Text = txtGender.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(txtGender.Text))
+            {
+                MessageBox.Show("Please specify Patient's gender", "Incomplete details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
 
         return true;
     }
@@ -83,7 +143,7 @@ public partial class CtrManagePatients : UserControl
 
     private void btnAdmitPatient_Click(object sender, EventArgs e)
     {
-        Patient? patient = GetSelectedPateintFromListView();
+        Patient? patient = GetSelectedPatientFromListView();
 
         if (patient == null)
             return;
@@ -97,11 +157,42 @@ public partial class CtrManagePatients : UserControl
         FrmAdmitPatient frmAdmitPatient = new(patient);
     }
 
-    private Patient? GetSelectedPateintFromListView()
+    private Patient? GetSelectedPatientFromListView()
     {
         if (lvPatients.SelectedItems.Count == 0)
             return null;
 
         return lvPatients.SelectedItems[0]?.Tag as Patient ?? null;
     }
+
+    private void cmbGender_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (cmbGender.SelectedIndex == -1)
+            return;
+
+        Gender? gender = GetGenderFromComboBox();
+
+        if (gender == Gender.NonBinary)
+        {
+            txtGender.Visible = true;
+            lblGenderMessage.Visible = true;
+        }
+        else
+        {
+            txtGender.Text = string.Empty;
+            txtGender.Visible = false;
+            lblGenderMessage.Visible = false;
+        }
+    }
+
+    private Gender? GetGenderFromComboBox()
+    {
+        if (cmbGender.SelectedIndex == -1)
+            return null;
+
+        if (cmbGender.SelectedItem is Gender selectedOption)        
+            return selectedOption;
+
+        return null;
+    } 
 }
