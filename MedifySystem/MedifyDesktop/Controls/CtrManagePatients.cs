@@ -28,8 +28,16 @@ public partial class CtrManagePatients : UserControl
 
     private void Init()
     {
-        InitListView();
+        InitDateTimePicker();
+        InitListView(); 
         InitGenderComboBox();
+    }
+
+    private void InitDateTimePicker()
+    {
+        dtpDateOfBirth.MinDate = new DateTime(1900, 1, 1, 0, 0, 0);
+        dtpDateOfBirth.MaxDate = DateTime.Now;
+        dtpDateOfBirth.Value = new DateTime(1950, 1, 1, 0, 0, 0);
     }
 
     private void InitGenderComboBox()
@@ -93,7 +101,7 @@ public partial class CtrManagePatients : UserControl
         if (lvPatients.SelectedItems.Count == 0)
             MessageBox.Show("Please select a patient to view details", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-        Patient? selectedPatient = (Patient)lvPatients.SelectedItems[0].Tag;
+        Patient? selectedPatient = GetSelectedPatientFromListView();
 
         if (selectedPatient == null)
             return;
@@ -235,5 +243,10 @@ public partial class CtrManagePatients : UserControl
 
         FrmUpdatePatientRecord frmUpdatePatientRecord = new(patient);
         frmUpdatePatientRecord.ShowDialog(this);
+    }
+
+    private void lvPatients_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

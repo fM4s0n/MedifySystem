@@ -4,15 +4,17 @@ public class Patient : Person
 {
     public Patient() { }
 
-    public Patient(string firstName, string lastName, string nhsNumber, string gender, string gpName)
+    public Patient(string firstName, string lastName, string nhsNumber, string gender, string gpName, DateTime dateOfBirth)
     {
         FirstName = firstName;
         LastName = lastName;
         NHSNumber = nhsNumber;
         Gender = gender;
         GPName = gpName;
+        DateOfBirth = dateOfBirth;
     }
 
+    public DateTime DateOfBirth { get; set; }
     public string GPName { get; set; } = string.Empty;
     public string NHSNumber { get; set; } = string.Empty;
     public List<PatientAdmittance> Admittances { get; set; } = [];

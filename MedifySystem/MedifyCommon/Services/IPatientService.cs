@@ -36,6 +36,8 @@ public interface IPatientService
     /// <param name="patient">The patient to delete</param>
     void DeletePatient(Patient patient);
 
+    void UpdatePatient(Patient patient);
+
     /// <summary>
     /// Retrieve all patients for a given user
     /// </summary>
@@ -59,5 +61,5 @@ public interface IPatientService
     /// <param name="hospitalOfficialId">Id of the HospitalOfficial responsible for the care of the pateint</param>
     /// <param name="admissionReason">reason for the admittance</param>
     /// <returns>Original patient object with updates adnittances property<returns>
-    Patient? AdmitPateint(Patient patient, string hospitalOfficialId, string admissionReason);
+    Patient? AdmitPatient(Patient patient, string hospitalOfficialId, string admissionReason);
 }
