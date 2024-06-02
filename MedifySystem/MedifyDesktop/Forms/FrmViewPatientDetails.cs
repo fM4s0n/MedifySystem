@@ -11,7 +11,7 @@ public partial class FrmViewPatientDetails : Form
 {
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
-    private readonly Patient? _patient;
+    private Patient? _patient;
 
     public FrmViewPatientDetails(Patient patient)
     {
@@ -47,7 +47,9 @@ public partial class FrmViewPatientDetails : Form
     private void InitGenderComboBox()
     {
         foreach (Gender gender in Enum.GetValues(typeof(Gender)))        
-            cmbNewGender.Items.Add(gender);            
+            cmbNewGender.Items.Add(gender);
+
+        cmbNewGender.SelectedIndex = -1;
     }
 
     private void InitDateTimePicker()
@@ -62,6 +64,7 @@ public partial class FrmViewPatientDetails : Form
         if (ValidateAllFields() == false)
         {
             _patientService!.UpdatePatient (GetPatientFromControls());
+            RefreshPatientDetails();
         }
     }
 
@@ -109,4 +112,18 @@ public partial class FrmViewPatientDetails : Form
     }
 
     private void btnCancel_Click(object sender, EventArgs e) => Close();
+
+    private void cmbNewGender_SelectedIndexChanged(object sender, EventArgs e)
+    { 
+        if (cmbNewGender.SelectedItem is Gender.NonBinary)        
+            txtNewGender.Visible = true;        
+        else        
+            txtNewGender.Visible = false;        
+    }
+
+    private void RefreshPatientDetails()
+    {
+        _patient = _patientService!.GetPatientById(_patient!.Id);
+        SetPatientDetails();
+    }
 }

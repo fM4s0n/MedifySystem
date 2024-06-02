@@ -49,7 +49,7 @@ partial class FrmViewPatientDetails
         btnSave = new FontAwesome.Sharp.IconButton();
         btnCancel = new FontAwesome.Sharp.IconButton();
         lblNewDetailsHeading = new Label();
-        label1 = new Label();
+        lblCurrentDetails = new Label();
         lblDateOfBirth = new Label();
         lblCurrentDateOfBirth = new Label();
         dtpNewDateOfBirth = new DateTimePicker();
@@ -106,6 +106,7 @@ partial class FrmViewPatientDetails
         cmbNewGender.Name = "cmbNewGender";
         cmbNewGender.Size = new Size(244, 24);
         cmbNewGender.TabIndex = 20;
+        cmbNewGender.SelectedIndexChanged += cmbNewGender_SelectedIndexChanged;
         // 
         // lblNHSNumber
         // 
@@ -254,15 +255,15 @@ partial class FrmViewPatientDetails
         lblNewDetailsHeading.TabIndex = 34;
         lblNewDetailsHeading.Text = "New Details";
         // 
-        // label1
+        // lblCurrentDetails
         // 
-        label1.AutoSize = true;
-        label1.Font = new Font("Verdana", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        label1.Location = new Point(117, 57);
-        label1.Name = "label1";
-        label1.Size = new Size(172, 25);
-        label1.TabIndex = 35;
-        label1.Text = "Current Details";
+        lblCurrentDetails.AutoSize = true;
+        lblCurrentDetails.Font = new Font("Verdana", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblCurrentDetails.Location = new Point(117, 57);
+        lblCurrentDetails.Name = "lblCurrentDetails";
+        lblCurrentDetails.Size = new Size(172, 25);
+        lblCurrentDetails.TabIndex = 35;
+        lblCurrentDetails.Text = "Current Details";
         // 
         // lblDateOfBirth
         // 
@@ -298,7 +299,7 @@ partial class FrmViewPatientDetails
         Controls.Add(dtpNewDateOfBirth);
         Controls.Add(lblCurrentDateOfBirth);
         Controls.Add(lblDateOfBirth);
-        Controls.Add(label1);
+        Controls.Add(lblCurrentDetails);
         Controls.Add(lblNewDetailsHeading);
         Controls.Add(btnCancel);
         Controls.Add(btnSave);
@@ -350,7 +351,7 @@ partial class FrmViewPatientDetails
     private FontAwesome.Sharp.IconButton btnSave;
     private FontAwesome.Sharp.IconButton btnCancel;
     private Label lblNewDetailsHeading;
-    private Label label1;
+    private Label lblCurrentDetails;
     private Label lblDateOfBirth;
     private Label lblCurrentDateOfBirth;
     private DateTimePicker dtpNewDateOfBirth;
