@@ -49,16 +49,16 @@ public class PatientService : IPatientService
         int index = patient.Admittances.FindIndex(a => a.Id == patientAdmittanceId);
 
         if (admittance == null || index == -1)        
-            return null;        
+            return null;
 
-        admittance.DischargePatient(dischargeReason);
-        admittance.EndDate = DateTime.Now;
-
+        // update the patient admittance for the db
+        DateTime endDate = DateTime.Now;
+        admittance.DischargePatient(dischargeReason, endDate);
         _patientAdmittanceService?.UpdatePatientAdmittance(admittance);
 
-        patient.Admittances[index].DischargePatient(dischargeReason);
+        // update the patient admittance for the patient object
+        patient.Admittances[index].DischargePatient(dischargeReason, endDate);
         patient.Admittances[index].EndDate = DateTime.Now; 
-
         UpdatePatient(patient);
 
         return patient;

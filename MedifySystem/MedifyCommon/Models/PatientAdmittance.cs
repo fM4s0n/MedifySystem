@@ -23,7 +23,7 @@ public class PatientAdmittance
     public string AdmittanceReason { get; private set; } = string.Empty;
     public string? DischargeReason { get; set; } = null;
 
-    public void DischargePatient(string reason)
+    public void DischargePatient(string reason, DateTime endDate)
     {
         EndDate = DateTime.Now;
         DischargeReason = reason;

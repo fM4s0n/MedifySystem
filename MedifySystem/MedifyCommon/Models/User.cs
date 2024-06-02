@@ -36,4 +36,9 @@ public class User : Person
     {
         return Role == UserRole.Doctor || Role == UserRole.Nurse || Role == UserRole.Receptionist;
     }
+
+    public bool IsDoctorOrNurse()
+    {
+        return Role == UserRole.Doctor || Role == UserRole.Nurse;
+    }
 }
