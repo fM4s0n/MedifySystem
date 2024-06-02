@@ -28,18 +28,34 @@ partial class FrmManagePatientRecord
     /// </summary>
     private void InitializeComponent()
     {
+        lblFormTitle = new Label();
         SuspendLayout();
+        // 
+        // lblFormTitle
+        // 
+        lblFormTitle.AutoSize = true;
+        lblFormTitle.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblFormTitle.Location = new Point(231, 9);
+        lblFormTitle.Name = "lblFormTitle";
+        lblFormTitle.Size = new Size(210, 32);
+        lblFormTitle.TabIndex = 0;
+        lblFormTitle.Text = "Patient Record";
         // 
         // FrmManagePatientRecord
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(728, 473);
+        Controls.Add(lblFormTitle);
+        Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "FrmManagePatientRecord";
         StartPosition = FormStartPosition.CenterParent;
         Text = "Medify |  Patient Record";
         ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
+
+    private Label lblFormTitle;
 }

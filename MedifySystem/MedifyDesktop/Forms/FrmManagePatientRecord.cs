@@ -4,7 +4,7 @@ using MedifySystem.MedifyCommon.Services;
 namespace MedifySystem.MedifyDesktop.Forms;
 
 /// <summary>
-/// 
+/// Patient record management form.
 /// </summary>
 public partial class FrmManagePatientRecord : Form
 {
@@ -20,5 +20,18 @@ public partial class FrmManagePatientRecord : Form
             return;
 
         _patient = patient;
+
+        if (_patient == null)
+        {
+            MessageBox.Show("Patient not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Close();
+        }
+
+        Init();
+    }
+
+    private void Init()
+    {
+
     }
 }
