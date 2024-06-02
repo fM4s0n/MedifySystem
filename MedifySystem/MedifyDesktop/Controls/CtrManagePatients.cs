@@ -241,7 +241,7 @@ public partial class CtrManagePatients : UserControl
         if (patient == null) 
             return;
 
-        FrmUpdatePatientRecord frmUpdatePatientRecord = new(patient);
+        FrmManagePatientRecord frmUpdatePatientRecord = new(patient);
         frmUpdatePatientRecord.ShowDialog(this);
     }
 

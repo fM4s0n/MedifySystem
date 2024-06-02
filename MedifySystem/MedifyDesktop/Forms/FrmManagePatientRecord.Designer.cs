@@ -1,6 +1,6 @@
 ﻿namespace MedifySystem.MedifyDesktop.Forms;
 
-partial class FrmUpdatePatientRecord
+partial class FrmManagePatientRecord
 {
     /// <summary>
     /// Required designer variable.
@@ -30,14 +30,14 @@ partial class FrmUpdatePatientRecord
     {
         SuspendLayout();
         // 
-        // FrmUpdatePatientRecord
+        // FrmManagePatientRecord
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
-        Name = "FrmUpdatePatientRecord";
+        Name = "FrmManagePatientRecord";
         StartPosition = FormStartPosition.CenterParent;
-        Text = "FrmUpdatePatientRecord";
+        Text = "Medify |  Patient Record";
         ResumeLayout(false);
     }
 

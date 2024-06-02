@@ -1,15 +1,18 @@
 ﻿using MedifySystem.MedifyCommon.Models;
+using MedifySystem.MedifyCommon.Services;
 
 namespace MedifySystem.MedifyDesktop.Forms;
 
 /// <summary>
 /// 
 /// </summary>
-public partial class FrmUpdatePatientRecord : Form
+public partial class FrmManagePatientRecord : Form
 {
+    private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
+
     private readonly Patient? _patient; 
     
-    public FrmUpdatePatientRecord(Patient patient)
+    public FrmManagePatientRecord(Patient patient)
     {
         InitializeComponent();
 
