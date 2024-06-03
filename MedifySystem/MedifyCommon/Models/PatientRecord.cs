@@ -13,9 +13,4 @@ public class PatientRecord(string patientId, string admittanceId = "")
 
     [NotMapped]
     public List<PatientRecordDataEntry> DataEntries { get; private set; } = [];
-
-    public void SetAllDataEntries()
-    {
-        throw new NotImplementedException();
-    }
 }
