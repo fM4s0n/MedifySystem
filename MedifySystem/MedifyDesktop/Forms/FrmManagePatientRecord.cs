@@ -11,7 +11,8 @@ public partial class FrmManagePatientRecord : Form
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
     private readonly Patient? _patient; 
-    
+    private PatientRecord? _patientRecord;
+
     public FrmManagePatientRecord(Patient patient)
     {
         InitializeComponent();
@@ -32,6 +33,11 @@ public partial class FrmManagePatientRecord : Form
 
     private void Init()
     {
+        SetPatientRecord();
+    }
 
+    private void SetPatientRecord()
+    {
+        _patientRecord = _patientService!.GetPatientRecord(_patient!.Id);
     }
 }

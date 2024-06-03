@@ -7,6 +7,7 @@ public class PatientService : IPatientService
 {
     private readonly IDBService? _dbService = Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
     private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
+    private readonly IPatientRecordService? _patientRecordService = Program.ServiceProvider!.GetService(typeof(IPatientRecordService)) as IPatientRecordService;
 
     //<inheritdoc/>
     public void DeletePatient(Patient patient) => _dbService!.DeleteEntity(patient);
@@ -63,4 +64,16 @@ public class PatientService : IPatientService
 
         return patient;
     }
+
+    //<inheritdoc/>
+    public PatientRecord? GetPatientRecord(string id)
+    {
+        Patient? patient = GetPatientById(id);
+
+        if (patient == null)
+            return null;
+
+        return _patientRecordService?.GetPatientRecordByPatientId(patient.Id);
+    }
+
 }

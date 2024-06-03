@@ -58,8 +58,10 @@ public interface IPatientService
     /// Admit a patient
     /// </summary>
     /// <param name="patient">patient being admitted</param>
-    /// <param name="hospitalOfficialId">Id of the HospitalOfficial responsible for the care of the pateint</param>
+    /// <param name="hospitalOfficialId">Id of the HospitalOfficial responsible for the care of the patient</param>
     /// <param name="admissionReason">reason for the admittance</param>
-    /// <returns>Original patient object with updates adnittances property<returns>
+    /// <returns>Original patient object with updates admittances property<returns>
     Patient? AdmitPatient(Patient patient, string hospitalOfficialId, string admissionReason);
+
+    PatientRecord? GetPatientRecord(string id);
 }
