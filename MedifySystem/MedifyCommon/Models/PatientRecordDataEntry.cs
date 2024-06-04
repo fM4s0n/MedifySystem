@@ -12,3 +12,4 @@ public class PatientRecordDataEntry (string patientRecordId, string data)
     public DateTime EntryDate { get; private set; } = DateTime.Now;
     public string Data { get; private set; } = data; 
 }
+s
