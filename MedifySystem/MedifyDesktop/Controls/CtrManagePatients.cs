@@ -7,12 +7,9 @@ namespace MedifySystem.MedifyDesktop.Controls;
 public partial class CtrManagePatients : UserControl
 {
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
-    private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
-    private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
     private readonly List<Patient> _allPatients = [];
-    private readonly List<Patient> _lvPatientDataSource = [];
-    private readonly List<User> _allHospitalOfficials = [];
+    private List<Patient> _lvPatientDataSource = [];
 
     public CtrManagePatients()
     {
@@ -122,7 +119,7 @@ public partial class CtrManagePatients : UserControl
             else            
                 genderString = gender.ToString()!;            
 
-            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString, txtGPName.Text);
+            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString, txtGPName.Text, dtpDateOfBirth.Value);
             _patientService!.InsertPatient(newPatient);
         }
     }
