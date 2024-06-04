@@ -1,5 +1,6 @@
 ﻿using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyDesktop.Controls;
 
 namespace MedifySystem.MedifyDesktop.Forms;
 
@@ -34,10 +35,23 @@ public partial class FrmManagePatientRecord : Form
     private void Init()
     {
         SetPatientRecord();
+
+        SetPanelItems();
     }
 
     private void SetPatientRecord()
     {
         _patientRecord = _patientService!.GetPatientRecord(_patient!.Id);
+    }
+
+    private void SetPanelItems()
+    {
+        for (int i = 0; i < _patientRecord!.DataEntries.Count; i++)
+        {
+            PatientRecordDataEntry dataEntry = _patientRecord.DataEntries[i];
+
+            CtrPatientRecordDataEntryPanelItem panelItem = new(i, dataEntry);
+            flpPatientRecordDataEntries.Controls.Add(panelItem);
+        }
     }
 }

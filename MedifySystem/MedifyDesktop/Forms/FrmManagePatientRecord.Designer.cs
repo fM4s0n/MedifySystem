@@ -57,7 +57,7 @@ partial class FrmManagePatientRecord
         // 
         flpPatientRecordDataEntries.Location = new Point(231, 91);
         flpPatientRecordDataEntries.Name = "flpPatientRecordDataEntries";
-        flpPatientRecordDataEntries.Size = new Size(572, 477);
+        flpPatientRecordDataEntries.Size = new Size(581, 477);
         flpPatientRecordDataEntries.TabIndex = 2;
         // 
         // FrmManagePatientRecord
