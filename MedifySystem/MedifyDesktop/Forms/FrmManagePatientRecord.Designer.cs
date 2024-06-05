@@ -31,6 +31,12 @@ partial class FrmManagePatientRecord
         lblFormTitle = new Label();
         lblPatientName = new Label();
         flpPatientRecordDataEntries = new FlowLayoutPanel();
+        btnAddDataEntry = new FontAwesome.Sharp.IconButton();
+        grpAddDataEntry = new GroupBox();
+        txtData = new TextBox();
+        cmbType = new ComboBox();
+        lblType = new Label();
+        grpAddDataEntry.SuspendLayout();
         SuspendLayout();
         // 
         // lblFormTitle
@@ -55,17 +61,71 @@ partial class FrmManagePatientRecord
         // 
         // flpPatientRecordDataEntries
         // 
-        flpPatientRecordDataEntries.Location = new Point(231, 91);
+        flpPatientRecordDataEntries.Location = new Point(348, 100);
         flpPatientRecordDataEntries.Name = "flpPatientRecordDataEntries";
         flpPatientRecordDataEntries.Size = new Size(581, 477);
         flpPatientRecordDataEntries.TabIndex = 2;
+        // 
+        // btnAddDataEntry
+        // 
+        btnAddDataEntry.IconChar = FontAwesome.Sharp.IconChar.Plus;
+        btnAddDataEntry.IconColor = Color.Black;
+        btnAddDataEntry.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnAddDataEntry.IconSize = 30;
+        btnAddDataEntry.ImageAlign = ContentAlignment.TopRight;
+        btnAddDataEntry.Location = new Point(140, 389);
+        btnAddDataEntry.Name = "btnAddDataEntry";
+        btnAddDataEntry.Size = new Size(165, 33);
+        btnAddDataEntry.TabIndex = 3;
+        btnAddDataEntry.Text = "Submit Data Entry";
+        btnAddDataEntry.TextAlign = ContentAlignment.MiddleLeft;
+        btnAddDataEntry.UseVisualStyleBackColor = true;
+        // 
+        // grpAddDataEntry
+        // 
+        grpAddDataEntry.Controls.Add(lblType);
+        grpAddDataEntry.Controls.Add(cmbType);
+        grpAddDataEntry.Controls.Add(txtData);
+        grpAddDataEntry.Controls.Add(btnAddDataEntry);
+        grpAddDataEntry.Location = new Point(12, 100);
+        grpAddDataEntry.Name = "grpAddDataEntry";
+        grpAddDataEntry.Size = new Size(330, 428);
+        grpAddDataEntry.TabIndex = 4;
+        grpAddDataEntry.TabStop = false;
+        grpAddDataEntry.Text = "Add New Data Entry";
+        // 
+        // txtData
+        // 
+        txtData.Location = new Point(6, 150);
+        txtData.Multiline = true;
+        txtData.Name = "txtData";
+        txtData.Size = new Size(318, 236);
+        txtData.TabIndex = 4;
+        // 
+        // cmbType
+        // 
+        cmbType.FormattingEnabled = true;
+        cmbType.Location = new Point(51, 27);
+        cmbType.Name = "cmbType";
+        cmbType.Size = new Size(273, 24);
+        cmbType.TabIndex = 5;
+        // 
+        // lblType
+        // 
+        lblType.AutoSize = true;
+        lblType.Location = new Point(6, 30);
+        lblType.Name = "lblType";
+        lblType.Size = new Size(39, 16);
+        lblType.TabIndex = 6;
+        lblType.Text = "Type";
         // 
         // FrmManagePatientRecord
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
-        ClientSize = new Size(815, 580);
+        ClientSize = new Size(941, 580);
+        Controls.Add(grpAddDataEntry);
         Controls.Add(flpPatientRecordDataEntries);
         Controls.Add(lblPatientName);
         Controls.Add(lblFormTitle);
@@ -73,6 +133,8 @@ partial class FrmManagePatientRecord
         Name = "FrmManagePatientRecord";
         StartPosition = FormStartPosition.CenterParent;
         Text = "Medify |  Patient Record";
+        grpAddDataEntry.ResumeLayout(false);
+        grpAddDataEntry.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -82,4 +144,9 @@ partial class FrmManagePatientRecord
     private Label lblFormTitle;
     private Label lblPatientName;
     private FlowLayoutPanel flpPatientRecordDataEntries;
+    private FontAwesome.Sharp.IconButton btnAddDataEntry;
+    private GroupBox grpAddDataEntry;
+    private TextBox txtData;
+    private Label lblType;
+    private ComboBox cmbType;
 }
