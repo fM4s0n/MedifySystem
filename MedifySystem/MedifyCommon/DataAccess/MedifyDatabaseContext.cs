@@ -34,7 +34,7 @@ public class MedifyDatabaseContext(DbContextOptions<MedifyDatabaseContext> optio
         modelBuilder.Entity<PatientRecord>()
             .HasMany(pr => pr.DataEntries)
             .WithOne()
-            .HasForeignKey(prde => prde.PatientRecordId)
+            .HasForeignKey(de => de.PatientRecordId)
             .OnDelete(DeleteBehavior.Cascade);
 
         base.OnModelCreating(modelBuilder);

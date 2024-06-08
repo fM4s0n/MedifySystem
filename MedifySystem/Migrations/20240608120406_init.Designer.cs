@@ -11,25 +11,77 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedifySystem.Migrations
 {
     [DbContext(typeof(MedifyDatabaseContext))]
-    [Migration("20240529141034_init")]
+    [Migration("20240608120406_init")]
     partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
+
+            modelBuilder.Entity("MedifySystem.MedifyCommon.Models.Appointment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AppointmentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HospitalOfficialId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCancelled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PateintAttended")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments", (string)null);
+                });
 
             modelBuilder.Entity("MedifySystem.MedifyCommon.Models.Patient", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GPName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NHSNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -105,7 +157,12 @@ namespace MedifySystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientRecordId");
 
                     b.ToTable("PatientRecordDataEntries", (string)null);
                 });
@@ -120,6 +177,10 @@ namespace MedifySystem.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -151,9 +212,23 @@ namespace MedifySystem.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MedifySystem.MedifyCommon.Models.PatientRecordDataEntry", b =>
+                {
+                    b.HasOne("MedifySystem.MedifyCommon.Models.PatientRecord", null)
+                        .WithMany("DataEntries")
+                        .HasForeignKey("PatientRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MedifySystem.MedifyCommon.Models.Patient", b =>
                 {
                     b.Navigation("Admittances");
+                });
+
+            modelBuilder.Entity("MedifySystem.MedifyCommon.Models.PatientRecord", b =>
+                {
+                    b.Navigation("DataEntries");
                 });
 #pragma warning restore 612, 618
         }

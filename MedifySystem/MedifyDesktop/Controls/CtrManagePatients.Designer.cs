@@ -32,6 +32,8 @@ partial class CtrManagePatients
     {
         lblControlTitle = new Label();
         grpRegisterPatient = new GroupBox();
+        dtpDateOfBirth = new DateTimePicker();
+        lblDateOfBirth = new Label();
         lblGPName = new Label();
         txtGPName = new TextBox();
         lblGenderMessage = new Label();
@@ -53,9 +55,10 @@ partial class CtrManagePatients
         btnViewPatientDetails = new FontAwesome.Sharp.IconButton();
         btnAdmitPatient = new FontAwesome.Sharp.IconButton();
         btnPatientRecord = new FontAwesome.Sharp.IconButton();
-        lblDateOfBirth = new Label();
-        dtpDateOfBirth = new DateTimePicker();
+        grpPatientOptions = new GroupBox();
+        btnBookAppointment = new FontAwesome.Sharp.IconButton();
         grpRegisterPatient.SuspendLayout();
+        grpPatientOptions.SuspendLayout();
         SuspendLayout();
         // 
         // lblControlTitle
@@ -86,12 +89,28 @@ partial class CtrManagePatients
         grpRegisterPatient.Controls.Add(txtFirstName);
         grpRegisterPatient.Controls.Add(lblLastName);
         grpRegisterPatient.Controls.Add(lblFirstName);
-        grpRegisterPatient.Location = new Point(0, 96);
+        grpRegisterPatient.Location = new Point(382, 57);
         grpRegisterPatient.Name = "grpRegisterPatient";
         grpRegisterPatient.Size = new Size(312, 311);
         grpRegisterPatient.TabIndex = 2;
         grpRegisterPatient.TabStop = false;
         grpRegisterPatient.Text = "Register new patient";
+        // 
+        // dtpDateOfBirth
+        // 
+        dtpDateOfBirth.Location = new Point(98, 95);
+        dtpDateOfBirth.Name = "dtpDateOfBirth";
+        dtpDateOfBirth.Size = new Size(210, 23);
+        dtpDateOfBirth.TabIndex = 15;
+        // 
+        // lblDateOfBirth
+        // 
+        lblDateOfBirth.AutoSize = true;
+        lblDateOfBirth.Location = new Point(5, 100);
+        lblDateOfBirth.Name = "lblDateOfBirth";
+        lblDateOfBirth.Size = new Size(91, 16);
+        lblDateOfBirth.TabIndex = 14;
+        lblDateOfBirth.Text = "Date of Birth";
         // 
         // lblGPName
         // 
@@ -229,17 +248,16 @@ partial class CtrManagePatients
         // lvPatients
         // 
         lvPatients.GridLines = true;
-        lvPatients.Location = new Point(321, 96);
+        lvPatients.Location = new Point(3, 95);
         lvPatients.Name = "lvPatients";
-        lvPatients.Size = new Size(372, 368);
+        lvPatients.Size = new Size(372, 406);
         lvPatients.TabIndex = 3;
         lvPatients.UseCompatibleStateImageBehavior = false;
         lvPatients.View = View.Details;
-        lvPatients.SelectedIndexChanged += lvPatients_SelectedIndexChanged;
         // 
         // txtSearch
         // 
-        txtSearch.Location = new Point(321, 67);
+        txtSearch.Location = new Point(4, 62);
         txtSearch.Name = "txtSearch";
         txtSearch.Size = new Size(251, 23);
         txtSearch.TabIndex = 7;
@@ -251,7 +269,7 @@ partial class CtrManagePatients
         btnSearch.IconColor = Color.Black;
         btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnSearch.IconSize = 20;
-        btnSearch.Location = new Point(578, 62);
+        btnSearch.Location = new Point(261, 57);
         btnSearch.Name = "btnSearch";
         btnSearch.Size = new Size(34, 32);
         btnSearch.TabIndex = 6;
@@ -264,7 +282,7 @@ partial class CtrManagePatients
         btnShowAll.IconChar = FontAwesome.Sharp.IconChar.None;
         btnShowAll.IconColor = Color.Black;
         btnShowAll.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        btnShowAll.Location = new Point(618, 62);
+        btnShowAll.Location = new Point(301, 57);
         btnShowAll.Name = "btnShowAll";
         btnShowAll.Size = new Size(75, 32);
         btnShowAll.TabIndex = 5;
@@ -280,7 +298,7 @@ partial class CtrManagePatients
         btnViewPatientDetails.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnViewPatientDetails.IconSize = 30;
         btnViewPatientDetails.ImageAlign = ContentAlignment.MiddleRight;
-        btnViewPatientDetails.Location = new Point(569, 470);
+        btnViewPatientDetails.Location = new Point(6, 60);
         btnViewPatientDetails.Name = "btnViewPatientDetails";
         btnViewPatientDetails.Size = new Size(122, 32);
         btnViewPatientDetails.TabIndex = 8;
@@ -297,7 +315,7 @@ partial class CtrManagePatients
         btnAdmitPatient.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnAdmitPatient.IconSize = 30;
         btnAdmitPatient.ImageAlign = ContentAlignment.MiddleRight;
-        btnAdmitPatient.Location = new Point(321, 470);
+        btnAdmitPatient.Location = new Point(6, 22);
         btnAdmitPatient.Name = "btnAdmitPatient";
         btnAdmitPatient.Size = new Size(122, 32);
         btnAdmitPatient.TabIndex = 9;
@@ -314,39 +332,51 @@ partial class CtrManagePatients
         btnPatientRecord.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnPatientRecord.IconSize = 30;
         btnPatientRecord.ImageAlign = ContentAlignment.MiddleRight;
-        btnPatientRecord.Location = new Point(445, 470);
+        btnPatientRecord.Location = new Point(134, 22);
         btnPatientRecord.Name = "btnPatientRecord";
-        btnPatientRecord.Size = new Size(122, 32);
+        btnPatientRecord.Size = new Size(174, 32);
         btnPatientRecord.TabIndex = 10;
-        btnPatientRecord.Text = "Record";
+        btnPatientRecord.Text = "Patient Record";
         btnPatientRecord.TextAlign = ContentAlignment.MiddleLeft;
         btnPatientRecord.UseVisualStyleBackColor = true;
         btnPatientRecord.Click += btnUpdateRecord_Click;
         // 
-        // lblDateOfBirth
+        // grpPatientOptions
         // 
-        lblDateOfBirth.AutoSize = true;
-        lblDateOfBirth.Location = new Point(5, 100);
-        lblDateOfBirth.Name = "lblDateOfBirth";
-        lblDateOfBirth.Size = new Size(91, 16);
-        lblDateOfBirth.TabIndex = 14;
-        lblDateOfBirth.Text = "Date of Birth";
+        grpPatientOptions.Controls.Add(btnBookAppointment);
+        grpPatientOptions.Controls.Add(btnAdmitPatient);
+        grpPatientOptions.Controls.Add(btnViewPatientDetails);
+        grpPatientOptions.Controls.Add(btnPatientRecord);
+        grpPatientOptions.Location = new Point(382, 403);
+        grpPatientOptions.Name = "grpPatientOptions";
+        grpPatientOptions.Size = new Size(312, 98);
+        grpPatientOptions.TabIndex = 11;
+        grpPatientOptions.TabStop = false;
+        grpPatientOptions.Text = "Patient Options";
         // 
-        // dtpDateOfBirth
+        // btnBookAppointment
         // 
-        dtpDateOfBirth.Location = new Point(98, 95);
-        dtpDateOfBirth.Name = "dtpDateOfBirth";
-        dtpDateOfBirth.Size = new Size(210, 23);
-        dtpDateOfBirth.TabIndex = 15;
+        btnBookAppointment.FlatStyle = FlatStyle.Flat;
+        btnBookAppointment.IconChar = FontAwesome.Sharp.IconChar.CalendarPlus;
+        btnBookAppointment.IconColor = Color.Black;
+        btnBookAppointment.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnBookAppointment.IconSize = 30;
+        btnBookAppointment.ImageAlign = ContentAlignment.MiddleRight;
+        btnBookAppointment.Location = new Point(134, 60);
+        btnBookAppointment.Name = "btnBookAppointment";
+        btnBookAppointment.Size = new Size(172, 32);
+        btnBookAppointment.TabIndex = 11;
+        btnBookAppointment.Text = "Book Appointment";
+        btnBookAppointment.TextAlign = ContentAlignment.MiddleLeft;
+        btnBookAppointment.UseVisualStyleBackColor = true;
+        btnBookAppointment.Click += btnBookAppointment_Click;
         // 
         // CtrManagePatients
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
-        Controls.Add(btnPatientRecord);
-        Controls.Add(btnAdmitPatient);
-        Controls.Add(btnViewPatientDetails);
+        Controls.Add(grpPatientOptions);
         Controls.Add(txtSearch);
         Controls.Add(btnSearch);
         Controls.Add(btnShowAll);
@@ -358,6 +388,7 @@ partial class CtrManagePatients
         Size = new Size(696, 505);
         grpRegisterPatient.ResumeLayout(false);
         grpRegisterPatient.PerformLayout();
+        grpPatientOptions.ResumeLayout(false);
         ResumeLayout(false);
         PerformLayout();
     }
@@ -391,4 +422,6 @@ partial class CtrManagePatients
     private TextBox txtGPName;
     private DateTimePicker dtpDateOfBirth;
     private Label lblDateOfBirth;
+    private GroupBox grpPatientOptions;
+    private FontAwesome.Sharp.IconButton btnBookAppointment;
 }

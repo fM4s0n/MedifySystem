@@ -22,8 +22,6 @@ public class User : Person
     public string PasswordHash { get; set; } = string.Empty;
     public bool RequiresPasswordReset { get; set; } = true;
     public UserRole Role { get; set; } = UserRole.SystemAdmin;
-    [NotMapped]
-    public List<Patient> ActivePatients { get; set; } = [];
 
     /// <summary>
     /// Is the user a hospital official

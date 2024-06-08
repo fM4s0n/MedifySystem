@@ -110,7 +110,6 @@ public class UserService(IDBService? dbService = null) : IUserService
                         return true;
                     }
 
-
                     LogInUser(user);
                 }
 
@@ -150,5 +149,15 @@ public class UserService(IDBService? dbService = null) : IUserService
         }
 
         return patients;
+    }
+
+    //<inheritdoc/>
+    public List<Appointment>? GetAllUpcomingAppointmentsForUse(User user)
+    {
+        if (user.IsDoctorOrNurse() == false || user == null)
+            return null;
+
+
+
     }
 }

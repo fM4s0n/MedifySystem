@@ -21,12 +21,14 @@ public partial class CtrManagePatients : UserControl
         _allPatients = _patientService!.GetAllPatients() ?? [];
 
         Init();
+
+        btnBookAppointment.IconChar
     }
 
     private void Init()
     {
         InitDateTimePicker();
-        InitListView(); 
+        InitListView();
         InitGenderComboBox();
     }
 
@@ -114,10 +116,10 @@ public partial class CtrManagePatients : UserControl
             Gender? gender = GetGenderFromComboBox()!;
             string genderString;
 
-            if (gender == Gender.NonBinary)            
-                genderString = txtGender.Text;            
-            else            
-                genderString = gender.ToString()!;            
+            if (gender == Gender.NonBinary)
+                genderString = txtGender.Text;
+            else
+                genderString = gender.ToString()!;
 
             Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString, txtGPName.Text, dtpDateOfBirth.Value);
             _patientService!.InsertPatient(newPatient);
@@ -235,15 +237,16 @@ public partial class CtrManagePatients : UserControl
     {
         Patient? patient = GetSelectedPatientFromListView();
 
-        if (patient == null) 
+        if (patient == null)
             return;
 
         FrmManagePatientRecord frmUpdatePatientRecord = new(patient);
         frmUpdatePatientRecord.ShowDialog(this);
     }
 
-    private void lvPatients_SelectedIndexChanged(object sender, EventArgs e)
+    private void btnBookAppointment_Click(object sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        FrmBookAppointment frmBookAppointment = new();
+        frmBookAppointment.ShowDialog(this);
     }
 }

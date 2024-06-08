@@ -84,5 +84,5 @@ public interface IUserService
     /// <param name="userId">user id of the HospitalOfficial</param>
     /// <returns>List of Patient if found any, null if not</returns>
     List<Patient>? GetAllActivePatientsForUser(string userId);
-
+    List<Appointment>? GetAllUpcomingAppointmentsForUserById();
 }

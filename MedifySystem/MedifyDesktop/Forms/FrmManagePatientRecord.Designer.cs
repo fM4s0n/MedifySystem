@@ -33,9 +33,10 @@ partial class FrmManagePatientRecord
         flpPatientRecordDataEntries = new FlowLayoutPanel();
         btnAddDataEntry = new FontAwesome.Sharp.IconButton();
         grpAddDataEntry = new GroupBox();
-        txtData = new TextBox();
-        cmbType = new ComboBox();
         lblType = new Label();
+        cmbType = new ComboBox();
+        txtData = new TextBox();
+        lblData = new Label();
         grpAddDataEntry.SuspendLayout();
         SuspendLayout();
         // 
@@ -73,7 +74,7 @@ partial class FrmManagePatientRecord
         btnAddDataEntry.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnAddDataEntry.IconSize = 30;
         btnAddDataEntry.ImageAlign = ContentAlignment.TopRight;
-        btnAddDataEntry.Location = new Point(140, 389);
+        btnAddDataEntry.Location = new Point(159, 438);
         btnAddDataEntry.Name = "btnAddDataEntry";
         btnAddDataEntry.Size = new Size(165, 33);
         btnAddDataEntry.TabIndex = 3;
@@ -83,32 +84,17 @@ partial class FrmManagePatientRecord
         // 
         // grpAddDataEntry
         // 
+        grpAddDataEntry.Controls.Add(lblData);
         grpAddDataEntry.Controls.Add(lblType);
         grpAddDataEntry.Controls.Add(cmbType);
         grpAddDataEntry.Controls.Add(txtData);
         grpAddDataEntry.Controls.Add(btnAddDataEntry);
         grpAddDataEntry.Location = new Point(12, 100);
         grpAddDataEntry.Name = "grpAddDataEntry";
-        grpAddDataEntry.Size = new Size(330, 428);
+        grpAddDataEntry.Size = new Size(330, 477);
         grpAddDataEntry.TabIndex = 4;
         grpAddDataEntry.TabStop = false;
         grpAddDataEntry.Text = "Add New Data Entry";
-        // 
-        // txtData
-        // 
-        txtData.Location = new Point(6, 150);
-        txtData.Multiline = true;
-        txtData.Name = "txtData";
-        txtData.Size = new Size(318, 236);
-        txtData.TabIndex = 4;
-        // 
-        // cmbType
-        // 
-        cmbType.FormattingEnabled = true;
-        cmbType.Location = new Point(51, 27);
-        cmbType.Name = "cmbType";
-        cmbType.Size = new Size(273, 24);
-        cmbType.TabIndex = 5;
         // 
         // lblType
         // 
@@ -118,6 +104,31 @@ partial class FrmManagePatientRecord
         lblType.Size = new Size(39, 16);
         lblType.TabIndex = 6;
         lblType.Text = "Type";
+        // 
+        // cmbType
+        // 
+        cmbType.FormattingEnabled = true;
+        cmbType.Location = new Point(51, 27);
+        cmbType.Name = "cmbType";
+        cmbType.Size = new Size(273, 24);
+        cmbType.TabIndex = 5;
+        // 
+        // txtData
+        // 
+        txtData.Location = new Point(6, 81);
+        txtData.Multiline = true;
+        txtData.Name = "txtData";
+        txtData.Size = new Size(318, 351);
+        txtData.TabIndex = 4;
+        // 
+        // lblData
+        // 
+        lblData.AutoSize = true;
+        lblData.Location = new Point(6, 62);
+        lblData.Name = "lblData";
+        lblData.Size = new Size(42, 16);
+        lblData.TabIndex = 7;
+        lblData.Text = "Text:";
         // 
         // FrmManagePatientRecord
         // 
@@ -149,4 +160,5 @@ partial class FrmManagePatientRecord
     private TextBox txtData;
     private Label lblType;
     private ComboBox cmbType;
+    private Label lblData;
 }

@@ -12,17 +12,22 @@ namespace MedifySystem.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "PatientRecordDataEntries",
+                name: "Appointments",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    PatientRecordId = table.Column<string>(type: "TEXT", nullable: false),
-                    EntryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Data = table.Column<string>(type: "TEXT", nullable: false)
+                    PatientId = table.Column<string>(type: "TEXT", nullable: false),
+                    AppointmentDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    HospitalOfficialId = table.Column<string>(type: "TEXT", nullable: false),
+                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PateintAttended = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientRecordDataEntries", x => x.Id);
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,8 +48,12 @@ namespace MedifySystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    GPName = table.Column<string>(type: "TEXT", nullable: false),
+                    NHSNumber = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false)
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,11 +70,33 @@ namespace MedifySystem.Migrations
                     RequiresPasswordReset = table.Column<bool>(type: "INTEGER", nullable: false),
                     Role = table.Column<int>(type: "INTEGER", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false)
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatientRecordDataEntries",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    PatientRecordId = table.Column<string>(type: "TEXT", nullable: false),
+                    EntryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Data = table.Column<string>(type: "TEXT", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientRecordDataEntries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PatientRecordDataEntries_PatientRecords_PatientRecordId",
+                        column: x => x.PatientRecordId,
+                        principalTable: "PatientRecords",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,11 +126,19 @@ namespace MedifySystem.Migrations
                 name: "IX_PatientAdmittances_PatientId",
                 table: "PatientAdmittances",
                 column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientRecordDataEntries_PatientRecordId",
+                table: "PatientRecordDataEntries",
+                column: "PatientRecordId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Appointments");
+
             migrationBuilder.DropTable(
                 name: "PatientAdmittances");
 
@@ -107,13 +146,13 @@ namespace MedifySystem.Migrations
                 name: "PatientRecordDataEntries");
 
             migrationBuilder.DropTable(
-                name: "PatientRecords");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "PatientRecords");
         }
     }
 }
