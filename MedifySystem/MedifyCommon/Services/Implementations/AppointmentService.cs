@@ -13,6 +13,7 @@ public class AppointmentService : IAppointmentService
     //<inheritdoc/>
     public List<Appointment>? GetAllAppointments() => _dbService!.GetEntitiesByType<Appointment>() ?? null;
 
+    //<inheritdoc/>
     public List<Appointment>? GetAppointmentsByUserId(string id) => _dbService!.GetEntitiesByType<Appointment>()?.Where(a => a.Id == id).ToList() ?? null;
 
     //<inheritdoc/>

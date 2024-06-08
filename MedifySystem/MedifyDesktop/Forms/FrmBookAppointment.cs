@@ -1,18 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MedifySystem.MedifyCommon.Models;
 
 namespace MedifySystem.MedifyDesktop.Forms;
+
+/// <summary>
+/// 
+/// </summary>
 public partial class FrmBookAppointment : Form
 {
-    public FrmBookAppointment()
+    public FrmBookAppointment(Patient patient)
     {
         InitializeComponent();
+
+        if (DesignMode)
+            return;
+
+        ArgumentNullException.ThrowIfNull(patient);
+
+        Init();
+    }
+
+    private void Init()
+    {
+
     }
 }

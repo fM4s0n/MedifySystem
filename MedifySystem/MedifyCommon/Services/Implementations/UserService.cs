@@ -152,7 +152,7 @@ public class UserService(IDBService? dbService = null) : IUserService
     }
 
     //<inheritdoc/>
-    public List<Appointment>? GetAllUpcomingAppointmentsForUse(User user)
+    public List<Appointment>? GetAllUpcomingAppointmentsForUser(User user)
     {
         if (user.IsDoctorOrNurse() == false || user == null)
             return null;
