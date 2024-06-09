@@ -30,16 +30,17 @@ partial class FrmBookAppointment
     {
         btnFormTitle = new Label();
         lblPatientFullName = new Label();
-        comboBox1 = new ComboBox();
-        dateTimePicker1 = new DateTimePicker();
-        monthCalendar1 = new MonthCalendar();
+        cmbSelectHospitalOfficial = new ComboBox();
+        lblSelectHospitalOfficial = new Label();
+        btnConfirm = new FontAwesome.Sharp.IconButton();
+        btnCancel = new FontAwesome.Sharp.IconButton();
         SuspendLayout();
         // 
         // btnFormTitle
         // 
         btnFormTitle.AutoSize = true;
         btnFormTitle.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        btnFormTitle.Location = new Point(106, 9);
+        btnFormTitle.Location = new Point(79, 9);
         btnFormTitle.Name = "btnFormTitle";
         btnFormTitle.Size = new Size(264, 32);
         btnFormTitle.TabIndex = 0;
@@ -49,42 +50,70 @@ partial class FrmBookAppointment
         // 
         lblPatientFullName.AutoSize = true;
         lblPatientFullName.Font = new Font("Verdana", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblPatientFullName.Location = new Point(150, 49);
+        lblPatientFullName.Location = new Point(123, 49);
         lblPatientFullName.Name = "lblPatientFullName";
         lblPatientFullName.Size = new Size(178, 23);
         lblPatientFullName.TabIndex = 1;
         lblPatientFullName.Text = "Pateint Full Name";
         // 
-        // comboBox1
+        // cmbSelectHospitalOfficial
         // 
-        comboBox1.FormattingEnabled = true;
-        comboBox1.Location = new Point(63, 130);
-        comboBox1.Name = "comboBox1";
-        comboBox1.Size = new Size(121, 24);
-        comboBox1.TabIndex = 2;
+        cmbSelectHospitalOfficial.FormattingEnabled = true;
+        cmbSelectHospitalOfficial.Location = new Point(176, 95);
+        cmbSelectHospitalOfficial.Name = "cmbSelectHospitalOfficial";
+        cmbSelectHospitalOfficial.Size = new Size(194, 24);
+        cmbSelectHospitalOfficial.TabIndex = 2;
         // 
-        // dateTimePicker1
+        // lblSelectHospitalOfficial
         // 
-        dateTimePicker1.Location = new Point(63, 199);
-        dateTimePicker1.Name = "dateTimePicker1";
-        dateTimePicker1.Size = new Size(200, 23);
-        dateTimePicker1.TabIndex = 3;
+        lblSelectHospitalOfficial.AutoSize = true;
+        lblSelectHospitalOfficial.Location = new Point(18, 103);
+        lblSelectHospitalOfficial.Name = "lblSelectHospitalOfficial";
+        lblSelectHospitalOfficial.Size = new Size(152, 16);
+        lblSelectHospitalOfficial.TabIndex = 5;
+        lblSelectHospitalOfficial.Text = "Select Doctor/ Nurse:";
         // 
-        // monthCalendar1
+        // btnConfirm
         // 
-        monthCalendar1.CalendarDimensions = new Size(2, 2);
-        monthCalendar1.Location = new Point(587, 112);
-        monthCalendar1.Name = "monthCalendar1";
-        monthCalendar1.TabIndex = 4;
+        btnConfirm.IconChar = FontAwesome.Sharp.IconChar.CalendarPlus;
+        btnConfirm.IconColor = Color.Black;
+        btnConfirm.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnConfirm.IconSize = 25;
+        btnConfirm.ImageAlign = ContentAlignment.MiddleRight;
+        btnConfirm.Location = new Point(305, 436);
+        btnConfirm.Name = "btnConfirm";
+        btnConfirm.Size = new Size(97, 39);
+        btnConfirm.TabIndex = 6;
+        btnConfirm.Text = "Confirm";
+        btnConfirm.TextAlign = ContentAlignment.MiddleLeft;
+        btnConfirm.UseVisualStyleBackColor = true;
+        btnConfirm.Click += btnConfirm_Click;
+        // 
+        // btnCancel
+        // 
+        btnCancel.IconChar = FontAwesome.Sharp.IconChar.X;
+        btnCancel.IconColor = Color.Black;
+        btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnCancel.IconSize = 25;
+        btnCancel.ImageAlign = ContentAlignment.BottomRight;
+        btnCancel.Location = new Point(12, 436);
+        btnCancel.Name = "btnCancel";
+        btnCancel.Size = new Size(85, 39);
+        btnCancel.TabIndex = 7;
+        btnCancel.Text = "Cancel";
+        btnCancel.TextAlign = ContentAlignment.MiddleLeft;
+        btnCancel.UseVisualStyleBackColor = true;
+        btnCancel.Click += btnCancel_Click;
         // 
         // FrmBookAppointment
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1195, 480);
-        Controls.Add(monthCalendar1);
-        Controls.Add(dateTimePicker1);
-        Controls.Add(comboBox1);
+        ClientSize = new Size(414, 480);
+        Controls.Add(btnCancel);
+        Controls.Add(btnConfirm);
+        Controls.Add(lblSelectHospitalOfficial);
+        Controls.Add(cmbSelectHospitalOfficial);
         Controls.Add(lblPatientFullName);
         Controls.Add(btnFormTitle);
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -99,7 +128,8 @@ partial class FrmBookAppointment
 
     private Label btnFormTitle;
     private Label lblPatientFullName;
-    private ComboBox comboBox1;
-    private DateTimePicker dateTimePicker1;
-    private MonthCalendar monthCalendar1;
+    private ComboBox cmbSelectHospitalOfficial;
+    private Label lblSelectHospitalOfficial;
+    private FontAwesome.Sharp.IconButton btnConfirm;
+    private FontAwesome.Sharp.IconButton btnCancel;
 }

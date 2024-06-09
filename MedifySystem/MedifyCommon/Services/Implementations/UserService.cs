@@ -152,12 +152,18 @@ public class UserService(IDBService? dbService = null) : IUserService
     }
 
     //<inheritdoc/>
-    public List<Appointment>? GetAllUpcomingAppointmentsForUser(User user)
+    public List<Appointment>? GetAllUpcomingAppointmentsForUser(User user, bool includedCancelled)
     {
         if (user.IsDoctorOrNurse() == false || user == null)
             return null;
 
+        List<Appointment>? appointments = _dbService!.GetEntitiesByType<Appointment>()?
+            .Where(a => a.HospitalOfficialId == user.Id && a.AppointmentStartDate > DateTime.Now)
+            .ToList();
 
+        if (includedCancelled == false && appointments != null)        
+            appointments = appointments.Where(a => a.IsCancelled == false).ToList();
 
+        return appointments;
     }
 }
