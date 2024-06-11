@@ -1,4 +1,5 @@
-﻿namespace MedifySystem.MedifyDesktop.Forms;
+﻿
+namespace MedifySystem.MedifyDesktop.Forms;
 
 partial class FrmBookAppointment
 {
@@ -34,6 +35,11 @@ partial class FrmBookAppointment
         lblSelectHospitalOfficial = new Label();
         btnConfirm = new FontAwesome.Sharp.IconButton();
         btnCancel = new FontAwesome.Sharp.IconButton();
+        lblSelectDate = new Label();
+        dtpSelectDate = new DateTimePicker();
+        lblSelectTime = new Label();
+        cmbSelectTime = new ComboBox();
+        btnShowTimes = new FontAwesome.Sharp.IconButton();
         SuspendLayout();
         // 
         // btnFormTitle
@@ -59,15 +65,16 @@ partial class FrmBookAppointment
         // cmbSelectHospitalOfficial
         // 
         cmbSelectHospitalOfficial.FormattingEnabled = true;
-        cmbSelectHospitalOfficial.Location = new Point(176, 95);
+        cmbSelectHospitalOfficial.Location = new Point(206, 95);
         cmbSelectHospitalOfficial.Name = "cmbSelectHospitalOfficial";
-        cmbSelectHospitalOfficial.Size = new Size(194, 24);
+        cmbSelectHospitalOfficial.Size = new Size(218, 24);
         cmbSelectHospitalOfficial.TabIndex = 2;
+        cmbSelectHospitalOfficial.SelectedIndexChanged += cmbSelectHospitalOfficial_SelectedIndexChanged;
         // 
         // lblSelectHospitalOfficial
         // 
         lblSelectHospitalOfficial.AutoSize = true;
-        lblSelectHospitalOfficial.Location = new Point(18, 103);
+        lblSelectHospitalOfficial.Location = new Point(12, 103);
         lblSelectHospitalOfficial.Name = "lblSelectHospitalOfficial";
         lblSelectHospitalOfficial.Size = new Size(152, 16);
         lblSelectHospitalOfficial.TabIndex = 5;
@@ -80,7 +87,7 @@ partial class FrmBookAppointment
         btnConfirm.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnConfirm.IconSize = 25;
         btnConfirm.ImageAlign = ContentAlignment.MiddleRight;
-        btnConfirm.Location = new Point(305, 436);
+        btnConfirm.Location = new Point(327, 250);
         btnConfirm.Name = "btnConfirm";
         btnConfirm.Size = new Size(97, 39);
         btnConfirm.TabIndex = 6;
@@ -96,7 +103,7 @@ partial class FrmBookAppointment
         btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnCancel.IconSize = 25;
         btnCancel.ImageAlign = ContentAlignment.BottomRight;
-        btnCancel.Location = new Point(12, 436);
+        btnCancel.Location = new Point(12, 250);
         btnCancel.Name = "btnCancel";
         btnCancel.Size = new Size(85, 39);
         btnCancel.TabIndex = 7;
@@ -105,11 +112,65 @@ partial class FrmBookAppointment
         btnCancel.UseVisualStyleBackColor = true;
         btnCancel.Click += btnCancel_Click;
         // 
+        // lblSelectDate
+        // 
+        lblSelectDate.AutoSize = true;
+        lblSelectDate.Location = new Point(12, 141);
+        lblSelectDate.Name = "lblSelectDate";
+        lblSelectDate.Size = new Size(186, 16);
+        lblSelectDate.TabIndex = 8;
+        lblSelectDate.Text = "Select Appointment Dates:";
+        // 
+        // dtpSelectDate
+        // 
+        dtpSelectDate.Location = new Point(206, 136);
+        dtpSelectDate.Name = "dtpSelectDate";
+        dtpSelectDate.Size = new Size(218, 23);
+        dtpSelectDate.TabIndex = 9;
+        // 
+        // lblSelectTime
+        // 
+        lblSelectTime.AutoSize = true;
+        lblSelectTime.Location = new Point(12, 203);
+        lblSelectTime.Name = "lblSelectTime";
+        lblSelectTime.Size = new Size(179, 16);
+        lblSelectTime.TabIndex = 10;
+        lblSelectTime.Text = "Select Appointment Time:";
+        // 
+        // cmbSelectTime
+        // 
+        cmbSelectTime.FormattingEnabled = true;
+        cmbSelectTime.Location = new Point(206, 200);
+        cmbSelectTime.Name = "cmbSelectTime";
+        cmbSelectTime.Size = new Size(218, 24);
+        cmbSelectTime.TabIndex = 11;
+        // 
+        // btnShowTimes
+        // 
+        btnShowTimes.IconChar = FontAwesome.Sharp.IconChar.CalendarAlt;
+        btnShowTimes.IconColor = Color.Black;
+        btnShowTimes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnShowTimes.IconSize = 25;
+        btnShowTimes.ImageAlign = ContentAlignment.MiddleRight;
+        btnShowTimes.Location = new Point(292, 165);
+        btnShowTimes.Name = "btnShowTimes";
+        btnShowTimes.Size = new Size(132, 29);
+        btnShowTimes.TabIndex = 12;
+        btnShowTimes.Text = "Show Times";
+        btnShowTimes.TextAlign = ContentAlignment.MiddleLeft;
+        btnShowTimes.UseVisualStyleBackColor = true;
+        btnShowTimes.Click += btnShowTimes_Click;
+        // 
         // FrmBookAppointment
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(414, 480);
+        ClientSize = new Size(436, 309);
+        Controls.Add(btnShowTimes);
+        Controls.Add(cmbSelectTime);
+        Controls.Add(lblSelectTime);
+        Controls.Add(dtpSelectDate);
+        Controls.Add(lblSelectDate);
         Controls.Add(btnCancel);
         Controls.Add(btnConfirm);
         Controls.Add(lblSelectHospitalOfficial);
@@ -119,10 +180,12 @@ partial class FrmBookAppointment
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "FrmBookAppointment";
         StartPosition = FormStartPosition.CenterParent;
-        Text = "FrmBookAppointment";
+        Text = "Medify | Book Appointment";
         ResumeLayout(false);
         PerformLayout();
     }
+
+
 
     #endregion
 
@@ -132,4 +195,9 @@ partial class FrmBookAppointment
     private Label lblSelectHospitalOfficial;
     private FontAwesome.Sharp.IconButton btnConfirm;
     private FontAwesome.Sharp.IconButton btnCancel;
+    private Label lblSelectDate;
+    private DateTimePicker dtpSelectDate;
+    private Label lblSelectTime;
+    private ComboBox cmbSelectTime;
+    private FontAwesome.Sharp.IconButton btnShowTimes;
 }

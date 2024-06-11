@@ -158,7 +158,7 @@ public class UserService(IDBService? dbService = null) : IUserService
             return null;
 
         List<Appointment>? appointments = _dbService!.GetEntitiesByType<Appointment>()?
-            .Where(a => a.HospitalOfficialId == user.Id && a.AppointmentStartDate > DateTime.Now)
+            .Where(a => a.HospitalOfficialId == user.Id && a.StartDate > DateTime.Now)
             .ToList();
 
         if (includedCancelled == false && appointments != null)        

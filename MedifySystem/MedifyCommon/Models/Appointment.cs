@@ -7,9 +7,9 @@ public class Appointment
 {
     public string Id { get; private set; } = Guid.NewGuid().ToString();
     public string PatientId { get; private set; } = string.Empty;
-    public DateTime AppointmentStartDate { get; private set; } = DateTime.Now;
+    public DateTime StartDate { get; private set; } = DateTime.Now;
     public TimeSpan Duration { get; private set; } = TimeSpan.FromMinutes(60);
-    public DateTime AppointmentEndDate => AppointmentStartDate.Add(Duration);
+    public DateTime EndDate => StartDate.Add(Duration);
     public string HospitalOfficialId { get; private set; } = string.Empty;
     public string Notes { get; private set; } = string.Empty;
     public bool IsCancelled { get; private set; } = false;
@@ -20,7 +20,7 @@ public class Appointment
     public Appointment(string patientId, DateTime appointmentStartDate, TimeSpan duration, string doctorId, string notes)
     {
         PatientId = patientId;
-        AppointmentStartDate = appointmentStartDate;
+        StartDate = appointmentStartDate;
         Duration = duration;
         HospitalOfficialId = doctorId;
         Notes = notes;
@@ -44,7 +44,7 @@ public class Appointment
 
     public void Reschedule(DateTime newAppointmentDate)
     {
-        AppointmentStartDate = newAppointmentDate;
+        StartDate = newAppointmentDate;
         UpdatedDate = DateTime.Now;
     }
 }
