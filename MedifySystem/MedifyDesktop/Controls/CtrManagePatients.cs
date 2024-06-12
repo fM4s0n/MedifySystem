@@ -21,8 +21,6 @@ public partial class CtrManagePatients : UserControl
         _allPatients = _patientService!.GetAllPatients() ?? [];
 
         Init();
-
-        btnBookAppointment.IconChar
     }
 
     private void Init()
@@ -246,7 +244,15 @@ public partial class CtrManagePatients : UserControl
 
     private void btnBookAppointment_Click(object sender, EventArgs e)
     {
-        FrmBookAppointment frmBookAppointment = new();
-        frmBookAppointment.ShowDialog(this);
+        if (GetSelectedPatientFromListView() is Patient selectedPateint)
+        {
+            FrmBookAppointment frmBookAppointment = new(selectedPateint);
+            frmBookAppointment.ShowDialog(this);
+        }
+        else
+        {
+            MessageBox.Show("Please select a patient", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
     }
 }
