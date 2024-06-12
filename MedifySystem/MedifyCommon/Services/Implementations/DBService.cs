@@ -102,7 +102,7 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
     {
         try
         {
-            List<T>? entities = _dbContext.Set<T>().ToList();
+            List<T>? entities = [.. _dbContext.Set<T>()];
 
             return entities ?? throw new KeyNotFoundException("Entity not found");
         }
@@ -111,15 +111,5 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return null;
         }
-    }
-
-    public T GetEntity<T>(int id) where T : class
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<T> GetEntities<T>() where T : class
-    {
-        throw new NotImplementedException();
     }
 }

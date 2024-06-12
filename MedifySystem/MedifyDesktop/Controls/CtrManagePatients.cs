@@ -9,7 +9,7 @@ public partial class CtrManagePatients : UserControl
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
     private readonly List<Patient> _allPatients = [];
-    private List<Patient> _lvPatientDataSource = [];
+    private readonly List<Patient> _lvPatientDataSource = [];
 
     public CtrManagePatients()
     {
@@ -96,7 +96,7 @@ public partial class CtrManagePatients : UserControl
     private void btnViewPatientDetails_Click(object sender, EventArgs e)
     {
         if (lvPatients.SelectedItems.Count == 0)
-            MessageBox.Show("Please select a patient to view details", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Please select a patient", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
         Patient? selectedPatient = GetSelectedPatientFromListView();
 
@@ -111,15 +111,9 @@ public partial class CtrManagePatients : UserControl
     {
         if (ValidateNewPatientFields())
         {
-            Gender? gender = GetGenderFromComboBox()!;
-            string genderString;
+            Gender gender = GetGenderFromComboBox();
 
-            if (gender == Gender.NonBinary)
-                genderString = txtGender.Text;
-            else
-                genderString = gender.ToString()!;
-
-            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, genderString, txtGPName.Text, dtpDateOfBirth.Value);
+            Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, gender, txtGPName.Text, dtpDateOfBirth.Value);
             _patientService!.InsertPatient(newPatient);
         }
     }
@@ -153,17 +147,6 @@ public partial class CtrManagePatients : UserControl
             return false;
         }
 
-        if (gender == Gender.NonBinary)
-        {
-            txtGender.Text = txtGender.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(txtGender.Text))
-            {
-                MessageBox.Show("Please specify Patient's gender", "Incomplete details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-        }
-
         return true;
     }
 
@@ -180,7 +163,11 @@ public partial class CtrManagePatients : UserControl
         Patient? patient = GetSelectedPatientFromListView();
 
         if (patient == null)
+        {
+            MessageBox.Show("Please select a patient", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
+        }
+
 
         if (patient.IsCurrentlyAdmitted())
         {
@@ -200,35 +187,15 @@ public partial class CtrManagePatients : UserControl
         return lvPatients.SelectedItems[0]?.Tag as Patient ?? null;
     }
 
-    private void cmbGender_SelectedIndexChanged(object sender, EventArgs e)
+    private Gender GetGenderFromComboBox()
     {
         if (cmbGender.SelectedIndex == -1)
-            return;
-
-        Gender? gender = GetGenderFromComboBox();
-
-        if (gender == Gender.NonBinary)
-        {
-            txtGender.Visible = true;
-            lblGenderMessage.Visible = true;
-        }
-        else
-        {
-            txtGender.Text = string.Empty;
-            txtGender.Visible = false;
-            lblGenderMessage.Visible = false;
-        }
-    }
-
-    private Gender? GetGenderFromComboBox()
-    {
-        if (cmbGender.SelectedIndex == -1)
-            return null;
+            return Gender.None;
 
         if (cmbGender.SelectedItem is Gender selectedOption)
             return selectedOption;
 
-        return null;
+        return Gender.None;
     }
 
     private void btnUpdateRecord_Click(object sender, EventArgs e)
@@ -236,7 +203,10 @@ public partial class CtrManagePatients : UserControl
         Patient? patient = GetSelectedPatientFromListView();
 
         if (patient == null)
+        {
+            MessageBox.Show("Please select a patient", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
+        }
 
         FrmManagePatientRecord frmUpdatePatientRecord = new(patient);
         frmUpdatePatientRecord.ShowDialog(this);
