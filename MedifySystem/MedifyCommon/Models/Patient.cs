@@ -1,10 +1,12 @@
-﻿namespace MedifySystem.MedifyCommon.Models;
+﻿using MedifySystem.MedifyCommon.Enums;
+
+namespace MedifySystem.MedifyCommon.Models;
 
 public class Patient : Person 
 {
     public Patient() { }
 
-    public Patient(string firstName, string lastName, string nhsNumber, string gender, string gpName, DateTime dateOfBirth)
+    public Patient(string firstName, string lastName, string nhsNumber, Gender gender, string gpName, DateTime dateOfBirth)
     {
         FirstName = firstName;
         LastName = lastName;

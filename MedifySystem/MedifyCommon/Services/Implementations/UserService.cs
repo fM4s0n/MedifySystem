@@ -166,4 +166,15 @@ public class UserService(IDBService? dbService = null) : IUserService
 
         return appointments;
     }
+
+    //<inheritdoc/>
+    public User? GetUserByEmail(string email)
+    {
+        List<User>? users = GetAllUsers();
+
+        if (users == null)
+            return null;
+        
+        return users.FirstOrDefault(u => u.Email == email) ?? null;
+    }
 }

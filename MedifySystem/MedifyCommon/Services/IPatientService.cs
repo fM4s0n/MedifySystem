@@ -64,4 +64,6 @@ public interface IPatientService
     Patient? AdmitPatient(Patient patient, string hospitalOfficialId, string admissionReason);
 
     PatientRecord? GetPatientRecord(string id);
+
+    Patient? GetPatientByNHSNumber(string nhsNumber);
 }

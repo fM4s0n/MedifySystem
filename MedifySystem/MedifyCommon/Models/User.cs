@@ -10,12 +10,13 @@ public class User : Person
 {
     public User() { }
 
-    public User(string email, UserRole userRole, string firstName, string lastName)
+    public User(string email, UserRole userRole, string firstName, string lastName, Gender gender)
     { 
         Email = email;
         Role = userRole;
         FirstName = firstName;
         LastName = lastName;
+        Gender = gender;
     }
 
     public string Email { get; set; } = string.Empty;

@@ -91,4 +91,11 @@ public interface IUserService
     /// <param name="user">User who is conducting the appointment</param>
     /// <returns>List of appointment object or null if non found or not a doctor or nurse</returns>
     List<Appointment>? GetAllUpcomingAppointmentsForUser(User user, bool includedCancelled);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    User? GetUserByEmail(string email);
 }

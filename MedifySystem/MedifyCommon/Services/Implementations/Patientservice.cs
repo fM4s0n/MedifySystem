@@ -76,4 +76,9 @@ public class PatientService : IPatientService
         return _patientRecordService?.GetPatientRecordByPatientId(patient.Id);
     }
 
+    //<inheritdoc/>
+    public Patient? GetPatientByNHSNumber(string nhsNumber)
+    {
+       return GetAllPatients()?.FirstOrDefault(p => p.NHSNumber == nhsNumber) ?? null;
+    }
 }
