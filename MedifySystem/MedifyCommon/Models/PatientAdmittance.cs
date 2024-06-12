@@ -25,7 +25,7 @@ public class PatientAdmittance
 
     public void DischargePatient(string reason, DateTime endDate)
     {
-        EndDate = DateTime.Now;
+        EndDate = endDate;
         DischargeReason = reason;
     }
 }

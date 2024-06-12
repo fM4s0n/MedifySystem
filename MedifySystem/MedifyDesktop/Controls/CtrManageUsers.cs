@@ -33,6 +33,7 @@ public partial class CtrManageUsers : UserControl
         cmbRole.DataSource = Enum.GetValues(typeof(UserRole));
 
         InitListView();
+        InitGenderComboBox();
     }
 
     private void InitListView()
@@ -41,6 +42,11 @@ public partial class CtrManageUsers : UserControl
         lvUsers.Columns.Add("Full Name", colWidth);
         lvUsers.Columns.Add("Role", colWidth);
         lvUsers.Columns.Add("Active Patients", colWidth);
+    }
+
+    private void InitGenderComboBox()
+    {
+       cmbGender.DataSource = Enum.GetValues(typeof(UserRole));
     }
 
     private void ShowAllUsers() => Search(string.Empty);    
@@ -126,7 +132,10 @@ public partial class CtrManageUsers : UserControl
         if (cmbRole.SelectedItem is UserRole role == false)
             return false;
 
-        User newUser = new(txtEmail.Text, role, txtFirstName.Text, txtLastName.Text);
+        if (cmbGender.SelectedItem is Gender gender == false)
+            return false;
+
+        User newUser = new(txtEmail.Text, role, txtFirstName.Text, txtLastName.Text, gender);
 
         // default password for new user is "password" - will force user to change password on first login
         newUser.PasswordHash = PasswordHelper.HashPassword(newUser, "password");

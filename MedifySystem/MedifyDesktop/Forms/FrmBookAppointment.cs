@@ -1,6 +1,5 @@
 ﻿using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
-using Windows.System.UserProfile;
 
 namespace MedifySystem.MedifyDesktop.Forms;
 
@@ -96,8 +95,6 @@ public partial class FrmBookAppointment : Form
             MessageBox.Show("Please fill in all fields.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
-
-
     }
 
     private bool ValidateAllFields()

@@ -42,7 +42,7 @@ public partial class FrmViewPatientDetails : Form
         lblCurrentDateOfBirth.Text = _patient.DateOfBirth.ToString("dd/MM/yyyy");
         lblCurrentNHSNumber.Text = _patient.NHSNumber;
         lblCurrentGPName.Text = _patient.GPName;
-        lblCurrentGender.Text = _patient.Gender;
+        lblCurrentGender.Text = _patient.Gender.ToString();
     }
     private void InitGenderComboBox()
     {
@@ -63,7 +63,15 @@ public partial class FrmViewPatientDetails : Form
     {
         if (ValidateAllFields() == false)
         {
-            _patientService!.UpdatePatient (GetPatientFromControls());
+            Patient? patient = GetPatientFromControls();
+
+            if (patient == null)
+            {
+                MessageBox.Show("Failed to save patient details", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _patientService!.UpdatePatient(patient);
             RefreshPatientDetails();
         }
     }
@@ -100,15 +108,20 @@ public partial class FrmViewPatientDetails : Form
         return false;            
     }
 
-    private Patient GetPatientFromControls()
+    private Patient? GetPatientFromControls()
     {
-        return new Patient(
-            txtNewFirstName.Text, 
-            txtNewLastName.Text, 
-            txtNewNHSNumber.Text, 
-            cmbNewGender.Text, 
-            txtNewGPName.Text, 
-            dtpNewDateOfBirth.Value);
+        if (cmbNewGender.SelectedItem is Gender gender)
+        {
+            return new Patient(
+                txtNewFirstName.Text,
+                txtNewLastName.Text,
+                txtNewNHSNumber.Text,
+                gender,
+                txtNewGPName.Text,
+                dtpNewDateOfBirth.Value);
+        }
+
+        return null;
     }
 
     private void btnCancel_Click(object sender, EventArgs e) => Close();

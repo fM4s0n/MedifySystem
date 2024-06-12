@@ -34,6 +34,8 @@ partial class CtrManageUsers
         btnSearch = new FontAwesome.Sharp.IconButton();
         txtUserSearch = new TextBox();
         grpAddUser = new GroupBox();
+        cmbGender = new ComboBox();
+        lblGender = new Label();
         lblEmail = new Label();
         txtEmail = new TextBox();
         btnAddNewUser = new FontAwesome.Sharp.IconButton();
@@ -104,6 +106,8 @@ partial class CtrManageUsers
         // 
         // grpAddUser
         // 
+        grpAddUser.Controls.Add(cmbGender);
+        grpAddUser.Controls.Add(lblGender);
         grpAddUser.Controls.Add(lblEmail);
         grpAddUser.Controls.Add(txtEmail);
         grpAddUser.Controls.Add(btnAddNewUser);
@@ -119,6 +123,23 @@ partial class CtrManageUsers
         grpAddUser.TabIndex = 5;
         grpAddUser.TabStop = false;
         grpAddUser.Text = "Add New User";
+        // 
+        // cmbGender
+        // 
+        cmbGender.FormattingEnabled = true;
+        cmbGender.Location = new Point(87, 154);
+        cmbGender.Name = "cmbGender";
+        cmbGender.Size = new Size(204, 24);
+        cmbGender.TabIndex = 10;
+        // 
+        // lblGender
+        // 
+        lblGender.AutoSize = true;
+        lblGender.Location = new Point(7, 158);
+        lblGender.Name = "lblGender";
+        lblGender.Size = new Size(53, 16);
+        lblGender.TabIndex = 9;
+        lblGender.Text = "Gender";
         // 
         // lblEmail
         // 
@@ -144,7 +165,7 @@ partial class CtrManageUsers
         btnAddNewUser.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnAddNewUser.IconSize = 25;
         btnAddNewUser.ImageAlign = ContentAlignment.MiddleRight;
-        btnAddNewUser.Location = new Point(191, 153);
+        btnAddNewUser.Location = new Point(191, 193);
         btnAddNewUser.Name = "btnAddNewUser";
         btnAddNewUser.Size = new Size(100, 32);
         btnAddNewUser.TabIndex = 6;
@@ -238,4 +259,6 @@ partial class CtrManageUsers
     private FontAwesome.Sharp.IconButton btnAddNewUser;
     private Label lblEmail;
     private TextBox txtEmail;
+    private ComboBox cmbGender;
+    private Label lblGender;
 }
