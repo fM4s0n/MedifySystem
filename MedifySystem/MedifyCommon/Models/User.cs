@@ -12,7 +12,7 @@ public class User : Person
 
     public User(string email, UserRole userRole, string firstName, string lastName, Gender gender)
     { 
-        Email = email;
+        Email = email.ToLower();
         Role = userRole;
         FirstName = firstName;
         LastName = lastName;

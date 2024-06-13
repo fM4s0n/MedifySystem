@@ -13,10 +13,39 @@ public class PatientService : IPatientService
     public void DeletePatient(Patient patient) => _dbService!.DeleteEntity(patient);
 
     //<inheritdoc/>
-    public List<Patient>? GetAllPatients() => _dbService!.GetEntitiesByType<Patient>()!;
+    public List<Patient>? GetAllPatients()
+    {
+        List<Patient>? allPatients = _dbService!.GetEntitiesByType<Patient>();
+
+        if (allPatients != null)
+        {
+            List<PatientAdmittance>? allAdmittances = _patientAdmittanceService!.GetAllPatientAdmittances();
+
+            if (allAdmittances != null)
+            {
+                foreach (Patient patient in allPatients)
+                    patient.Admittances = allAdmittances.FindAll(a => a.PatientId == patient.Id);               
+            }
+        }
+        
+        return allPatients;
+    }
 
     //<inheritdoc/>
-    public Patient? GetPatientById(string id) => _dbService?.GetEntity<Patient>(id);
+    public Patient? GetPatientById(string id)
+    {
+        Patient? patient = _dbService?.GetEntity<Patient>(id);
+
+        if (patient != null)
+        {
+            List<PatientAdmittance>? admittances = _patientAdmittanceService?.GetAllAdmittancesForPatient(patient.Id);
+
+            if (admittances != null)
+                patient.Admittances = admittances.OrderBy(a => a.StartDate).ToList();
+        } 
+        
+        return patient;
+    }
 
     //<inheritdoc/>
     public void InsertPatient(Patient patient) => _dbService?.InsertEntity(patient);    

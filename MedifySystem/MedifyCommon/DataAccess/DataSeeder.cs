@@ -73,10 +73,10 @@ public class DataSeeder
 
         if (allPatients != null)
         {
-            if (allPatients.Any(p => p.NHSNumber == "123456789"))
+            if (allPatients.Any(p => p.NHSNumber == "123456789") == false)
                 SeedUnadmittedPatient();
 
-            if (allPatients.Any(p => p.NHSNumber == "987654321"))
+            if (allPatients.Any(p => p.NHSNumber == "987654321") == false)
                 SeedAdmittedPatient();
         }        
     }

@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace MedifySystem.MedifyDesktop.Controls;
 
 partial class CtrManagePatients
@@ -237,6 +238,7 @@ partial class CtrManagePatients
         txtSearch.Name = "txtSearch";
         txtSearch.Size = new Size(251, 23);
         txtSearch.TabIndex = 7;
+        txtSearch.TextChanged += txtSearch_TextChanged;
         // 
         // btnSearch
         // 
@@ -368,8 +370,6 @@ partial class CtrManagePatients
         ResumeLayout(false);
         PerformLayout();
     }
-
-
 
     #endregion
 

@@ -37,4 +37,10 @@ public class PatientAdmittanceService : IPatientAdmittanceService
         return GetAllPatientAdmittances()?
             .Where(pa => pa.HospitalOfficialId == hospitalOfficialId).ToList() ?? null;
     }
+
+    public List<PatientAdmittance>? GetAllAdmittancesForPatient(string patientId)
+    {
+        return GetAllPatientAdmittances()?
+            .FindAll(pa => pa.PatientId == patientId);
+    }
 }

@@ -51,7 +51,7 @@ internal partial class FrmSignIn : Form
 
     private bool ValidateEmail()
     {
-        txtEmail.Text = txtEmail.Text.Trim();
+        txtEmail.Text = txtEmail.Text.ToLower().Trim();
 
         if (string.IsNullOrWhiteSpace(txtEmail.Text))
         {

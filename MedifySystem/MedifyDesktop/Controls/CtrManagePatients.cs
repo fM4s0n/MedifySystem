@@ -47,9 +47,12 @@ public partial class CtrManagePatients : UserControl
 
     private void InitListView()
     {
-        lvPatients.Columns.Add("Full Name");
-        lvPatients.Columns.Add("GP Name");
-        lvPatients.Columns.Add("Admitted");
+        int width = lvPatients.Width / 3;
+
+        lvPatients.Columns.Clear();
+        lvPatients.Columns.Add("Full Name", width);
+        lvPatients.Columns.Add("GP Name", width);
+        lvPatients.Columns.Add("Admitted", width);
     }
 
     private void btnShowAll_Click(object sender, EventArgs e) => Search(true);
@@ -225,4 +228,6 @@ public partial class CtrManagePatients : UserControl
             return;
         }
     }
+
+    private void txtSearch_TextChanged(object sender, EventArgs e) => Search(false);    
 }

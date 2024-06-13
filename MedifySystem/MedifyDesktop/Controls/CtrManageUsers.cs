@@ -38,10 +38,10 @@ public partial class CtrManageUsers : UserControl
 
     private void InitListView()
     {
-        int colWidth = lvUsers.Width / 3;
-        lvUsers.Columns.Add("Full Name", colWidth);
-        lvUsers.Columns.Add("Role", colWidth);
-        lvUsers.Columns.Add("Active Patients", colWidth);
+        int width = lvUsers.Width / 3;
+        lvUsers.Columns.Add("Full Name", width);
+        lvUsers.Columns.Add("Role", width);
+        lvUsers.Columns.Add("Active Patients", width);
     }
 
     private void InitGenderComboBox()
@@ -162,6 +162,13 @@ public partial class CtrManageUsers : UserControl
         if (string.IsNullOrWhiteSpace(txtLastName.Text))
         {
             MessageBox.Show("Last Name is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
+
+        txtEmail.Text = txtEmail.Text.ToLower().Trim();
+        if (string.IsNullOrWhiteSpace(txtEmail.Text))
+        {
+            MessageBox.Show("Email is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
