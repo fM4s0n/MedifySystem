@@ -1,5 +1,6 @@
 ﻿using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
+using MedifySystem.MedifyCommon.Enums;
 
 namespace MedifySystem.MedifyDesktop.Controls;
 
@@ -35,7 +36,7 @@ public partial class CtrHospitalOfficialHome : UserControl
     private void SetAppointmentHomeItem()
     {
         // appointments today
-        int appointmentsToday = 0;
-        CtrFlpHomeItem appointmentHomeItem = new("Appointments Today",);
+        int appointmentsToday = _userService!.GetAllUpcomingAppointmentsForUser(_user!, false)?.Where(a => a.StartDate.Date == DateTime.Now.Date).Count() ?? 0;
+        CtrFlpHomeItem appointmentHomeItem = new("Appointments Today", appointmentsToday.ToString() , FlpHomeItemBackColour.Orange);
     }
 }

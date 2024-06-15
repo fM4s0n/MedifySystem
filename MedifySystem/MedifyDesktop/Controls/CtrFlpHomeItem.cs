@@ -8,7 +8,7 @@ namespace MedifySystem.MedifyDesktop.Controls
     /// </summary>
     public partial class CtrFlpHomeItem : UserControl
     {
-        public CtrFlpHomeItem(string titleText, string data, string subData = "", FlpHomeItemBackColour colour)
+        public CtrFlpHomeItem(string titleText, string data, FlpHomeItemBackColour colour, string subData = "")
         {
             InitializeComponent();
 
