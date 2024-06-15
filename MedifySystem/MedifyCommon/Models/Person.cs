@@ -11,7 +11,7 @@ public abstract class Person()
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;    
-    public Gender Gender { get; set; }
+    public Gender Gender { get; set; } = Gender.None;
 
     [NotMapped]
     public string FullName => $"{FirstName} {LastName}";

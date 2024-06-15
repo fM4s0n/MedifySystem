@@ -28,16 +28,28 @@ partial class CtrHospitalOfficialHome
     /// </summary>
     private void InitializeComponent()
     {
+        flpHome = new FlowLayoutPanel();
         SuspendLayout();
+        // 
+        // flpHome
+        // 
+        flpHome.Location = new Point(25, 27);
+        flpHome.Name = "flpHome";
+        flpHome.Size = new Size(642, 450);
+        flpHome.TabIndex = 0;
         // 
         // CtrHospitalOfficialHome
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(flpHome);
+        Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "CtrHospitalOfficialHome";
-        Size = new Size(587, 398);
+        Size = new Size(696, 505);
         ResumeLayout(false);
     }
 
     #endregion
+
+    private FlowLayoutPanel flpHome;
 }

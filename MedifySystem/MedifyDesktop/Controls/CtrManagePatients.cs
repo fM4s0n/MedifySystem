@@ -45,6 +45,11 @@ public partial class CtrManagePatients : UserControl
         cmbGender.SelectedIndex = -1;
     }
 
+    private void InitFlpHome()
+    {
+
+    }
+
     private void InitListView()
     {
         int width = lvPatients.Width / 3;
@@ -118,6 +123,8 @@ public partial class CtrManagePatients : UserControl
 
             Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, gender, txtGPName.Text, dtpDateOfBirth.Value);
             _patientService!.InsertPatient(newPatient);
+
+            ClearNewPatientFields();
         }
     }
 
@@ -157,8 +164,12 @@ public partial class CtrManagePatients : UserControl
 
     private void ClearNewPatientFields()
     {
-        txtFirstName.Text = "";
-        txtLastName.Text = "";
+        txtFirstName.Text = string.Empty;
+        txtLastName.Text = string.Empty;
+        dtpDateOfBirth.Value = DateTime.Now;
+        txtNHSNumber.Text = string.Empty;
+        txtGPName.Text = string.Empty;
+        cmbGender.SelectedIndex = -1;
     }
 
     private void btnAdmitPatient_Click(object sender, EventArgs e)
@@ -217,9 +228,9 @@ public partial class CtrManagePatients : UserControl
 
     private void btnBookAppointment_Click(object sender, EventArgs e)
     {
-        if (GetSelectedPatientFromListView() is Patient selectedPateint)
+        if (GetSelectedPatientFromListView() is Patient selectedPatient)
         {
-            FrmBookAppointment frmBookAppointment = new(selectedPateint);
+            FrmBookAppointment frmBookAppointment = new(selectedPatient);
             frmBookAppointment.ShowDialog(this);
         }
         else

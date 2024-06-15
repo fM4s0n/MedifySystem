@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedifySystem.Migrations
 {
     [DbContext(typeof(MedifyDatabaseContext))]
-    [Migration("20240612171926_Init")]
+    [Migration("20240615124519_Init")]
     partial class Init
     {
         /// <inheritdoc />

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿namespace MedifySystem.MedifyDesktop.Controls;
 
-namespace MedifySystem.MedifyDesktop.Controls;
+/// <summary>
+/// UserControl for the Hospital Official Home
+/// </summary>
 public partial class CtrHospitalOfficialHome : UserControl
 {
     public CtrHospitalOfficialHome()
