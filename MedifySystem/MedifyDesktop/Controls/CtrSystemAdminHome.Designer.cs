@@ -28,17 +28,28 @@ partial class CtrSystemAdminHome
     /// </summary>
     private void InitializeComponent()
     {
+        flpHome = new FlowLayoutPanel();
         SuspendLayout();
+        // 
+        // flpHome
+        // 
+        flpHome.Location = new Point(25, 27);
+        flpHome.Name = "flpHome";
+        flpHome.Size = new Size(642, 450);
+        flpHome.TabIndex = 0;
         // 
         // CtrSystemAdminHome
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
+        Controls.Add(flpHome);
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "CtrSystemAdminHome";
-        Size = new Size(587, 398);
+        Size = new Size(696, 505);
         ResumeLayout(false);
     }
 
     #endregion
+
+    private FlowLayoutPanel flpHome;
 }

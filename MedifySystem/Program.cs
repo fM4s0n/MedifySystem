@@ -17,8 +17,6 @@ internal static class Program
     [STAThread]
     static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
 
         var host = CreateHostBuilder().Build();
@@ -27,18 +25,23 @@ internal static class Program
         DataSeeder dataSeeder = new();
         dataSeeder.SeedData();
 
+        Application.ThreadException += CatchUnhandledException;
+
         Application.Run(new FrmMain());
     }
 
-    /// <summary>
-    /// WinForms dependency injection code using the following StackOverflow code 
-    /// https://stackoverflow.com/questions/70475830/how-to-use-dependency-injection-in-winforms
-    /// </summary>
-    /// <returns></returns>
+    private static void CatchUnhandledException(object sender, ThreadExceptionEventArgs e)
+    {
+        MessageBox.Show(e.Exception.Message, "Unhandled Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        IUserService? userService = ServiceProvider!.GetService<IUserService>();
+        userService?.LogOutUser();
+    }
+
     static IHostBuilder CreateHostBuilder()
     {
         return Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) => {
+            .ConfigureServices((context, services) =>
+            {
                 services.AddSingleton<IUserService, UserService>();
                 services.AddSingleton<IPatientService, PatientService>();
                 services.AddSingleton<IPatientAdmittanceService, PatientAdmittanceService>();

@@ -41,10 +41,16 @@ public partial class CtrHospitalOfficialHome : UserControl
                                 .Where(a => a.StartDate.Date == DateTime.Now.Date)
                                 .Count() ?? 0;
 
+        string subData = string.Empty;
+
+        if (appointmentsToday == 0)
+            subData = "No appointments scheduled for today.";
+
         CtrFlpHomeItem appointmentHomeItem = new(
             "Appointments Today", 
             appointmentsToday.ToString(),
-            FlpHomeItemBackColour.Orange);
+            FlpHomeItemBackColour.Orange,
+            subData);
 
         flpHome.Controls.Add(appointmentHomeItem);
     }
