@@ -30,13 +30,42 @@ public partial class CtrHospitalOfficialHome : UserControl
 
     private void Init()
     {
-        SetAppointmentHomeItem();
+        SetAppointmentsHomeItem();
+        SetPatientsHomeItem();
     }
 
-    private void SetAppointmentHomeItem()
+    private void SetAppointmentsHomeItem()
     {
         // appointments today
-        int appointmentsToday = _userService!.GetAllUpcomingAppointmentsForUser(_user!, false)?.Where(a => a.StartDate.Date == DateTime.Now.Date).Count() ?? 0;
-        CtrFlpHomeItem appointmentHomeItem = new("Appointments Today", appointmentsToday.ToString() , FlpHomeItemBackColour.Orange);
+        int appointmentsToday = _userService!.GetAllUpcomingAppointmentsForUser(_user!, false)?
+                                .Where(a => a.StartDate.Date == DateTime.Now.Date)
+                                .Count() ?? 0;
+
+        CtrFlpHomeItem appointmentHomeItem = new(
+            "Appointments Today", 
+            appointmentsToday.ToString(),
+            FlpHomeItemBackColour.Orange);
+
+        flpHome.Controls.Add(appointmentHomeItem);
+    }
+
+    private void SetPatientsHomeItem()
+    {
+        // patients today
+        int patientsToday = _userService!.GetAllAdmittedPatientsForUser(_user!.Id)?
+                            .Count ?? 0;
+
+        string subData = string.Empty;
+
+        if (patientsToday == 0)        
+            subData = "No admitted patients admitted under your care.";        
+
+        CtrFlpHomeItem patientHomeItem = new(
+            "Patients Today",
+            patientsToday.ToString(),
+            FlpHomeItemBackColour.Blue,
+            subData);
+
+        flpHome.Controls.Add(patientHomeItem);
     }
 }

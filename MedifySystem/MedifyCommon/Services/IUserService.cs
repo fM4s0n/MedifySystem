@@ -83,7 +83,7 @@ public interface IUserService
     /// </summary>
     /// <param name="userId">user id of the HospitalOfficial</param>
     /// <returns>List of Patient if found any, null if not</returns>
-    List<Patient>? GetAllActivePatientsForUser(string userId);
+    List<Patient>? GetAllAdmittedPatientsForUser(string userId);
 
     /// <summary>
     /// Gets all upcoming appointments for a user

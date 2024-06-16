@@ -100,7 +100,7 @@ public partial class CtrManageUsers : UserControl
 
         foreach (User user in _lvUsersDataSource)
         {
-            int activePatients = _userService!.GetAllActivePatientsForUser(user.Id)?.Count ?? 0;
+            int activePatients = _userService!.GetAllAdmittedPatientsForUser(user.Id)?.Count ?? 0;
 
             ListViewItem item = new (user.FullName);
 

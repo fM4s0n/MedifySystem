@@ -19,6 +19,19 @@ namespace MedifySystem.MedifyDesktop.Controls
             lblControlHeadlineData.Text = data;
             lblControlSubData.Text = subData;
             BackColor = ColorTranslator.FromHtml(FlpHomeItemBackColourDictionary.GetColour(colour));
+
+            CentraliseDataText();
+            CentraliseTitleText();
+        }
+
+        private void CentraliseTitleText()
+        {
+            lblControlTitle.Location = new Point((Width - lblControlTitle.Width) / 2, lblControlTitle.Location.Y);
+        }
+
+        private void CentraliseDataText()
+        {
+            lblControlHeadlineData.Location = new Point((Width - lblControlHeadlineData.Width) / 2, lblControlHeadlineData.Location.Y);
         }
     }
 }

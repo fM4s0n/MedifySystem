@@ -131,9 +131,11 @@ public class UserService(IDBService? dbService = null) : IUserService
     public void OnLogout() => LogOutEvent?.Invoke(this, EventArgs.Empty);
 
     //<inheritdoc/>
-    public List<Patient>? GetAllActivePatientsForUser(string userId)
+    public List<Patient>? GetAllAdmittedPatientsForUser(string userId)    
     {
-        List<PatientAdmittance>? admittances = _patientAdmittanceService?.GetAllPatientAdmittances()?.Where(pa => pa.HospitalOfficialId == userId).ToList();
+        List<PatientAdmittance>? admittances = _patientAdmittanceService?.GetAllPatientAdmittances()?
+                                            .Where(pa => pa.HospitalOfficialId == userId)
+                                            .ToList();
 
         if (admittances == null)
             return null;

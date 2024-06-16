@@ -18,7 +18,7 @@ partial class CtrFlpHomeItem
         // 
         lblControlTitle.AutoSize = true;
         lblControlTitle.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblControlTitle.Location = new Point(32, 12);
+        lblControlTitle.Location = new Point(8, 7);
         lblControlTitle.Name = "lblControlTitle";
         lblControlTitle.Size = new Size(180, 32);
         lblControlTitle.TabIndex = 0;
@@ -28,7 +28,7 @@ partial class CtrFlpHomeItem
         // 
         lblControlHeadlineData.AutoSize = true;
         lblControlHeadlineData.Font = new Font("Verdana", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblControlHeadlineData.Location = new Point(97, 53);
+        lblControlHeadlineData.Location = new Point(123, 51);
         lblControlHeadlineData.Name = "lblControlHeadlineData";
         lblControlHeadlineData.Size = new Size(56, 59);
         lblControlHeadlineData.TabIndex = 1;
@@ -50,7 +50,7 @@ partial class CtrFlpHomeItem
         Controls.Add(lblControlTitle);
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "CtrFlpHomeItem";
-        Size = new Size(248, 148);
+        Size = new Size(300, 148);
         ResumeLayout(false);
         PerformLayout();
     }
