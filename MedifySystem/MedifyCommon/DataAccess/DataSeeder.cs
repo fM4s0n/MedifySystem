@@ -127,7 +127,7 @@ public class DataSeeder
             Gender gender = GenerateRandomGender();
             string gpName = $"Dr GP{i}";
             DateTime dateOfBirth = GenerateRandomDateOfBirth();
-            bool admitted = random.Next(0, 2) == 1;
+            bool admitted = random.Next(0, 1) == 1;
 
             Patient patient = new(firstName, lastName, nhsNumber, gender, gpName, dateOfBirth);
             _patientService!.InsertPatient(patient);

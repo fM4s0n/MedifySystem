@@ -31,7 +31,7 @@ public partial class CtrHospitalOfficialHome : UserControl
     private void Init()
     {
         SetAppointmentsHomeItem();
-        SetPatientsHomeItem();
+        SetadmitetdPatientsHomeItem();
     }
 
     private void SetAppointmentsHomeItem()
@@ -55,19 +55,16 @@ public partial class CtrHospitalOfficialHome : UserControl
         flpHome.Controls.Add(appointmentHomeItem);
     }
 
-    private void SetPatientsHomeItem()
+    private void SetadmitetdPatientsHomeItem()
     {
         // patients today
         int patientsToday = _userService!.GetAllAdmittedPatientsForUser(_user!.Id)?
                             .Count ?? 0;
 
-        string subData = string.Empty;
-
-        if (patientsToday == 0)        
-            subData = "No admitted patients admitted under your care.";        
+        string subData = "Total admitted patients under my care";
 
         CtrFlpHomeItem patientHomeItem = new(
-            "Patients im my care",
+            "Admitted pateints",
             patientsToday.ToString(),
             FlpHomeItemBackColour.Blue,
             subData);

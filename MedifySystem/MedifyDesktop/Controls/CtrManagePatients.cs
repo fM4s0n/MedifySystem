@@ -45,11 +45,6 @@ public partial class CtrManagePatients : UserControl
         cmbGender.SelectedIndex = -1;
     }
 
-    private void InitFlpHome()
-    {
-
-    }
-
     private void InitListView()
     {
         int width = lvPatients.Width / 3;

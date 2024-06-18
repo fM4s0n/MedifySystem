@@ -26,7 +26,7 @@ public class Patient : Person
     /// </summary>
     public bool IsCurrentlyAdmitted()
     {
-        if (Admittances == null)
+        if (Admittances.Count == 0 )
             return false;
 
         return Admittances?.OrderByDescending(a => a.StartDate)

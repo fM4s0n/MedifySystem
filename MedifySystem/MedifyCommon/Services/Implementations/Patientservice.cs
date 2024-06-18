@@ -31,6 +31,16 @@ public class PatientService : IPatientService
         return allPatients;
     }
 
+    public List<Patient>? GetAllAdmittedPateints()
+    {
+       List<Patient>? allPatients = GetAllPatients();
+
+        if (allPatients == null)
+            return null;
+
+        return allPatients.FindAll(p => p.IsCurrentlyAdmitted());
+    }
+
     //<inheritdoc/>
     public Patient? GetPatientById(string id)
     {
