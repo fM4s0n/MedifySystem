@@ -2,7 +2,6 @@
 using MedifySystem.MedifyCommon.Helpers;
 using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
-using System;
 
 namespace MedifySystem.MedifyCommon.DataAccess;
 
@@ -15,10 +14,10 @@ public class DataSeeder
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
     private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
-    private List<string> _usedNhsNumbers = [];
+    private readonly List<string> _usedNhsNumbers = [];
     
     /// <summary>
-    /// 
+    /// seeds the database with initial data
     /// </summary>
     public void SeedData()
     {
@@ -119,9 +118,8 @@ public class DataSeeder
     private void SeedRandomPatients()
     {
         Random random = new();
-        List<string> usedNhsNumbers = [];
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             string firstName = $"Patient{i}";
             string lastName = $"Surname{i}";
@@ -166,7 +164,7 @@ public class DataSeeder
         return nhsNumber;
     }
 
-    private Gender GenerateRandomGender()
+    private static Gender GenerateRandomGender()
     {
         Random random = new();
         int genderRand = random.Next(0, 4);
@@ -192,7 +190,7 @@ public class DataSeeder
         return genderValue;
     }
 
-    private DateTime GenerateRandomDateOfBirth()
+    private static DateTime GenerateRandomDateOfBirth()
     {
         Random random = new();
         DateTime startDate = new(1900, 1, 1);
