@@ -64,15 +64,24 @@ internal partial class FrmMain : Form
         }
     }
 
-    private void UpdateWelcomeLabel(string fullName)
+    /// <summary>
+    /// Updates the welcome label with the user's name
+    /// </summary>
+    /// <param name="text">name of the user, leave blank to reset to base string</param>
+    private void UpdateWelcomeLabel(string text = "")
     {
-        lblWelcome.Text = $"Welcome, {fullName}";
+        lblWelcome.Text = "Welcome";
+
+        if (string.IsNullOrEmpty(text) == false)
+            lblWelcome.Text += $", {text}";
     }
 
     private void HandleLogOutEvent(object sender, EventArgs e)
     {
         RemoveMenuButton(BTN_SIGN_OUT_NAME);
         SetMenuButtonsNoUser();
+        pnlMain.Controls.Clear();
+        UpdateWelcomeLabel();
     }
 
     private void AddSignInButton()
@@ -152,6 +161,7 @@ internal partial class FrmMain : Form
                     HandleManageUsersMenuButtonClick();
                     break;
                 case BTN_HOSPITAL_OFFICIAL_HOME_NAME:
+                    HandleHospitalOfficialHomeMenuButtonClick();
                     break;
                 case BTN_MANAGE_PATIENTS_NAME:
                     HandleManagePatientsMenuButtonClick();
@@ -204,10 +214,7 @@ internal partial class FrmMain : Form
         frmSignIn.ShowDialog(this);
     }
 
-    private void HandleSignOutMenuButtonClick()
-    {
-        _userService!.LogOutUser();
-    }
+    private void HandleSignOutMenuButtonClick() => _userService!.LogOutUser();    
 
     private void HandleManagePatientsMenuButtonClick() 
     {

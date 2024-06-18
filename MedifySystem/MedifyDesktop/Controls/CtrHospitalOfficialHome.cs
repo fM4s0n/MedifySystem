@@ -67,7 +67,7 @@ public partial class CtrHospitalOfficialHome : UserControl
             subData = "No admitted patients admitted under your care.";        
 
         CtrFlpHomeItem patientHomeItem = new(
-            "Patients Today",
+            "Patients im my care",
             patientsToday.ToString(),
             FlpHomeItemBackColour.Blue,
             subData);

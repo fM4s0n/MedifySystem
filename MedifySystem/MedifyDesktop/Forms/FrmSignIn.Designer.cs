@@ -41,6 +41,8 @@ partial class FrmSignIn
         lblNewPassword = new Label();
         txtNewPassword = new TextBox();
         btnConfirmReset = new FontAwesome.Sharp.IconButton();
+        btnShowHidePassword = new FontAwesome.Sharp.IconButton();
+        btnShowHideConfirmPassword = new FontAwesome.Sharp.IconButton();
         ((System.ComponentModel.ISupportInitialize)pbLogo).BeginInit();
         SuspendLayout();
         // 
@@ -65,10 +67,11 @@ partial class FrmSignIn
         // txtPassword
         // 
         txtPassword.Font = new Font("Verdana", 9.75F);
-        txtPassword.Location = new Point(69, 249);
+        txtPassword.Location = new Point(73, 249);
         txtPassword.Name = "txtPassword";
         txtPassword.Size = new Size(358, 23);
         txtPassword.TabIndex = 2;
+        txtPassword.UseSystemPasswordChar = true;
         // 
         // lblEmail
         // 
@@ -179,10 +182,11 @@ partial class FrmSignIn
         // txtNewPassword
         // 
         txtNewPassword.Font = new Font("Verdana", 9.75F);
-        txtNewPassword.Location = new Point(69, 324);
+        txtNewPassword.Location = new Point(73, 324);
         txtNewPassword.Name = "txtNewPassword";
         txtNewPassword.Size = new Size(358, 23);
         txtNewPassword.TabIndex = 10;
+        txtNewPassword.UseSystemPasswordChar = true;
         txtNewPassword.Visible = false;
         // 
         // btnConfirmReset
@@ -204,12 +208,44 @@ partial class FrmSignIn
         btnConfirmReset.Visible = false;
         btnConfirmReset.Click += btnConfirmReset_Click;
         // 
+        // btnShowHidePassword
+        // 
+        btnShowHidePassword.BackColor = Color.Transparent;
+        btnShowHidePassword.FlatAppearance.BorderSize = 0;
+        btnShowHidePassword.IconChar = FontAwesome.Sharp.IconChar.Eye;
+        btnShowHidePassword.IconColor = Color.Black;
+        btnShowHidePassword.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnShowHidePassword.IconSize = 30;
+        btnShowHidePassword.Location = new Point(437, 239);
+        btnShowHidePassword.Name = "btnShowHidePassword";
+        btnShowHidePassword.Size = new Size(46, 37);
+        btnShowHidePassword.TabIndex = 14;
+        btnShowHidePassword.UseVisualStyleBackColor = false;
+        btnShowHidePassword.Click += btnShowHidePassword_Click;
+        // 
+        // btnShowHideConfirmPassword
+        // 
+        btnShowHideConfirmPassword.BackColor = Color.Transparent;
+        btnShowHideConfirmPassword.IconChar = FontAwesome.Sharp.IconChar.Eye;
+        btnShowHideConfirmPassword.IconColor = Color.Black;
+        btnShowHideConfirmPassword.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnShowHideConfirmPassword.IconSize = 30;
+        btnShowHideConfirmPassword.Location = new Point(437, 317);
+        btnShowHideConfirmPassword.Name = "btnShowHideConfirmPassword";
+        btnShowHideConfirmPassword.Size = new Size(46, 36);
+        btnShowHideConfirmPassword.TabIndex = 15;
+        btnShowHideConfirmPassword.UseVisualStyleBackColor = false;
+        btnShowHideConfirmPassword.Visible = false;
+        btnShowHideConfirmPassword.Click += btnShowHideConfirmPassword_Click;
+        // 
         // FrmSignIn
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(58, 110, 165);
         ClientSize = new Size(511, 429);
+        Controls.Add(btnShowHideConfirmPassword);
+        Controls.Add(btnShowHidePassword);
         Controls.Add(btnConfirmReset);
         Controls.Add(lblNewPasswordHelp);
         Controls.Add(lblNewPassword);
@@ -248,4 +284,6 @@ partial class FrmSignIn
     private Label lblNewPassword;
     private TextBox txtNewPassword;
     private FontAwesome.Sharp.IconButton btnConfirmReset;
+    private FontAwesome.Sharp.IconButton btnShowHidePassword;
+    private FontAwesome.Sharp.IconButton btnShowHideConfirmPassword;
 }

@@ -11,6 +11,9 @@ internal partial class FrmSignIn : Form
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
 
+    private bool _showPasswordText = false;
+    private bool _showConfrimPasswordText = false;
+
     public FrmSignIn()
     {
         InitializeComponent();
@@ -28,7 +31,7 @@ internal partial class FrmSignIn : Form
         ShowPasswordResetControls();
     }
 
-    private void HandleLogInEvent(object sender, EventArgs e) => Close();    
+    private void HandleLogInEvent(object sender, EventArgs e) => Close();
 
     private void HandleLogOutEvent(object sender, EventArgs e) => Close();
 
@@ -94,6 +97,8 @@ internal partial class FrmSignIn : Form
         lblNewPassword.Visible = false;
         lblNewPasswordHelp.Visible = false;
         btnConfirmReset.Visible = false;
+        btnShowHideConfirmPassword.Visible = false;
+        btnShowHidePassword.Visible = false;
     }
 
     private void ShowPasswordResetControls()
@@ -102,6 +107,7 @@ internal partial class FrmSignIn : Form
         lblNewPassword.Visible = true;
         lblNewPasswordHelp.Visible = true;
         btnConfirmReset.Visible = true;
+        btnShowHideConfirmPassword.Visible = true;
 
         lblEmail.Visible = false;
         txtEmail.Visible = false;
@@ -109,6 +115,7 @@ internal partial class FrmSignIn : Form
         txtPassword.Visible = false;
         btnSignIn.Visible = false;
         btnSignIn.Enabled = false;
+        btnShowHidePassword.Visible = false;
     }
 
     private void btnConfirmReset_Click(object sender, EventArgs e) => ResetPassword();
@@ -129,6 +136,8 @@ internal partial class FrmSignIn : Form
 
         _userService!.UpdateUser(currentUser);
 
+        MessageBox.Show("Password reset successful", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         _userService!.LogOutUser();
     }
 
@@ -140,5 +149,19 @@ internal partial class FrmSignIn : Form
         _userService!.LogOutEvent -= HandleLogOutEvent;
         _userService.LogInEvent -= HandleLogInEvent;
         base.OnClosed(e);
+    }
+
+    private void btnShowHidePassword_Click(object sender, EventArgs e)
+    {
+        _showPasswordText = !_showPasswordText;
+        btnShowHidePassword.IconChar = _showPasswordText ? FontAwesome.Sharp.IconChar.Eye : FontAwesome.Sharp.IconChar.EyeSlash;
+        txtPassword.UseSystemPasswordChar = !_showPasswordText;
+    }
+
+    private void btnShowHideConfirmPassword_Click(object sender, EventArgs e)
+    {
+        _showConfrimPasswordText = !_showConfrimPasswordText;
+        btnShowHideConfirmPassword.IconChar = _showConfrimPasswordText ? FontAwesome.Sharp.IconChar.Eye : FontAwesome.Sharp.IconChar.EyeSlash;
+        txtNewPassword.UseSystemPasswordChar = !_showConfrimPasswordText;
     }
 }
