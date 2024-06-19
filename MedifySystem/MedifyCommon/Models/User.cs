@@ -1,5 +1,4 @@
 ﻿using MedifySystem.MedifyCommon.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MedifySystem.MedifyCommon.Models;
 

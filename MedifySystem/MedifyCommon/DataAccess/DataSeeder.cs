@@ -25,6 +25,7 @@ public class DataSeeder
         SeedDefaultDoctor();
         SeedDefaultNurse();
         SeedDefaultPatinets();
+        SeedRandomUsers();
     }
 
     private void SeedDefaultAdmin()
@@ -141,6 +142,47 @@ public class DataSeeder
             }
         }
     }
+
+    private void SeedRandomUsers()
+    {
+        if (_userService!.GetAllUsers()?.Count > 10)
+            return;
+
+        Random random = new();
+
+        for (int i = 0; i < 10; i++)
+        {
+            UserRole role = GenerateRandomUserRole();
+            string email = $"{role}{i}@test.com";
+            string firstName = $"{role}{i}";
+            string lastName = $"Surname{i}";
+            Gender gender = GenerateRandomGender();
+
+            User user = new(email, role, firstName, lastName, gender);
+
+            user.PasswordHash = PasswordHelper.HashPassword(user, "Password");
+            _userService!.InsertUser(user);
+        }
+    }
+
+    private UserRole GenerateRandomUserRole()
+    {
+        Random random = new();
+        int randomNum = random.Next(0, 3);
+
+        switch (randomNum)
+        {
+            case 0:
+                return UserRole.SystemAdmin;
+            case 1:
+                return UserRole.Doctor;
+            case 2:
+                return UserRole.Nurse;
+            default:
+                return UserRole.Receptionist;
+        }
+    }
+
 
     private string GenerateRandomNhsNumber()
     {
