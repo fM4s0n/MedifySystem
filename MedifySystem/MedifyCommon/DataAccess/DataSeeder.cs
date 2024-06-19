@@ -118,13 +118,16 @@ public class DataSeeder
 
     private void SeedRandomPatients()
     {
+        var allPatients = _patientService!.GetAllPatients() ?? [];
+
         Random random = new();
 
         for (int i = 0; i < 10; i++)
         {
             string firstName = $"Patient{i}";
             string lastName = $"Surname{i}";
-            string nhsNumber = GenerateRandomNhsNumber();
+            string nhsNumber = GenerateRandomNhsNumber(allPatients);
+
             Gender gender = GenerateRandomGender();
             string gpName = $"Dr GP{i}";
             DateTime dateOfBirth = GenerateRandomDateOfBirth();
@@ -145,8 +148,7 @@ public class DataSeeder
 
     private void SeedRandomUsers()
     {
-        if (_userService!.GetAllUsers()?.Count > 10)
-            return;
+        var allUsers = _userService!.GetAllUsers();
 
         Random random = new();
 
@@ -154,6 +156,10 @@ public class DataSeeder
         {
             UserRole role = GenerateRandomUserRole();
             string email = $"{role}{i}@test.com";
+
+            if (allUsers != null && allUsers.Any(u => u.Email == email))
+                continue;
+            
             string firstName = $"{role}{i}";
             string lastName = $"Surname{i}";
             Gender gender = GenerateRandomGender();
@@ -183,8 +189,7 @@ public class DataSeeder
         }
     }
 
-
-    private string GenerateRandomNhsNumber()
+    private string GenerateRandomNhsNumber(List<Patient> allPatients)
     {
         Random random = new();
         string nhsNumber = random.Next(100000000, 999999999).ToString();
@@ -192,7 +197,7 @@ public class DataSeeder
         int maxAttempts = 1000000;
         int attempts = 0; 
 
-        while (_usedNhsNumbers.Contains(nhsNumber) && attempts < maxAttempts)
+        while (_usedNhsNumbers.Contains(nhsNumber) || allPatients.Any(p => p.NHSNumber == nhsNumber) && attempts < maxAttempts)
         {
             nhsNumber = random.Next(100000000, 999999999).ToString();
             attempts++;
