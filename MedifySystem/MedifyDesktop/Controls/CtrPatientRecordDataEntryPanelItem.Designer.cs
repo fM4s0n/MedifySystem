@@ -53,11 +53,11 @@ partial class CtrPatientRecordDataEntryPanelItem
         pbTitleImage.IconChar = FontAwesome.Sharp.IconChar.None;
         pbTitleImage.IconColor = SystemColors.ControlText;
         pbTitleImage.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        pbTitleImage.IconSize = 113;
-        pbTitleImage.Location = new Point(2, 37);
+        pbTitleImage.IconSize = 70;
+        pbTitleImage.Location = new Point(22, 57);
         pbTitleImage.Margin = new Padding(2);
         pbTitleImage.Name = "pbTitleImage";
-        pbTitleImage.Size = new Size(113, 113);
+        pbTitleImage.Size = new Size(70, 70);
         pbTitleImage.TabIndex = 1;
         pbTitleImage.TabStop = false;
         // 

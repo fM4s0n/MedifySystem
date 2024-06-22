@@ -1,4 +1,5 @@
-﻿using MedifySystem.MedifyCommon.Models;
+﻿using MedifySystem.MedifyCommon.Enums;
+using MedifySystem.MedifyCommon.Models;
 using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyDesktop.Controls;
 
@@ -10,8 +11,9 @@ namespace MedifySystem.MedifyDesktop.Forms;
 public partial class FrmManagePatientRecord : Form
 {
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
+    private readonly IPatientRecordService? _patientRecordService = Program.ServiceProvider!.GetService(typeof(IPatientRecordService)) as IPatientRecordService;
 
-    private readonly Patient? _patient; 
+    private readonly Patient? _patient;
     private PatientRecord? _patientRecord;
 
     public FrmManagePatientRecord(Patient patient)
@@ -35,13 +37,22 @@ public partial class FrmManagePatientRecord : Form
     private void Init()
     {
         SetPatientRecord();
-
         SetPanelItems();
+
+        cmbType.DataSource = Enum.GetValues(typeof(PatientRecordDataEntryType));
+
+        txtData.Focus();
     }
 
     private void SetPatientRecord()
     {
         _patientRecord = _patientService!.GetPatientRecord(_patient!.Id);
+
+        if (_patientRecord == null)
+        {
+            _patientRecord = new(_patient.Id);
+            _patientRecordService!.InsertPatientRecord(_patientRecord);
+        }
     }
 
     private void SetPanelItems()
@@ -53,5 +64,32 @@ public partial class FrmManagePatientRecord : Form
             CtrPatientRecordDataEntryPanelItem panelItem = new(i, dataEntry);
             flpPatientRecordDataEntries.Controls.Add(panelItem);
         }
+    }
+
+    private void btnAddDataEntry_Click(object sender, EventArgs e)
+    {
+        if (cmbType.SelectedItem is PatientRecordDataEntryType type)
+        {
+            PatientRecordDataEntry dataEntry = new(_patientRecord!.Id, txtData.Text, type, DateTime.Now);
+            
+            _patientRecord.DataEntries.Add(dataEntry);
+
+            _patientRecordService!.UpdatePatientRecord(_patientRecord);
+
+            RefreshForm();
+        }
+    }
+
+    private void ClearAddDataEntryGroupBox() => cmbType.SelectedIndex = 0;
+    
+    private void RefreshForm()
+    {
+        ClearAddDataEntryGroupBox();
+        flpPatientRecordDataEntries.Controls.Clear();
+        SetPanelItems();
+
+        txtData.Text = string.Empty;
+
+        txtData.Focus();
     }
 }

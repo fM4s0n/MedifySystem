@@ -15,17 +15,21 @@ public class DataSeeder
     private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
     private readonly List<string> _usedNhsNumbers = [];
-    
+
+    private List<User> _allUsers = [];
+    private List<Patient> _allPatients = [];
+
     /// <summary>
     /// seeds the database with initial data
     /// </summary>
     public void SeedData()
     {
-        SeedDefaultAdmin();
-        SeedDefaultDoctor();
-        SeedDefaultNurse();
-        SeedDefaultPatinets();
+        _allUsers = _userService!.GetAllUsers() ?? [];
+        _allPatients = _patientService!.GetAllPatients() ?? [];
+
+        SeedUsers();
         SeedRandomUsers();
+        SeedDefaultPatients();
     }
 
     private void SeedDefaultAdmin()
@@ -42,11 +46,19 @@ public class DataSeeder
         }
     }
 
+    private void SeedUsers()
+    {
+        SeedDefaultAdmin();
+        SeedDefaultDoctor();
+        SeedDefaultNurse();
+
+        if (_userService!.GetAllUsers()?.Count <= 4)
+            SeedRandomUsers();
+    }
+
     private void SeedDefaultDoctor()
     {
-        List<User>? users = _userService!.GetAllUsers();
-
-        if (users == null || users.Any(u => u.Email == "doctor@test.com") == false)
+        if (_allUsers.Count == 0 || _allUsers.Any(u => u.Email == "doctor@test.com") == false)
         {
             User defaultDoctor = new("doctor@test.com", UserRole.Doctor, "Default", "Doctor", Gender.NonBinary);
 
@@ -58,9 +70,7 @@ public class DataSeeder
 
     private void SeedDefaultNurse()
     {
-        List<User>? users = _userService!.GetAllUsers();
-
-        if (users == null || users.Any(u => u.Email == "nurse@test.com") == false)
+        if (_allUsers.Count == 0 || _allUsers.Any(u => u.Email == "nurse@test.com") == false)
         {
             User defaultNurse = new("nurse@test.com", UserRole.Nurse, "Default", "Nurse", Gender.Male);
 
@@ -70,26 +80,22 @@ public class DataSeeder
         }
     }
 
-    private void SeedDefaultPatinets()
+    private void SeedDefaultPatients()
     {
-        List<Patient>? allPatients = _patientService!.GetAllPatients();
+        if (_allPatients.Any(p => p.NHSNumber == "123456789") == false)
+            SeedUnadmittedPatient();
 
-        if (allPatients != null)
-        {
-            if (allPatients.Any(p => p.NHSNumber == "123456789") == false)
-                SeedUnadmittedPatient();
+        if (_allPatients.Any(p => p.NHSNumber == "987654321") == false)
+            SeedAdmittedPatient1();
 
-            if (allPatients.Any(p => p.NHSNumber == "987654321") == false)
-                SeedAdmittedPatient1();
-
-            if (allPatients.Count == 2)
-                SeedRandomPatients();
-        }        
+        if (_allPatients.Count <= 2)
+            SeedRandomPatients();    
     }
 
     private void SeedUnadmittedPatient()
     {
-        Patient patient = new("Joe",
+        Patient patient = new(
+            "Joe",
             "Bloggs",
             "123456789",
             Gender.Male,
@@ -101,7 +107,8 @@ public class DataSeeder
 
     private void SeedAdmittedPatient1()
     {
-        Patient patient = new("Jane",
+        Patient patient = new(
+            "Jane",
             "Doe",
             "987654321",
             Gender.Female,
@@ -118,20 +125,32 @@ public class DataSeeder
 
     private void SeedRandomPatients()
     {
-        var allPatients = _patientService!.GetAllPatients() ?? [];
+        List<Patient>? allPatients = _patientService!.GetAllPatients() ?? [];
 
         Random random = new();
 
         for (int i = 0; i < 10; i++)
         {
-            string firstName = $"Patient{i}";
-            string lastName = $"Surname{i}";
+            int randNum = random.Next(0, 100);
+
+            int tries = 0;
+            while (allPatients.Any(p => p.LastName == $"Surname{randNum}"))
+            {
+                tries++;
+                if (tries > 1000)                
+                    continue;
+                
+                randNum = random.Next(0, 999);
+            }            
+
+            string firstName = $"Patient{randNum}";
+            string lastName = $"Surname{randNum}";
             string nhsNumber = GenerateRandomNhsNumber(allPatients);
 
             Gender gender = GenerateRandomGender();
-            string gpName = $"Dr GP{i}";
+            string gpName = $"Dr GP{randNum}";
             DateTime dateOfBirth = GenerateRandomDateOfBirth();
-            bool admitted = random.Next(0, 1) == 1;
+            bool admitted = random.Next(0, 2) == 1;
 
             Patient patient = new(firstName, lastName, nhsNumber, gender, gpName, dateOfBirth);
             _patientService!.InsertPatient(patient);

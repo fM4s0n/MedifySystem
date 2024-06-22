@@ -99,6 +99,8 @@ internal partial class FrmSignIn : Form
         btnConfirmReset.Visible = false;
         btnShowHideConfirmPassword.Visible = false;
         btnShowHidePassword.Visible = false;
+
+        txtEmail.Focus();
     }
 
     private void ShowPasswordResetControls()
@@ -116,6 +118,8 @@ internal partial class FrmSignIn : Form
         btnSignIn.Visible = false;
         btnSignIn.Enabled = false;
         btnShowHidePassword.Visible = false;
+
+        txtNewPassword.Focus();
     }
 
     private void btnConfirmReset_Click(object sender, EventArgs e) => ResetPassword();

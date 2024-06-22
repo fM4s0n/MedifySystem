@@ -161,7 +161,7 @@ public partial class CtrManagePatients : UserControl
     {
         txtFirstName.Text = string.Empty;
         txtLastName.Text = string.Empty;
-        dtpDateOfBirth.Value = DateTime.Now;
+        dtpDateOfBirth.Value = dtpDateOfBirth.MinDate;
         txtNHSNumber.Text = string.Empty;
         txtGPName.Text = string.Empty;
         cmbGender.SelectedIndex = -1;

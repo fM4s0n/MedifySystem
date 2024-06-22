@@ -8,7 +8,6 @@ namespace MedifySystem.MedifyDesktop.Forms;
 /// </summary>
 public partial class FrmAdmitPatient : Form
 {
-    private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
 
@@ -65,10 +64,23 @@ public partial class FrmAdmitPatient : Form
             return;
         }
 
-        _patientService?.AdmitPatient(_patient!, GetHospitalOfficialId(), txtReason.Text);
+        try
+        {
+            _patientService?.AdmitPatient(_patient!, GetHospitalOfficialId(), txtReason.Text);
 
-        MessageBox.Show("Patient admitted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        Close();
+            MessageBox.Show("Patient admitted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"An error occurred while admitting the patient - {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+        finally
+        {
+            Close();
+        }
+
+
     }
 
     private bool ValidateAllFields()

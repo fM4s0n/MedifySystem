@@ -12,5 +12,5 @@ public class PatientRecord(string patientId, string admittanceId = "")
     public string AdmittanceId { get; set; } = admittanceId;
 
     [NotMapped]
-    public List<PatientRecordDataEntry> DataEntries { get; private set; } = [];
+    public List<PatientRecordDataEntry> DataEntries { get; set; } = [];
 }

@@ -224,6 +224,7 @@ partial class CtrManagePatients
         // 
         // lvPatients
         // 
+        lvPatients.FullRowSelect = true;
         lvPatients.GridLines = true;
         lvPatients.Location = new Point(3, 95);
         lvPatients.Name = "lvPatients";

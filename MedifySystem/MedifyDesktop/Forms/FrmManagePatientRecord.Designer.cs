@@ -33,10 +33,10 @@ partial class FrmManagePatientRecord
         flpPatientRecordDataEntries = new FlowLayoutPanel();
         btnAddDataEntry = new FontAwesome.Sharp.IconButton();
         grpAddDataEntry = new GroupBox();
+        lblData = new Label();
         lblType = new Label();
         cmbType = new ComboBox();
         txtData = new TextBox();
-        lblData = new Label();
         grpAddDataEntry.SuspendLayout();
         SuspendLayout();
         // 
@@ -44,7 +44,7 @@ partial class FrmManagePatientRecord
         // 
         lblFormTitle.AutoSize = true;
         lblFormTitle.Font = new Font("Verdana", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblFormTitle.Location = new Point(309, 9);
+        lblFormTitle.Location = new Point(341, 9);
         lblFormTitle.Name = "lblFormTitle";
         lblFormTitle.Size = new Size(210, 32);
         lblFormTitle.TabIndex = 0;
@@ -54,7 +54,7 @@ partial class FrmManagePatientRecord
         // 
         lblPatientName.AutoSize = true;
         lblPatientName.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblPatientName.Location = new Point(336, 50);
+        lblPatientName.Location = new Point(368, 50);
         lblPatientName.Name = "lblPatientName";
         lblPatientName.Size = new Size(155, 18);
         lblPatientName.TabIndex = 1;
@@ -62,9 +62,10 @@ partial class FrmManagePatientRecord
         // 
         // flpPatientRecordDataEntries
         // 
+        flpPatientRecordDataEntries.AutoScroll = true;
         flpPatientRecordDataEntries.Location = new Point(348, 100);
         flpPatientRecordDataEntries.Name = "flpPatientRecordDataEntries";
-        flpPatientRecordDataEntries.Size = new Size(581, 477);
+        flpPatientRecordDataEntries.Size = new Size(604, 477);
         flpPatientRecordDataEntries.TabIndex = 2;
         // 
         // btnAddDataEntry
@@ -81,6 +82,7 @@ partial class FrmManagePatientRecord
         btnAddDataEntry.Text = "Submit Data Entry";
         btnAddDataEntry.TextAlign = ContentAlignment.MiddleLeft;
         btnAddDataEntry.UseVisualStyleBackColor = true;
+        btnAddDataEntry.Click += btnAddDataEntry_Click;
         // 
         // grpAddDataEntry
         // 
@@ -95,6 +97,15 @@ partial class FrmManagePatientRecord
         grpAddDataEntry.TabIndex = 4;
         grpAddDataEntry.TabStop = false;
         grpAddDataEntry.Text = "Add New Data Entry";
+        // 
+        // lblData
+        // 
+        lblData.AutoSize = true;
+        lblData.Location = new Point(6, 62);
+        lblData.Name = "lblData";
+        lblData.Size = new Size(42, 16);
+        lblData.TabIndex = 7;
+        lblData.Text = "Text:";
         // 
         // lblType
         // 
@@ -121,21 +132,12 @@ partial class FrmManagePatientRecord
         txtData.Size = new Size(318, 351);
         txtData.TabIndex = 4;
         // 
-        // lblData
-        // 
-        lblData.AutoSize = true;
-        lblData.Location = new Point(6, 62);
-        lblData.Name = "lblData";
-        lblData.Size = new Size(42, 16);
-        lblData.TabIndex = 7;
-        lblData.Text = "Text:";
-        // 
         // FrmManagePatientRecord
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
-        ClientSize = new Size(941, 580);
+        ClientSize = new Size(964, 580);
         Controls.Add(grpAddDataEntry);
         Controls.Add(flpPatientRecordDataEntries);
         Controls.Add(lblPatientName);

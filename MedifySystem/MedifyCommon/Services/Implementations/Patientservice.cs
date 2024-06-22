@@ -77,7 +77,7 @@ public class PatientService : IPatientService
         patient.Admittances.Add(admittance);
 
         UpdatePatient(patient);
-        _patientAdmittanceService?.InsertPatientAdmittance(admittance);
+        //_patientAdmittanceService?.InsertPatientAdmittance(admittance);
 
         return patient;
     }
