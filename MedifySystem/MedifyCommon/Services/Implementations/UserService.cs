@@ -36,24 +36,32 @@ public class UserService(IDBService? dbService = null, IPatientService? patientS
     //<inheritdoc/>
     public void DeleteUser(User user)
     {
+        if (user == null)
+            return;
         _dbService!.DeleteEntity(user);
     }
 
     //<inheritdoc/>
     public List<User>? GetAllUsers()
     {
-        return _dbService!.GetEntitiesByType<User>()!;
+        return _dbService!.GetEntitiesByType<User>() ?? null;
     }
 
     //<inheritdoc/>
     public User? GetUserById(string id)
     {
+        if (string.IsNullOrWhiteSpace(id))
+            return null;
+
         return _dbService?.GetEntity<User>(id);
     }
 
     //<inheritdoc/>
     public void InsertUser(User user) 
     {
+        if (user == null)
+            return;
+
         // check for duplicate email
         List<User>? users = GetAllUsers();
 
@@ -62,7 +70,9 @@ public class UserService(IDBService? dbService = null, IPatientService? patientS
             foreach (User u in users)
             {
                 if (u.Email == user.Email)
-                    return;
+                {
+                    throw new Exception("User with this email already exists.");
+                }
             }
         }
 
@@ -89,6 +99,9 @@ public class UserService(IDBService? dbService = null, IPatientService? patientS
     //<inheritdoc/>
     public void UpdateUser(User user)
     {
+        if (user == null)
+            return;
+
         _dbService?.UpdateEntity(user);
     }
 
