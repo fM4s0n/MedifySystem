@@ -3,9 +3,10 @@
 namespace MedifySystem.MedifyCommon.Services.Implementations;
 
 //<inheritdoc/>
-public class PatientRecordService : IPatientRecordService
+public class PatientRecordService(IDBService? dBService = null) : IPatientRecordService
 {
-    private readonly IDBService? _dbService = Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
+    private readonly IDBService? _dbService = dBService 
+        ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
 
     //<inheritdoc/>
     public void DeletePatientRecord(PatientRecord patientRecord) => _dbService!.DeleteEntity(patientRecord);

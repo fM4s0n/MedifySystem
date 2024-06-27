@@ -5,11 +5,16 @@ using Microsoft.AspNetCore.Identity;
 namespace MedifySystem.MedifyCommon.Services.Implementations;
 
 //<inheritdoc/>
-public class UserService(IDBService? dbService = null) : IUserService
+public class UserService(IDBService? dbService = null, IPatientService? patientService = null, IPatientAdmittanceService? patientAdmittanceService = null) : IUserService
 {
-    private readonly IDBService? _dbService = dbService ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
-    private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
-    private readonly IPatientAdmittanceService? _patientAdmittanceService = Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
+    private readonly IDBService? _dbService = dbService 
+        ?? Program.ServiceProvider!.GetService(typeof(IDBService)) as IDBService;
+
+    private readonly IPatientService? _patientService = patientService 
+        ?? Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
+
+    private readonly IPatientAdmittanceService? _patientAdmittanceService = patientAdmittanceService 
+        ??Program.ServiceProvider!.GetService(typeof(IPatientAdmittanceService)) as IPatientAdmittanceService;
 
     // Login and Logout event handlers
     public delegate void LogoutEventHandler(object sender, EventArgs e);
