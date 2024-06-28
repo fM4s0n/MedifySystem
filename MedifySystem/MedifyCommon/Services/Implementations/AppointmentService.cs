@@ -15,7 +15,8 @@ public class AppointmentService(IDBService? dBService = null) : IAppointmentServ
     public List<Appointment>? GetAllAppointments() => _dbService!.GetEntitiesByType<Appointment>() ?? null;
 
     //<inheritdoc/>
-    public List<Appointment>? GetAppointmentsByUserId(string id) => _dbService!.GetEntitiesByType<Appointment>()?.Where(a => a.Id == id).ToList() ?? null;
+    public List<Appointment>? GetAppointmentsByUserId(string id) => _dbService!.GetEntitiesByType<Appointment>()?
+                                                                    .Where(a => a.HospitalOfficialId == id).ToList() ?? null;
 
     //<inheritdoc/>
     public Appointment? GetAppointmentByUserId(string id) => _dbService?.GetEntity<Appointment>(id) ?? null;

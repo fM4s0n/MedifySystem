@@ -5,17 +5,17 @@
 /// </summary>
 public class Appointment
 {
-    public string Id { get; private set; } = Guid.NewGuid().ToString();
-    public string PatientId { get; private set; } = string.Empty;
-    public DateTime StartDate { get; private set; } = DateTime.Now;
-    public TimeSpan Duration { get; private set; } = TimeSpan.FromMinutes(60);
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string PatientId { get; set; } = string.Empty;
+    public DateTime StartDate { get; set; } = DateTime.Now;
+    public TimeSpan Duration { get; set; } = TimeSpan.FromMinutes(60);
     public DateTime EndDate => StartDate.Add(Duration);
-    public string HospitalOfficialId { get; private set; } = string.Empty;
-    public string Notes { get; private set; } = string.Empty;
-    public bool IsCancelled { get; private set; } = false;
-    public DateTime CreatedDate { get; private set; } = DateTime.Now;
-    public DateTime UpdatedDate { get; private set; } = DateTime.Now;
-    public bool PatientAttended { get; private set; } = false;
+    public string HospitalOfficialId { get; set; } = string.Empty;
+    public string Notes { get; set; } = string.Empty;
+    public bool IsCancelled { get; set; } = false;
+    public DateTime CreatedDate { get; set; } = DateTime.Now;
+    public DateTime UpdatedDate { get; set; } = DateTime.Now;
+    public bool PatientAttended { get; set; } = false;
 
     public Appointment(string patientId, DateTime appointmentStartDate, TimeSpan duration, string doctorId, string notes)
     {
