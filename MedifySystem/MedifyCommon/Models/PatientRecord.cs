@@ -7,8 +7,8 @@ namespace MedifySystem.MedifyCommon.Models;
 /// </summary>
 public class PatientRecord(string patientId, string admittanceId = "")
 {
-    public string Id { get; private set; } = Guid.NewGuid().ToString();
-    public string PatientId { get; private set; } = patientId;
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string PatientId { get; set; } = patientId;
     public string AdmittanceId { get; set; } = admittanceId;
 
     [NotMapped]

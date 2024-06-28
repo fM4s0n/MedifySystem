@@ -43,5 +43,4 @@ public class PatientRecordService(IDBService? dBService = null) : IPatientRecord
 
         return entries;
     }
-
 }
