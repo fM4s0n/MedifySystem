@@ -1,5 +1,4 @@
 ﻿using MedifySystem.MedifyCommon.Models;
-using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyCommon.Services.Implementations;
 using MedifySystem.MedifyCommon.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +10,12 @@ namespace MedifyTesting.Services;
 [TestClass]
 public class UserServiceTests
 {
-    private IDBService? _dbService;
-    private IUserService? _userService;
-    private IPatientService? _patientService;
-    private IPatientAdmittanceService? _patientAdmittanceService;
-    private IPatientRecordService? _patientRecordService;
+    private DBService? _dbService;
+    private UserService? _userService;
+    private PatientService? _patientService;
+    private PatientAdmittanceService? _patientAdmittanceService;
+    private PatientRecordService? _patientRecordService;
+    private AppointmentService? _appointmentService;
 
     [TestInitialize]
     public void Setup()
@@ -32,6 +32,7 @@ public class UserServiceTests
         _patientRecordService = new PatientRecordService(_dbService);
         _patientService = new PatientService(_dbService, _patientAdmittanceService, _patientRecordService);
         _userService = new UserService(_dbService, _patientService, _patientAdmittanceService);
+        _appointmentService = new AppointmentService(_dbService);
     }
 
     [TestMethod]
@@ -338,9 +339,131 @@ public class UserServiceTests
         Assert.IsFalse(actual);
     }
 
+    [TestMethod]
+    public void AuthenticateUser_Should_Return_False_If_User_Is_Not_Found()
+    {
+        // Arrange
+        User user = new();
+        user.PasswordHash = PasswordHelper.HashPassword(user, "test");
+        _dbService!.InsertEntity(user);
+
+        // Act
+        bool actual = _userService!.AuthenticateUser("test", "test");
+
+        // Assert
+        Assert.IsFalse(actual);
+    }
+
+    [TestMethod]
+    public void GetAllAdmittedPatientsForUser_Should_Return_Admitted_Patients_List()
+    {
+        // Arrange
+        User user = new();
+        _dbService!.InsertEntity(user);
+
+        Patient patient1 = new();
+        PatientAdmittance pa1 = new(patient1.Id, DateTime.Now, "test", user.Id);
+
+        Patient patient2 = new();
+        PatientAdmittance pa2 = new(patient2.Id, DateTime.Now.AddDays(-1), "test", user.Id);
+        pa2.DischargePatient("test", DateTime.Now);
+
+        _patientAdmittanceService!.InsertPatientAdmittance(pa1);
+
+        _dbService!.InsertEntity(patient1);
+        _dbService!.InsertEntity(patient2);
+
+        // Act
+        List<Patient>? actual = _userService!.GetAllAdmittedPatientsForUser(user.Id);
+
+        // Assert
+        Assert.AreEqual(1, actual!.Count);
+    }
+
+    [TestMethod]
+    public void GetAllUpcomingAppointmentsForUser_Should_Return_Appoinment_List_Excluding_Cancelled()
+    {
+        // Arrange
+        User user = new() {Role = UserRole.Doctor};
+        _dbService!.InsertEntity(user);
+
+        Patient patient = new();
+
+        Appointment appointment1 = new(patient.Id, DateTime.Now.AddDays(1), new TimeSpan(1,0,0), user.Id, "test");
+        Appointment appointment2 = new(patient.Id, DateTime.Now.AddDays(2), new TimeSpan(1,0,0), user.Id, "test");
+        Appointment appointment3 = new(patient.Id, DateTime.Now.AddDays(-2), new TimeSpan(1,0,0), user.Id, "test");
+
+        _appointmentService!.InsertAppointment(appointment1);
+        _appointmentService!.InsertAppointment(appointment2);
+        _appointmentService!.InsertAppointment(appointment3);
+
+        // Act
+        List<Appointment>? actual = _userService!.GetAllUpcomingAppointmentsForUser(user, false);
+
+        // Assert
+        Assert.AreEqual(2, actual!.Count);
+    }
+
+    [TestMethod]
+    public void GetAllUpcomingAppointmentsForUser_Should_Return_Appoinment_List_Including_Cancelled()
+    {
+        // Arrange
+        User user = new() {Role = UserRole.Doctor};
+        _dbService!.InsertEntity(user);
+
+        Patient patient = new();
+
+        Appointment appointment1 = new(patient.Id, DateTime.Now.AddDays(1), new TimeSpan(1,0,0), user.Id, "test");
+        Appointment appointment2 = new(patient.Id, DateTime.Now.AddDays(2), new TimeSpan(1,0,0), user.Id, "test");
+        Appointment appointment3 = new(patient.Id, DateTime.Now.AddDays(3), new TimeSpan(1,0,0), user.Id, "test");
+        appointment3.Cancel();
+
+        _appointmentService!.InsertAppointment(appointment1);
+        _appointmentService!.InsertAppointment(appointment2);
+        _appointmentService!.InsertAppointment(appointment3);
+
+        // Act
+        List<Appointment>? actual = _userService!.GetAllUpcomingAppointmentsForUser(user, true);
+
+        // Assert
+        Assert.AreEqual(3, actual!.Count);
+    }
+
+    [TestMethod]
+    public void GetUserByEmail_Should_Return_User()
+    {
+        // Arrange
+        User expected = new() { Email = "test" };
+        _dbService!.InsertEntity(expected);
+
+        // Act
+        User? actual = _userService!.GetUserByEmail(expected.Email);
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void GetUserByEmail_Should_Return_Null_If_Email_Is_Empty()
+    {
+        // Arrange
+        User expected = new() { Email = "test" };
+        _dbService!.InsertEntity(expected);
+
+        // Act
+        User? actual = _userService!.GetUserByEmail(string.Empty);
+
+        // Assert
+        Assert.IsNull(actual);
+    }
+
     [TestCleanup]
     public void TearDown()
     {
         _dbService = null;
+        _userService = null;
+        _patientService = null;
+        _patientAdmittanceService = null;
+        _patientRecordService = null;
     }
 }
