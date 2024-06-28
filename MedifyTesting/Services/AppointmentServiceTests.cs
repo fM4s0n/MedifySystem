@@ -124,5 +124,6 @@ public class AppointmentServiceTests
 
         // Assert
         Assert.IsTrue(_dbService!.GetEntitiesByType<Appointment>()!.Contains(appointment));
+        Assert.IsTrue(_dbService!.GetEntity<Appointment>(appointment.Id)!.IsCancelled);
     }
 }

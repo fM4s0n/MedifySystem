@@ -15,12 +15,12 @@ public class PatientAdmittance
         HospitalOfficialId = hospitalOfficialId;
     }
 
-    public string Id { get; private set; } = Guid.NewGuid().ToString();
-    public string PatientId { get; private set; } = string.Empty;
-    public string HospitalOfficialId { get; private set; } = string.Empty;
-    public DateTime? StartDate { get; private set; } = null;
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string PatientId { get; set; } = string.Empty;
+    public string HospitalOfficialId { get; set; } = string.Empty;
+    public DateTime? StartDate { get; set; } = null;
     public DateTime? EndDate { get; set; } = null;
-    public string AdmittanceReason { get; private set; } = string.Empty;
+    public string AdmittanceReason { get; set; } = string.Empty;
     public string? DischargeReason { get; set; } = null;
 
     public void DischargePatient(string reason, DateTime endDate)
