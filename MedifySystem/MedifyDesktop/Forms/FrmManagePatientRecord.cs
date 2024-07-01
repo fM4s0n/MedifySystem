@@ -57,6 +57,20 @@ public partial class FrmManagePatientRecord : Form
 
     private void SetPanelItems()
     {
+        if (_patientRecord!.DataEntries.Count == 0)
+        {
+            Label label = new()
+            {
+                Text = "No data entries found.",
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                ForeColor = Color.Gray
+            };
+
+            flpPatientRecordDataEntries.Controls.Add(label);
+            return;
+        }
+
         for (int i = 0; i < _patientRecord!.DataEntries.Count; i++)
         {
             PatientRecordDataEntry dataEntry = _patientRecord.DataEntries[i];
@@ -85,6 +99,7 @@ public partial class FrmManagePatientRecord : Form
     private void RefreshForm()
     {
         ClearAddDataEntryGroupBox();
+        _patientRecord!.DataEntries = _patientRecord.DataEntries.OrderByDescending(d => d.EntryDate).ToList();
         flpPatientRecordDataEntries.Controls.Clear();
         SetPanelItems();
 
