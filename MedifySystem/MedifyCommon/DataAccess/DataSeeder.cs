@@ -72,11 +72,19 @@ public class DataSeeder
     {
         if (_allUsers.Count == 0 || _allUsers.Any(u => u.Email == "nurse@test.com") == false)
         {
-            User defaultNurse = new("nurse@test.com", UserRole.Nurse, "Default", "Nurse", Gender.Male);
+            try
+            {
+                User defaultNurse = new("nurse@test.com", UserRole.Nurse, "Default", "Nurse", Gender.Male);
 
-            defaultNurse.PasswordHash = PasswordHelper.HashPassword(defaultNurse, "Password");
+                defaultNurse.PasswordHash = PasswordHelper.HashPassword(defaultNurse, "Password");
 
-            _userService!.InsertUser(defaultNurse);
+                _userService!.InsertUser(defaultNurse);
+            }
+            catch
+            {
+                return;
+            }
+
         }
     }
 
@@ -131,36 +139,43 @@ public class DataSeeder
 
         for (int i = 0; i < 10; i++)
         {
-            int randNum = random.Next(0, 100);
-
-            int tries = 0;
-            while (allPatients.Any(p => p.LastName == $"Surname{randNum}"))
+            try
             {
-                tries++;
-                if (tries > 1000)                
-                    continue;
-                
-                randNum = random.Next(0, 999);
-            }            
+                int randNum = random.Next(0, 100);
 
-            string firstName = $"Patient{randNum}";
-            string lastName = $"Surname{randNum}";
-            string nhsNumber = GenerateRandomNhsNumber(allPatients);
+                int tries = 0;
+                while (allPatients.Any(p => p.LastName == $"Surname{randNum}"))
+                {
+                    tries++;
+                    if (tries > 1000)
+                        continue;
 
-            Gender gender = GenerateRandomGender();
-            string gpName = $"Dr GP{randNum}";
-            DateTime dateOfBirth = GenerateRandomDateOfBirth();
-            bool admitted = random.Next(0, 2) == 1;
+                    randNum = random.Next(0, 999);
+                }
 
-            Patient patient = new(firstName, lastName, nhsNumber, gender, gpName, dateOfBirth);
-            _patientService!.InsertPatient(patient);
+                string firstName = $"Patient{randNum}";
+                string lastName = $"Surname{randNum}";
+                string nhsNumber = GenerateRandomNhsNumber(allPatients);
 
-            if (admitted)
+                Gender gender = GenerateRandomGender();
+                string gpName = $"Dr GP{randNum}";
+                DateTime dateOfBirth = GenerateRandomDateOfBirth();
+                bool admitted = random.Next(0, 2) == 1;
+
+                Patient patient = new(firstName, lastName, nhsNumber, gender, gpName, dateOfBirth);
+                _patientService!.InsertPatient(patient);
+
+                if (admitted)
+                {
+                    User doctor = _userService!.GetUserByEmail("doctor@test.com")!;
+
+                    PatientAdmittance admittance = new(patient.Id, DateTime.Now, "Surgery", doctor.Id);
+                    _patientAdmittanceService!.InsertPatientAdmittance(admittance);
+                }
+            }
+            catch
             {
-                User doctor = _userService!.GetUserByEmail("doctor@test.com")!;
-
-                PatientAdmittance admittance = new(patient.Id, DateTime.Now, "Surgery", doctor.Id);
-                _patientAdmittanceService!.InsertPatientAdmittance(admittance);
+                continue;
             }
         }
     }
@@ -173,20 +188,27 @@ public class DataSeeder
 
         for (int i = 0; i < 10; i++)
         {
-            UserRole role = GenerateRandomUserRole();
-            string email = $"{role}{i}@test.com";
+            try
+            {
+                UserRole role = GenerateRandomUserRole();
+                string email = $"{role}{i}@test.com";
 
-            if (allUsers != null && allUsers.Any(u => u.Email == email))
+                if (allUsers != null && allUsers.Any(u => u.Email == email))
+                    continue;
+
+                string firstName = $"{role}{i}";
+                string lastName = $"Surname{i}";
+                Gender gender = GenerateRandomGender();
+
+                User user = new(email, role, firstName, lastName, gender);
+
+                user.PasswordHash = PasswordHelper.HashPassword(user, "Password");
+                _userService!.InsertUser(user);
+            }
+            catch
+            {
                 continue;
-            
-            string firstName = $"{role}{i}";
-            string lastName = $"Surname{i}";
-            Gender gender = GenerateRandomGender();
-
-            User user = new(email, role, firstName, lastName, gender);
-
-            user.PasswordHash = PasswordHelper.HashPassword(user, "Password");
-            _userService!.InsertUser(user);
+            }
         }
     }
 
