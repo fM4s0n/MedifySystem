@@ -60,8 +60,9 @@ partial class CtrManageUsers
         // 
         // lvUsers
         // 
+        lvUsers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         lvUsers.GridLines = true;
-        lvUsers.Location = new Point(317, 99);
+        lvUsers.Location = new Point(306, 95);
         lvUsers.MultiSelect = false;
         lvUsers.Name = "lvUsers";
         lvUsers.Size = new Size(376, 403);

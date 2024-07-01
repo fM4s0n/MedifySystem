@@ -53,6 +53,14 @@ public partial class CtrManagePatients : UserControl
         lvPatients.Columns.Add("Full Name", width);
         lvPatients.Columns.Add("GP Name", width);
         lvPatients.Columns.Add("Admitted", width);
+
+        lvPatients.Resize += (s, e) =>
+        {
+            width = lvPatients.Width / 3;
+
+            foreach (ColumnHeader column in lvPatients.Columns)
+                column.Width = width;
+        };
     }
 
     private void btnShowAll_Click(object sender, EventArgs e) => Search(true);

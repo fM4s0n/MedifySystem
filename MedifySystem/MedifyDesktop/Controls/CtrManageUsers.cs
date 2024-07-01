@@ -42,6 +42,16 @@ public partial class CtrManageUsers : UserControl
         lvUsers.Columns.Add("Full Name", width);
         lvUsers.Columns.Add("Role", width);
         lvUsers.Columns.Add("Active Patients", width);
+
+        lvUsers.Resize += (s, e) =>
+        {
+            if (lvUsers.Columns.Count == 3)
+            {
+                lvUsers.Columns[0].Width = lvUsers.Width / 3;
+                lvUsers.Columns[1].Width = lvUsers.Width / 3;
+                lvUsers.Columns[2].Width = lvUsers.Width / 3;
+            }
+        };
     }
 
     private void InitGenderComboBox()

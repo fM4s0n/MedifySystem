@@ -86,7 +86,7 @@ partial class CtrManagePatients
         grpRegisterPatient.Controls.Add(txtFirstName);
         grpRegisterPatient.Controls.Add(lblLastName);
         grpRegisterPatient.Controls.Add(lblFirstName);
-        grpRegisterPatient.Location = new Point(382, 57);
+        grpRegisterPatient.Location = new Point(4, 58);
         grpRegisterPatient.Name = "grpRegisterPatient";
         grpRegisterPatient.Size = new Size(312, 269);
         grpRegisterPatient.TabIndex = 2;
@@ -224,9 +224,10 @@ partial class CtrManagePatients
         // 
         // lvPatients
         // 
+        lvPatients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         lvPatients.FullRowSelect = true;
         lvPatients.GridLines = true;
-        lvPatients.Location = new Point(3, 95);
+        lvPatients.Location = new Point(319, 94);
         lvPatients.Name = "lvPatients";
         lvPatients.Size = new Size(372, 406);
         lvPatients.TabIndex = 3;
@@ -235,7 +236,7 @@ partial class CtrManagePatients
         // 
         // txtSearch
         // 
-        txtSearch.Location = new Point(4, 62);
+        txtSearch.Location = new Point(322, 58);
         txtSearch.Name = "txtSearch";
         txtSearch.Size = new Size(251, 23);
         txtSearch.TabIndex = 7;
@@ -248,7 +249,7 @@ partial class CtrManagePatients
         btnSearch.IconColor = Color.Black;
         btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnSearch.IconSize = 20;
-        btnSearch.Location = new Point(261, 57);
+        btnSearch.Location = new Point(579, 53);
         btnSearch.Name = "btnSearch";
         btnSearch.Size = new Size(34, 32);
         btnSearch.TabIndex = 6;
@@ -261,7 +262,7 @@ partial class CtrManagePatients
         btnShowAll.IconChar = FontAwesome.Sharp.IconChar.None;
         btnShowAll.IconColor = Color.Black;
         btnShowAll.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        btnShowAll.Location = new Point(301, 57);
+        btnShowAll.Location = new Point(619, 53);
         btnShowAll.Name = "btnShowAll";
         btnShowAll.Size = new Size(75, 32);
         btnShowAll.TabIndex = 5;
@@ -326,7 +327,7 @@ partial class CtrManagePatients
         grpPatientOptions.Controls.Add(btnAdmitPatient);
         grpPatientOptions.Controls.Add(btnViewPatientDetails);
         grpPatientOptions.Controls.Add(btnPatientRecord);
-        grpPatientOptions.Location = new Point(382, 403);
+        grpPatientOptions.Location = new Point(5, 404);
         grpPatientOptions.Name = "grpPatientOptions";
         grpPatientOptions.Size = new Size(312, 98);
         grpPatientOptions.TabIndex = 11;
