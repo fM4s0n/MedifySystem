@@ -166,6 +166,10 @@ internal partial class FrmMain : Form
                 case BTN_MANAGE_PATIENTS_NAME:
                     HandleManagePatientsMenuButtonClick();
                     break;
+                case BTN_SYSTEM_ADMIN_HOME_NAME:
+                    HandleSystemAdminHomeMenuButotonClick();
+                    break;
+
             }
         }
     }
@@ -253,6 +257,19 @@ internal partial class FrmMain : Form
         };
 
         pnlMain.Controls.Add(ctrManageUsers);
+    }
+
+    private void HandleSystemAdminHomeMenuButotonClick()
+    {
+        pnlMain.Controls.Clear();
+
+        CtrSystemAdminHome ctrSystemAdminHome = new()
+        {
+            Dock = DockStyle.Fill,
+            Visible = true
+        };
+
+        pnlMain.Controls.Add(ctrSystemAdminHome);
     }
 
     private void SetMenuButtonsNoUser()
