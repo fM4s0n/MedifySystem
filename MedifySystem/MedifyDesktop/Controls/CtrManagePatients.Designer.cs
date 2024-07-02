@@ -333,6 +333,7 @@ partial class CtrManagePatients
         grpPatientOptions.TabIndex = 11;
         grpPatientOptions.TabStop = false;
         grpPatientOptions.Text = "Patient Options";
+        grpPatientOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         // 
         // btnBookAppointment
         // 

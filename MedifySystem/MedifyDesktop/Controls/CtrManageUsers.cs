@@ -31,9 +31,9 @@ public partial class CtrManageUsers : UserControl
     private void Init()
     {
         cmbRole.DataSource = Enum.GetValues(typeof(UserRole));
+        cmbGender.DataSource = Enum.GetValues(typeof(Gender));
 
         InitListView();
-        InitGenderComboBox();
     }
 
     private void InitListView()
@@ -52,11 +52,6 @@ public partial class CtrManageUsers : UserControl
                 lvUsers.Columns[2].Width = lvUsers.Width / 3;
             }
         };
-    }
-
-    private void InitGenderComboBox()
-    {
-       cmbGender.DataSource = Enum.GetValues(typeof(UserRole));
     }
 
     private void ShowAllUsers() => Search(string.Empty);    
