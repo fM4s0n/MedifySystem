@@ -46,8 +46,6 @@ public class PatientRecordServiceTests
         PatientRecord patientRecord = new("1", "2");
         _patientRecordService!.InsertPatientRecord(patientRecord);
 
-        PatientRecordDataEntry dataEntry = new(patientRecord.Id, "test", PatientRecordDataEntryType.Generic, DateTime.Now);
-
         // Act
         PatientRecord? result = _patientRecordService!.GetPatientRecordByPatientId("1");
 
