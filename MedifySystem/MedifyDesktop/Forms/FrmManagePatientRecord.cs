@@ -82,7 +82,8 @@ public partial class FrmManagePatientRecord : Form
 
     private void btnAddDataEntry_Click(object sender, EventArgs e)
     {
-        if (cmbType.SelectedItem is PatientRecordDataEntryType type)
+        if (cmbType.SelectedItem is PatientRecordDataEntryType type &&
+            ValidateDataEntry())
         {
             PatientRecordDataEntry dataEntry = new(_patientRecord!.Id, txtData.Text, type, DateTime.Now);
             
@@ -92,6 +93,17 @@ public partial class FrmManagePatientRecord : Form
 
             RefreshForm();
         }
+    }
+
+    private bool ValidateDataEntry()
+    {
+        if (string.IsNullOrWhiteSpace(txtData.Text))
+        {
+            MessageBox.Show("Data field cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
+        }
+
+        return true;
     }
 
     private void ClearAddDataEntryGroupBox() => cmbType.SelectedIndex = 0;
