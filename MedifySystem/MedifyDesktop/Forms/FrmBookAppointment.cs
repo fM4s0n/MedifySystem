@@ -10,13 +10,14 @@ namespace MedifySystem.MedifyDesktop.Forms;
 public partial class FrmBookAppointment : Form
 {
     private readonly IUserService? _userService = Program.ServiceProvider!.GetService(typeof(IUserService)) as IUserService;
+    private readonly IAppointmentService? _appointmentService = Program.ServiceProvider!.GetService(typeof(IAppointmentService)) as IAppointmentService;
 
     private readonly Patient? _patient;
-    private User? _user;
-    private Dictionary<DateTime, Appointment> _appointments = [];
+    private User? _selectedOfficial;
 
-    List<Appointment>? _filledAppointments = [];
-    List<TimeSpan> _availableSlots = [];
+
+    private List<Appointment>? _filledAppointments = [];
+    private List<AppointmentTimeslot> _availableSlots = [];
 
     public FrmBookAppointment(Patient patient)
     {
@@ -28,35 +29,33 @@ public partial class FrmBookAppointment : Form
         ArgumentNullException.ThrowIfNull(patient);
 
         _patient = patient;
-        _user = _userService!.GetCurrentUser()!;
 
         Init();
     }
 
     private void Init()
     {
-        InitComboBox();
+        InitHospitalOfficialComboBox();
         InitDatePicker();
+
+        SetFieldsVisible(false, false);
     }
 
-    private void InitComboBox()
+    private void InitHospitalOfficialComboBox()
     {
-        List<User>? allUsers = _userService!.GetAllUsers();
+        List<User>? availableOfficials = _userService!.GetAllUsers()?.Where(u => u.IsDoctorOrNurse()).OrderBy(u => u.LastName).ToList();
 
-        if (allUsers == null)
+        if (availableOfficials == null || availableOfficials.Count == 0)
             return;
 
-        foreach (User user in allUsers.Where(u => u.IsDoctorOrNurse()).OrderBy(u => u.LastName).ToList())
+        foreach (User user in availableOfficials)
         {
             cmbSelectHospitalOfficial.Items.Add(user);
             cmbSelectHospitalOfficial.DisplayMember = "FullName";
             cmbSelectHospitalOfficial.ValueMember = "Id";
         }
 
-        if (_userService!.GetCurrentUser()!.IsDoctorOrNurse())
-            cmbSelectHospitalOfficial.SelectedItem = _userService.GetCurrentUser();
-        else
-            cmbSelectHospitalOfficial.SelectedIndex = 0;
+        cmbSelectHospitalOfficial.SelectedIndex = -1;
     }
 
     private void InitDatePicker()
@@ -67,7 +66,7 @@ public partial class FrmBookAppointment : Form
 
     private void GetAllAppointmentsForHospitalOfficial()
     {
-        List<Appointment>? allAppts = _userService!.GetAllUpcomingAppointmentsForUser(_user!, false);
+        List<Appointment>? allAppts = _userService!.GetAllUpcomingAppointmentsForUser(_selectedOfficial!, false);
 
         DateTime calendarStart = DateTime.Now.Date;
         DateTime calendarEnd = DateTime.Now.Date.AddYears(1);
@@ -95,6 +94,34 @@ public partial class FrmBookAppointment : Form
             MessageBox.Show("Please fill in all fields.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
+
+        DateTime selectedDate = dtpSelectDate.Value.Date;
+
+        if (cmbSelectTime.SelectedItem is AppointmentTimeslot slot)
+        {
+            Appointment newAppointment = new(
+                _patient!.Id,
+                selectedDate.Add(slot.Start.TimeOfDay),
+                slot.Duration,
+                _selectedOfficial!.Id,
+                string.Empty);
+
+            _appointmentService!.InsertAppointment(newAppointment);
+
+            MessageBox.Show(
+                $"Appointment confirmed for {newAppointment.StartDate.ToShortDateString()} lasting{slot.Duration.TotalMinutes} mins with {_selectedOfficial.FullName}",
+                "Appointment Booked",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            Close();
+        }
+        else
+        {
+            MessageBox.Show("Please select a timeslot.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+        
     }
 
     private bool ValidateAllFields()
@@ -130,9 +157,9 @@ public partial class FrmBookAppointment : Form
 
     private bool ValidateSelectedTime()
     {
-        if (cmbSelectTime.SelectedItem is TimeSpan slot)
+        if (cmbSelectTime.SelectedItem is AppointmentTimeslot slot)
         {
-            if (slot < TimeSpan.FromHours(9) || slot > TimeSpan.FromHours(17))
+            if (slot.Start.TimeOfDay < new TimeSpan(9, 0, 0) || slot.Start.TimeOfDay.Add(slot.Duration) > new TimeSpan(17, 0, 0))
                 return false;
 
             if (_availableSlots.Contains(slot) == false)
@@ -148,7 +175,7 @@ public partial class FrmBookAppointment : Form
     {
         if (cmbSelectHospitalOfficial.SelectedItem is User user)
         {
-            _user = user;
+            _selectedOfficial = user;
             GetAllAppointmentsForHospitalOfficial();
         }
     }
@@ -156,14 +183,18 @@ public partial class FrmBookAppointment : Form
     private void SetFieldsVisible(bool dateControl, bool timeControl)
     {
         dtpSelectDate.Visible = dateControl;
-        cmbSelectTime.Visible = timeControl;
+        lblSelectDate.Visible = dateControl;
 
+        cmbSelectTime.Visible = timeControl;
+        lblSelectTime.Visible = timeControl;
+
+        //show times linked to date because we need to calculate available timeslots once a date is selected
         btnShowTimes.Visible = dateControl;
     }
 
     private void btnShowTimes_Click(object sender, EventArgs e)
     {
-        if (CalculateAvailableTimeslots() == false)
+        if (_availableSlots.Count == 0)
         {
             MessageBox.Show("No available timeslots for the selected date.", "No Times", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
@@ -173,37 +204,68 @@ public partial class FrmBookAppointment : Form
         SetFieldsVisible(true, true);
     }
 
-    private bool CalculateAvailableTimeslots()
+    /// <summary>
+    /// Sets the available timeslots for the selected date.
+    /// </summary>
+    /// <returns>true if any available for selected date, false if not</returns>
+    private void SetAvailableTimeslots()
     {
         DateTime selectedDate = dtpSelectDate.Value.Date;
 
+        int startHour;
+        if (selectedDate == DateTime.Now.Date)
+        {
+            // use math.max and min to ensure we don't go below 9 or above 17
+            startHour = Math.Max(DateTime.Now.AddHours(1).Hour, 9);
+            startHour = Math.Min(startHour, 17); 
+        }
+        else
+        {
+            startHour = 9;
+        }
+
+        // Calculate the number of slots available from startHour to 17
+        int count = 17 - startHour;
+
+        if (count < 0)
+            count = 0;
+
         List<Appointment>? allApptsForSelectedDate = _filledAppointments!.Where(a => a.StartDate.Date == selectedDate).ToList();
 
-        List<TimeSpan> allSlots = [];
-        List<TimeSpan> unavailableSlots = [];
-        List<TimeSpan> availableSlots = [];
+        List<TimeSpan> allSlots = Enumerable.Range(startHour, count).Select(hour => TimeSpan.FromHours(hour)).ToList();
 
-        // create list of all slots from 9am to 5pm
-        allSlots.AddRange(Enumerable.Range(9, 17).Select(hour => TimeSpan.FromHours(hour)));
 
-        // check if any appointments are scheduled for the selected date and add to unavailable slots
-        unavailableSlots.AddRange(allApptsForSelectedDate
+        List<TimeSpan> unavailableSlots = allApptsForSelectedDate
                                     .SelectMany(appt => allSlots
-                                    .Where(slot => slot >= appt.StartDate.TimeOfDay && slot <= appt.EndDate.TimeOfDay)));
+                                    .Where(slot => slot >= appt.StartDate.TimeOfDay && slot <= appt.EndDate.TimeOfDay))
+                                    .ToList();
 
-        // get available slots by removing unavailable slots from all slots
-        availableSlots = allSlots.Except(unavailableSlots).ToList();
+        List<TimeSpan> availableSlots = allSlots.Except(unavailableSlots).ToList();
 
-        return availableSlots.Count > 0;
+        _availableSlots.Clear();
+
+        foreach (TimeSpan slot in availableSlots)
+            _availableSlots.Add(new AppointmentTimeslot(selectedDate.Add(slot), TimeSpan.FromMinutes(60)));
     }
 
     private void RefreshCmbSelectTime()
     {
         cmbSelectTime.Items.Clear();
 
-        foreach (TimeSpan slot in _availableSlots)
+        foreach (AppointmentTimeslot slot in _availableSlots)
             cmbSelectTime.Items.Add(slot);
 
         cmbSelectTime.SelectedIndex = 0;
+    }
+
+    private void RefreshAvailableTimeSlots()
+    {
+        _availableSlots.Clear();
+        SetAvailableTimeslots();
+    }
+
+    private void dtpSelectDate_ValueChanged(object sender, EventArgs e)
+    {
+        RefreshAvailableTimeSlots();
     }
 }

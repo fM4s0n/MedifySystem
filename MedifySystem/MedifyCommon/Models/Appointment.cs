@@ -17,10 +17,10 @@ public class Appointment
     public DateTime UpdatedDate { get; set; } = DateTime.Now;
     public bool PatientAttended { get; set; } = false;
 
-    public Appointment(string patientId, DateTime appointmentStartDate, TimeSpan duration, string doctorId, string notes)
+    public Appointment(string patientId, DateTime appointmentStartDateTime, TimeSpan duration, string doctorId, string notes)
     {
         PatientId = patientId;
-        StartDate = appointmentStartDate;
+        StartDate = appointmentStartDateTime;
         Duration = duration;
         HospitalOfficialId = doctorId;
         Notes = notes;

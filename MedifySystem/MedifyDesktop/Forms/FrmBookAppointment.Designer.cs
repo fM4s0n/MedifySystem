@@ -60,7 +60,7 @@ partial class FrmBookAppointment
         lblPatientFullName.Name = "lblPatientFullName";
         lblPatientFullName.Size = new Size(178, 23);
         lblPatientFullName.TabIndex = 1;
-        lblPatientFullName.Text = "Pateint Full Name";
+        lblPatientFullName.Text = "Patient Full Name";
         // 
         // cmbSelectHospitalOfficial
         // 
@@ -127,6 +127,7 @@ partial class FrmBookAppointment
         dtpSelectDate.Name = "dtpSelectDate";
         dtpSelectDate.Size = new Size(218, 23);
         dtpSelectDate.TabIndex = 9;
+        dtpSelectDate.ValueChanged += dtpSelectDate_ValueChanged;
         // 
         // lblSelectTime
         // 
