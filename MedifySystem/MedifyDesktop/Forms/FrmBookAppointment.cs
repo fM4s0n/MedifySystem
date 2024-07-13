@@ -60,7 +60,10 @@ public partial class FrmBookAppointment : Form
 
     private void InitDatePicker()
     {
-        dtpSelectDate.MinDate = DateTime.Now;
+        dtpSelectDate.MinDate = DateTime.Now.TimeOfDay > new TimeSpan(17, 0, 0) 
+            ? DateTime.Now.Date.AddDays(1) 
+            : DateTime.Now.Date;
+
         dtpSelectDate.MaxDate = DateTime.Now.AddYears(1);
     }
 
@@ -109,7 +112,7 @@ public partial class FrmBookAppointment : Form
             _appointmentService!.InsertAppointment(newAppointment);
 
             MessageBox.Show(
-                $"Appointment confirmed for {newAppointment.StartDate.ToShortDateString()} lasting{slot.Duration.TotalMinutes} mins with {_selectedOfficial.FullName}",
+                $"Appointment confirmed for {newAppointment.StartDate.ToShortDateString()} at {newAppointment.StartDate.ToShortTimeString()} \nlasting {slot.Duration.TotalMinutes} mins \nwith {_selectedOfficial.FullName}",
                 "Appointment Booked",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -200,6 +203,7 @@ public partial class FrmBookAppointment : Form
             return;
         }
 
+        SetAvailableTimeslots();
         RefreshCmbSelectTime();
         SetFieldsVisible(true, true);
     }
@@ -225,20 +229,21 @@ public partial class FrmBookAppointment : Form
         }
 
         // Calculate the number of slots available from startHour to 17
-        int count = 17 - startHour;
+        int count = (17 - startHour) + 1;
 
         if (count < 0)
-            count = 0;
+            count = 1;
 
-        List<Appointment>? allApptsForSelectedDate = _filledAppointments!.Where(a => a.StartDate.Date == selectedDate).ToList();
+        List<Appointment>? currentAppointmentsForSelectedDate = _filledAppointments!
+            .Where(a => a.StartDate.Date == selectedDate).ToList();
 
-        List<TimeSpan> allSlots = Enumerable.Range(startHour, count).Select(hour => TimeSpan.FromHours(hour)).ToList();
+        List<TimeSpan> allSlots = Enumerable.Range(startHour, count)
+            .Select(hour => TimeSpan.FromHours(hour)).ToList();
 
-
-        List<TimeSpan> unavailableSlots = allApptsForSelectedDate
-                                    .SelectMany(appt => allSlots
-                                    .Where(slot => slot >= appt.StartDate.TimeOfDay && slot <= appt.EndDate.TimeOfDay))
-                                    .ToList();
+        List<TimeSpan> unavailableSlots = currentAppointmentsForSelectedDate
+            .SelectMany(appt => allSlots
+                .Where(slot => slot < appt.EndDate.TimeOfDay && slot.Add(TimeSpan.FromHours(1)) > appt.StartDate.TimeOfDay))
+            .ToList();
 
         List<TimeSpan> availableSlots = allSlots.Except(unavailableSlots).ToList();
 
