@@ -37,6 +37,12 @@ partial class FrmManagePatientRecord
         lblType = new Label();
         cmbType = new ComboBox();
         txtData = new TextBox();
+        cmbFilterType = new ComboBox();
+        lblFilterType = new Label();
+        btnSearch = new FontAwesome.Sharp.IconButton();
+        btnReset = new FontAwesome.Sharp.IconButton();
+        txtSearch = new TextBox();
+        lblSearchText = new Label();
         grpAddDataEntry.SuspendLayout();
         SuspendLayout();
         // 
@@ -63,9 +69,9 @@ partial class FrmManagePatientRecord
         // flpPatientRecordDataEntries
         // 
         flpPatientRecordDataEntries.AutoScroll = true;
-        flpPatientRecordDataEntries.Location = new Point(348, 100);
+        flpPatientRecordDataEntries.Location = new Point(348, 169);
         flpPatientRecordDataEntries.Name = "flpPatientRecordDataEntries";
-        flpPatientRecordDataEntries.Size = new Size(604, 477);
+        flpPatientRecordDataEntries.Size = new Size(604, 408);
         flpPatientRecordDataEntries.TabIndex = 2;
         // 
         // btnAddDataEntry
@@ -103,9 +109,9 @@ partial class FrmManagePatientRecord
         lblData.AutoSize = true;
         lblData.Location = new Point(6, 62);
         lblData.Name = "lblData";
-        lblData.Size = new Size(42, 16);
+        lblData.Size = new Size(78, 16);
         lblData.TabIndex = 7;
-        lblData.Text = "Text:";
+        lblData.Text = "Data Text:";
         // 
         // lblType
         // 
@@ -132,12 +138,80 @@ partial class FrmManagePatientRecord
         txtData.Size = new Size(318, 351);
         txtData.TabIndex = 4;
         // 
+        // cmbFilterType
+        // 
+        cmbFilterType.FormattingEnabled = true;
+        cmbFilterType.Location = new Point(776, 100);
+        cmbFilterType.Name = "cmbFilterType";
+        cmbFilterType.Size = new Size(176, 24);
+        cmbFilterType.TabIndex = 5;
+        // 
+        // lblFilterType
+        // 
+        lblFilterType.AutoSize = true;
+        lblFilterType.Location = new Point(649, 105);
+        lblFilterType.Name = "lblFilterType";
+        lblFilterType.Size = new Size(123, 16);
+        lblFilterType.TabIndex = 6;
+        lblFilterType.Text = "Filter Entry Type:";
+        // 
+        // btnSearch
+        // 
+        btnSearch.IconChar = FontAwesome.Sharp.IconChar.Search;
+        btnSearch.IconColor = Color.Black;
+        btnSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnSearch.IconSize = 30;
+        btnSearch.ImageAlign = ContentAlignment.MiddleRight;
+        btnSearch.Location = new Point(806, 130);
+        btnSearch.Name = "btnSearch";
+        btnSearch.Size = new Size(146, 33);
+        btnSearch.TabIndex = 7;
+        btnSearch.Text = "Search Record";
+        btnSearch.TextAlign = ContentAlignment.MiddleLeft;
+        btnSearch.UseVisualStyleBackColor = true;
+        btnSearch.Click += btnSearch_Click;
+        // 
+        // btnReset
+        // 
+        btnReset.IconChar = FontAwesome.Sharp.IconChar.None;
+        btnReset.IconColor = Color.Black;
+        btnReset.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnReset.Location = new Point(348, 130);
+        btnReset.Name = "btnReset";
+        btnReset.Size = new Size(75, 33);
+        btnReset.TabIndex = 8;
+        btnReset.Text = "Reset";
+        btnReset.UseVisualStyleBackColor = true;
+        btnReset.Click += btnReset_Click;
+        // 
+        // txtSearch
+        // 
+        txtSearch.Location = new Point(447, 100);
+        txtSearch.Name = "txtSearch";
+        txtSearch.Size = new Size(183, 23);
+        txtSearch.TabIndex = 9;
+        // 
+        // lblSearchText
+        // 
+        lblSearchText.AutoSize = true;
+        lblSearchText.Location = new Point(348, 103);
+        lblSearchText.Name = "lblSearchText";
+        lblSearchText.Size = new Size(93, 16);
+        lblSearchText.TabIndex = 10;
+        lblSearchText.Text = "Search Text:";
+        // 
         // FrmManagePatientRecord
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
-        ClientSize = new Size(964, 580);
+        ClientSize = new Size(964, 586);
+        Controls.Add(lblSearchText);
+        Controls.Add(txtSearch);
+        Controls.Add(btnReset);
+        Controls.Add(btnSearch);
+        Controls.Add(lblFilterType);
+        Controls.Add(cmbFilterType);
         Controls.Add(grpAddDataEntry);
         Controls.Add(flpPatientRecordDataEntries);
         Controls.Add(lblPatientName);
@@ -163,4 +237,10 @@ partial class FrmManagePatientRecord
     private Label lblType;
     private ComboBox cmbType;
     private Label lblData;
+    private ComboBox cmbFilterType;
+    private Label lblFilterType;
+    private FontAwesome.Sharp.IconButton btnSearch;
+    private FontAwesome.Sharp.IconButton btnReset;
+    private TextBox txtSearch;
+    private Label lblSearchText;
 }

@@ -44,6 +44,13 @@ public partial class FrmManagePatientRecord : Form
         txtData.Focus();
     }
 
+    private void InitFilterComboBox()
+    {
+        cmbType.Items.Add("All");
+        cmbType.Items.AddRange(Enum.GetValues(typeof(PatientRecordDataEntryType)).Cast<object>().ToArray());
+        cmbType.SelectedIndex = 0;
+    }
+
     private void SetPatientRecord()
     {
         _patientRecord = _patientService!.GetPatientRecord(_patient!.Id);
@@ -55,23 +62,45 @@ public partial class FrmManagePatientRecord : Form
         }
     }
 
-    private void SetPanelItems()
+    private void SetPanelItems(string search = "")
     {
+        flpPatientRecordDataEntries.Controls.Clear();
+
         if (_patientRecord!.DataEntries.Count == 0)
         {
-            Label label = new()
-            {
-                Text = "No data entries found.",
-                AutoSize = true,
-                Font = new Font("Arial", 12, FontStyle.Bold),
-                ForeColor = Color.Gray
-            };
-
-            flpPatientRecordDataEntries.Controls.Add(label);
+            SetNoDataEntriesLabel();
             return;
         }
 
-        for (int i = 0; i < _patientRecord!.DataEntries.Count; i++)
+        List<PatientRecordDataEntry> filteredDataEntries = [];
+
+        filteredDataEntries = _patientRecord!.DataEntries;
+
+        if (cmbType.SelectedItem is PatientRecordDataEntryType type)
+        {
+            filteredDataEntries = _patientRecord.DataEntries.Where(d => d.Type == type).ToList();            
+        }
+
+        if (filteredDataEntries.Count == 0)
+        {
+            SetNoDataEntriesLabel();
+            return;
+        }    
+
+        if (string.IsNullOrWhiteSpace(search) == false)
+        {
+            filteredDataEntries = _patientRecord.DataEntries
+                .Where(d => d.Data.Contains(search, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
+        if (filteredDataEntries.Count == 0)
+        {
+            SetNoDataEntriesLabel();
+            return;
+        }
+
+        for (int i = 0; i < filteredDataEntries.Count; i++)
         {
             PatientRecordDataEntry dataEntry = _patientRecord.DataEntries[i];
 
@@ -80,13 +109,26 @@ public partial class FrmManagePatientRecord : Form
         }
     }
 
+    private void SetNoDataEntriesLabel()
+    {
+        Label label = new()
+        {
+            Text = "No data entries found.",
+            AutoSize = true,
+            Font = new Font("Arial", 12, FontStyle.Bold),
+            ForeColor = Color.Gray
+        };
+
+        flpPatientRecordDataEntries.Controls.Add(label);
+    }
+
     private void btnAddDataEntry_Click(object sender, EventArgs e)
     {
-        if (cmbType.SelectedItem is PatientRecordDataEntryType type &&
-            ValidateDataEntry())
+        if (cmbType.SelectedItem is PatientRecordDataEntryType type
+            && ValidateDataEntry())
         {
             PatientRecordDataEntry dataEntry = new(_patientRecord!.Id, txtData.Text, type, DateTime.Now);
-            
+
             _patientRecord.DataEntries.Add(dataEntry);
 
             _patientRecordService!.UpdatePatientRecord(_patientRecord);
@@ -107,16 +149,34 @@ public partial class FrmManagePatientRecord : Form
     }
 
     private void ClearAddDataEntryGroupBox() => cmbType.SelectedIndex = 0;
-    
+
     private void RefreshForm()
     {
         ClearAddDataEntryGroupBox();
+
         _patientRecord!.DataEntries = _patientRecord.DataEntries.OrderByDescending(d => d.EntryDate).ToList();
         flpPatientRecordDataEntries.Controls.Clear();
         SetPanelItems();
 
         txtData.Text = string.Empty;
+        txtSearch.Text = string.Empty;
+        cmbType.SelectedIndex = 0;
 
         txtData.Focus();
     }
+
+    private void btnSearch_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = txtSearch.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(txtSearch.Text))
+        {
+            RefreshForm();
+            return;
+        }
+
+        SetPanelItems(txtSearch.Text);
+    }
+
+    private void btnReset_Click(object sender, EventArgs e) => RefreshForm();
 }
