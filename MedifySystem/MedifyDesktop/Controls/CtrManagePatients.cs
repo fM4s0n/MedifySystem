@@ -40,7 +40,12 @@ public partial class CtrManagePatients : UserControl
     private void InitGenderComboBox()
     {
         foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+        {
+            if (gender == Gender.None)
+                continue;
+
             cmbGender.Items.Add(gender);
+        }            
 
         cmbGender.SelectedIndex = -1;
     }
