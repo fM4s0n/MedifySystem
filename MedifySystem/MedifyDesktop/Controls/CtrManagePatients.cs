@@ -18,13 +18,12 @@ public partial class CtrManagePatients : UserControl
         if (DesignMode)
             return;
 
-        _allPatients = _patientService!.GetAllPatients() ?? [];
-
         Init();
     }
 
     private void Init()
     {
+        RefreshPatients();
         InitDateTimePicker();
         InitListView();
         InitGenderComboBox();
@@ -249,4 +248,10 @@ public partial class CtrManagePatients : UserControl
     }
 
     private void txtSearch_TextChanged(object sender, EventArgs e) => Search(false);    
+
+    private void RefreshPatients()
+    {
+        _allPatients.Clear();
+        _allPatients.AddRange(_patientService!.GetAllPatients() ?? []);
+    }
 }
