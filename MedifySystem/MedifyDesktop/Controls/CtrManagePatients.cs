@@ -83,9 +83,10 @@ public partial class CtrManagePatients : UserControl
         else
         {
             _lvPatientDataSource.Clear();
-            _lvPatientDataSource.AddRange(_allPatients.Where
-                    (p => p.FirstName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
-                    || p.LastName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase))
+            _lvPatientDataSource.AddRange(
+                _allPatients
+                    .Where(p => p.FirstName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                             || p.LastName.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase))
                     .OrderBy(p => p.LastName));
         }
 
@@ -130,6 +131,12 @@ public partial class CtrManagePatients : UserControl
 
             Patient newPatient = new(txtFirstName.Text, txtLastName.Text, txtNHSNumber.Text, gender, txtGPName.Text, dtpDateOfBirth.Value);
             _patientService!.InsertPatient(newPatient);
+
+            MessageBox.Show(
+                "Patient registered successfully",
+                "Success",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
 
             ClearNewPatientFields();
         }
@@ -188,7 +195,6 @@ public partial class CtrManagePatients : UserControl
             MessageBox.Show("Please select a patient", "No patient selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
-
 
         if (patient.IsCurrentlyAdmitted())
         {
