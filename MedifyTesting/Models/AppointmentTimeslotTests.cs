@@ -9,24 +9,24 @@ public class AppointmentTimeslotTests
     public void ToStringOverride_ReturnsCorrectString()
     {
         // Arrange
-        var start = new DateTime(2021, 1, 1, 9, 0, 0);
-        var duration = new TimeSpan(0, 30, 0);
-        var timeslot = new AppointmentTimeslot(start, duration);
+        DateTime start = new(2024, 1, 1, 9, 0, 0);
+        TimeSpan duration = new(1, 0, 0);
+        AppointmentTimeslot timeslot = new(start, duration);
 
         // Act
         var result = timeslot.ToString();
 
         // Assert
-        Assert.AreEqual("09:00 - 09:30", result);
+        Assert.AreEqual("09:00 - 10:00", result);
     }
 
     [TestMethod]
     public void GetHashCodeOverride_ReturnsCorrectHashCode()
     {
         // Arrange
-        var start = new DateTime(2021, 1, 1, 9, 0, 0);
-        var duration = new TimeSpan(0, 30, 0);
-        var timeslot = new AppointmentTimeslot(start, duration);
+        DateTime start = new(2024, 1, 1, 9, 0, 0);
+        TimeSpan duration = new(1, 0, 0);
+        AppointmentTimeslot timeslot = new(start, duration);
 
         // Act
         var result = timeslot.GetHashCode();
@@ -39,10 +39,10 @@ public class AppointmentTimeslotTests
     public void EqualsOverride_ReturnsTrueForEqualObjects()
     {
         // Arrange
-        var start = new DateTime(2021, 1, 1, 9, 0, 0);
-        var duration = new TimeSpan(0, 30, 0);
-        var timeslot1 = new AppointmentTimeslot(start, duration);
-        var timeslot2 = new AppointmentTimeslot(start, duration);
+        DateTime start = new(2024, 1, 1, 9, 0, 0);
+        TimeSpan duration = new(1, 0, 0);
+        AppointmentTimeslot timeslot1 = new(start, duration);
+        AppointmentTimeslot timeslot2 = new(start, duration);
 
         // Act
         var result = timeslot1.Equals(timeslot2);
