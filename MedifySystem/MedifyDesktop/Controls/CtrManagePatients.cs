@@ -33,7 +33,7 @@ public partial class CtrManagePatients : UserControl
     {
         dtpDateOfBirth.MinDate = new DateTime(1900, 1, 1, 0, 0, 0);
         dtpDateOfBirth.MaxDate = DateTime.Now;
-        dtpDateOfBirth.Value = new DateTime(1950, 1, 1, 0, 0, 0);
+        dtpDateOfBirth.Value = new DateTime(1980, 1, 1, 0, 0, 0);
     }
 
     private void InitGenderComboBox()
