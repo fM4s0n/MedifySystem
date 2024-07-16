@@ -136,6 +136,7 @@ partial class CtrManagePatients
         // 
         // cmbGender
         // 
+        cmbGender.DropDownStyle = ComboBoxStyle.DropDownList;
         cmbGender.FormattingEnabled = true;
         cmbGender.Location = new Point(98, 184);
         cmbGender.Name = "cmbGender";
@@ -323,6 +324,7 @@ partial class CtrManagePatients
         // 
         // grpPatientOptions
         // 
+        grpPatientOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         grpPatientOptions.Controls.Add(btnBookAppointment);
         grpPatientOptions.Controls.Add(btnAdmitPatient);
         grpPatientOptions.Controls.Add(btnViewPatientDetails);
@@ -333,7 +335,6 @@ partial class CtrManagePatients
         grpPatientOptions.TabIndex = 11;
         grpPatientOptions.TabStop = false;
         grpPatientOptions.Text = "Patient Options";
-        grpPatientOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         // 
         // btnBookAppointment
         // 

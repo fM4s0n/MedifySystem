@@ -30,8 +30,6 @@ partial class FrmViewPatientDetails
     {
         lblGPName = new Label();
         txtNewGPName = new TextBox();
-        lblGenderMessage = new Label();
-        txtNewGender = new TextBox();
         lblGender = new Label();
         cmbNewGender = new ComboBox();
         lblNHSNumber = new Label();
@@ -50,15 +48,12 @@ partial class FrmViewPatientDetails
         btnCancel = new FontAwesome.Sharp.IconButton();
         lblNewDetailsHeading = new Label();
         lblCurrentDetails = new Label();
-        lblDateOfBirth = new Label();
-        lblCurrentDateOfBirth = new Label();
-        dtpNewDateOfBirth = new DateTimePicker();
         SuspendLayout();
         // 
         // lblGPName
         // 
         lblGPName.AutoSize = true;
-        lblGPName.Location = new Point(17, 216);
+        lblGPName.Location = new Point(17, 190);
         lblGPName.Name = "lblGPName";
         lblGPName.Size = new Size(65, 16);
         lblGPName.TabIndex = 25;
@@ -66,34 +61,15 @@ partial class FrmViewPatientDetails
         // 
         // txtNewGPName
         // 
-        txtNewGPName.Location = new Point(327, 213);
+        txtNewGPName.Location = new Point(327, 187);
         txtNewGPName.Name = "txtNewGPName";
         txtNewGPName.Size = new Size(244, 23);
         txtNewGPName.TabIndex = 24;
         // 
-        // lblGenderMessage
-        // 
-        lblGenderMessage.AutoSize = true;
-        lblGenderMessage.Font = new Font("Verdana", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        lblGenderMessage.Location = new Point(368, 304);
-        lblGenderMessage.Name = "lblGenderMessage";
-        lblGenderMessage.Size = new Size(174, 13);
-        lblGenderMessage.TabIndex = 23;
-        lblGenderMessage.Text = "Please enter patient's gender";
-        lblGenderMessage.Visible = false;
-        // 
-        // txtNewGender
-        // 
-        txtNewGender.Location = new Point(327, 276);
-        txtNewGender.Name = "txtNewGender";
-        txtNewGender.Size = new Size(244, 23);
-        txtNewGender.TabIndex = 22;
-        txtNewGender.Visible = false;
-        // 
         // lblGender
         // 
         lblGender.AutoSize = true;
-        lblGender.Location = new Point(15, 247);
+        lblGender.Location = new Point(15, 221);
         lblGender.Name = "lblGender";
         lblGender.Size = new Size(53, 16);
         lblGender.TabIndex = 21;
@@ -102,7 +78,7 @@ partial class FrmViewPatientDetails
         // cmbNewGender
         // 
         cmbNewGender.FormattingEnabled = true;
-        cmbNewGender.Location = new Point(327, 244);
+        cmbNewGender.Location = new Point(327, 218);
         cmbNewGender.Name = "cmbNewGender";
         cmbNewGender.Size = new Size(244, 24);
         cmbNewGender.TabIndex = 20;
@@ -111,7 +87,7 @@ partial class FrmViewPatientDetails
         // lblNHSNumber
         // 
         lblNHSNumber.AutoSize = true;
-        lblNHSNumber.Location = new Point(17, 185);
+        lblNHSNumber.Location = new Point(17, 159);
         lblNHSNumber.Name = "lblNHSNumber";
         lblNHSNumber.Size = new Size(88, 16);
         lblNHSNumber.TabIndex = 19;
@@ -119,7 +95,7 @@ partial class FrmViewPatientDetails
         // 
         // txtNewNHSNumber
         // 
-        txtNewNHSNumber.Location = new Point(327, 182);
+        txtNewNHSNumber.Location = new Point(327, 156);
         txtNewNHSNumber.Name = "txtNewNHSNumber";
         txtNewNHSNumber.Size = new Size(244, 23);
         txtNewNHSNumber.TabIndex = 18;
@@ -159,7 +135,7 @@ partial class FrmViewPatientDetails
         // lblCurrentGPName
         // 
         lblCurrentGPName.AutoSize = true;
-        lblCurrentGPName.Location = new Point(129, 213);
+        lblCurrentGPName.Location = new Point(129, 187);
         lblCurrentGPName.Name = "lblCurrentGPName";
         lblCurrentGPName.Size = new Size(119, 16);
         lblCurrentGPName.TabIndex = 30;
@@ -168,7 +144,7 @@ partial class FrmViewPatientDetails
         // lblCurrentGender
         // 
         lblCurrentGender.AutoSize = true;
-        lblCurrentGender.Location = new Point(129, 247);
+        lblCurrentGender.Location = new Point(129, 221);
         lblCurrentGender.Name = "lblCurrentGender";
         lblCurrentGender.Size = new Size(107, 16);
         lblCurrentGender.TabIndex = 29;
@@ -177,7 +153,7 @@ partial class FrmViewPatientDetails
         // lblCurrentNHSNumber
         // 
         lblCurrentNHSNumber.AutoSize = true;
-        lblCurrentNHSNumber.Location = new Point(129, 185);
+        lblCurrentNHSNumber.Location = new Point(129, 159);
         lblCurrentNHSNumber.Name = "lblCurrentNHSNumber";
         lblCurrentNHSNumber.Size = new Size(142, 16);
         lblCurrentNHSNumber.TabIndex = 28;
@@ -219,7 +195,7 @@ partial class FrmViewPatientDetails
         btnSave.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnSave.IconSize = 25;
         btnSave.ImageAlign = ContentAlignment.MiddleRight;
-        btnSave.Location = new Point(496, 332);
+        btnSave.Location = new Point(496, 260);
         btnSave.Name = "btnSave";
         btnSave.Size = new Size(75, 32);
         btnSave.TabIndex = 32;
@@ -236,7 +212,7 @@ partial class FrmViewPatientDetails
         btnCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
         btnCancel.IconSize = 25;
         btnCancel.ImageAlign = ContentAlignment.MiddleRight;
-        btnCancel.Location = new Point(327, 332);
+        btnCancel.Location = new Point(325, 260);
         btnCancel.Name = "btnCancel";
         btnCancel.Size = new Size(87, 32);
         btnCancel.TabIndex = 33;
@@ -265,40 +241,12 @@ partial class FrmViewPatientDetails
         lblCurrentDetails.TabIndex = 35;
         lblCurrentDetails.Text = "Current Details";
         // 
-        // lblDateOfBirth
-        // 
-        lblDateOfBirth.AutoSize = true;
-        lblDateOfBirth.Location = new Point(17, 160);
-        lblDateOfBirth.Name = "lblDateOfBirth";
-        lblDateOfBirth.Size = new Size(91, 16);
-        lblDateOfBirth.TabIndex = 36;
-        lblDateOfBirth.Text = "Date of Birth";
-        // 
-        // lblCurrentDateOfBirth
-        // 
-        lblCurrentDateOfBirth.AutoSize = true;
-        lblCurrentDateOfBirth.Location = new Point(129, 160);
-        lblCurrentDateOfBirth.Name = "lblCurrentDateOfBirth";
-        lblCurrentDateOfBirth.Size = new Size(145, 16);
-        lblCurrentDateOfBirth.TabIndex = 37;
-        lblCurrentDateOfBirth.Text = "Current Date of Birth";
-        // 
-        // dtpNewDateOfBirth
-        // 
-        dtpNewDateOfBirth.Location = new Point(327, 153);
-        dtpNewDateOfBirth.Name = "dtpNewDateOfBirth";
-        dtpNewDateOfBirth.Size = new Size(244, 23);
-        dtpNewDateOfBirth.TabIndex = 38;
-        // 
         // FrmViewPatientDetails
         // 
         AutoScaleDimensions = new SizeF(8F, 16F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.LightGray;
-        ClientSize = new Size(585, 368);
-        Controls.Add(dtpNewDateOfBirth);
-        Controls.Add(lblCurrentDateOfBirth);
-        Controls.Add(lblDateOfBirth);
+        ClientSize = new Size(585, 303);
         Controls.Add(lblCurrentDetails);
         Controls.Add(lblNewDetailsHeading);
         Controls.Add(btnCancel);
@@ -311,8 +259,6 @@ partial class FrmViewPatientDetails
         Controls.Add(lblCurrentFirstName);
         Controls.Add(lblGPName);
         Controls.Add(txtNewGPName);
-        Controls.Add(lblGenderMessage);
-        Controls.Add(txtNewGender);
         Controls.Add(lblGender);
         Controls.Add(cmbNewGender);
         Controls.Add(lblNHSNumber);
@@ -332,8 +278,6 @@ partial class FrmViewPatientDetails
 
     private Label lblGPName;
     private TextBox txtNewGPName;
-    private Label lblGenderMessage;
-    private TextBox txtNewGender;
     private Label lblGender;
     private ComboBox cmbNewGender;
     private Label lblNHSNumber;
@@ -352,7 +296,4 @@ partial class FrmViewPatientDetails
     private FontAwesome.Sharp.IconButton btnCancel;
     private Label lblNewDetailsHeading;
     private Label lblCurrentDetails;
-    private Label lblDateOfBirth;
-    private Label lblCurrentDateOfBirth;
-    private DateTimePicker dtpNewDateOfBirth;
 }

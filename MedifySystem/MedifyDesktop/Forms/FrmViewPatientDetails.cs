@@ -11,7 +11,8 @@ public partial class FrmViewPatientDetails : Form
 {
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
-    private Patient? _patient;
+    private Patient? _oldPatient;
+    private readonly Patient? _newPatient;
 
     public FrmViewPatientDetails(Patient patient)
     {
@@ -20,123 +21,86 @@ public partial class FrmViewPatientDetails : Form
         if (DesignMode)
             return;
 
-        _patient = patient;
+        // initially have new patient as the same as the old patient
+        _newPatient = _oldPatient = patient;
 
         Init();
     }
 
     private void Init()
     {
-        if (_patient == null)
+        if (_oldPatient == null)
             return;
 
-        InitDateTimePicker();
         InitGenderComboBox();
         SetPatientDetails();
     }
 
     private void SetPatientDetails()
     {
-        lblCurrentFirstName.Text = _patient!.FirstName;
-        lblCurrentLastName.Text = _patient.LastName;
-        lblCurrentDateOfBirth.Text = _patient.DateOfBirth.ToString("dd/MM/yyyy");
-        lblCurrentNHSNumber.Text = _patient.NHSNumber;
-        lblCurrentGPName.Text = _patient.GPName;
-        lblCurrentGender.Text = _patient.Gender.ToString();
+        lblCurrentFirstName.Text = _oldPatient!.FirstName;
+        lblCurrentLastName.Text = _oldPatient.LastName;
+        lblCurrentNHSNumber.Text = _oldPatient.NHSNumber;
+        lblCurrentGPName.Text = _oldPatient.GPName;
+        lblCurrentGender.Text = _oldPatient.Gender.ToString();
     }
+
     private void InitGenderComboBox()
     {
-        foreach (Gender gender in Enum.GetValues(typeof(Gender)))        
+        foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+        {
+            if (gender == Gender.None)
+                continue;
+
             cmbNewGender.Items.Add(gender);
+        }
 
         cmbNewGender.SelectedIndex = -1;
     }
 
-    private void InitDateTimePicker()
-    {
-        dtpNewDateOfBirth.MinDate = new DateTime(1900, 1, 1, 0, 0, 0);
-        dtpNewDateOfBirth.MaxDate = DateTime.Now;
-        dtpNewDateOfBirth.Value = new DateTime(1950, 1, 1, 0, 0, 0);
-    }
-
     private void btnSave_Click(object sender, EventArgs e)
     {
-        if (ValidateAllFields() == false)
-        {
-            Patient? patient = GetPatientFromControls();
+        if (string.IsNullOrWhiteSpace(txtNewFirstName.Text) == false)
+            _newPatient!.FirstName = txtNewFirstName.Text;
 
-            if (patient == null)
-            {
-                MessageBox.Show("Failed to save patient details", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+        if (string.IsNullOrWhiteSpace(txtNewLastName.Text) == false)
+            _newPatient!.LastName = txtNewLastName.Text;
 
-            _patientService!.UpdatePatient(patient);
-            RefreshPatientDetails();
-        }
-    }
+        if (string.IsNullOrWhiteSpace(txtNewNHSNumber.Text) == false)
+            _newPatient!.NHSNumber = txtNewNHSNumber.Text;
 
-    private bool ValidateAllFields()
-    {
-        return ValidateTextBoxes() 
-            && ValidateGender();
-    }
+        if (string.IsNullOrWhiteSpace(txtNewGPName.Text) == false)
+            _newPatient!.GPName = txtNewGPName.Text;
 
-    private bool ValidateTextBoxes()
-    {
-        foreach (TextBox tb in new[] { txtNewFirstName, txtNewLastName, txtNewNHSNumber, txtNewGPName })
-        {
-            tb.Text = tb.Text.Trim();
+        if (cmbNewGender.SelectedItem is Gender newGender)
+            _newPatient!.Gender = newGender;
 
-            if (string.IsNullOrWhiteSpace(tb.Text))
-            {
-                MessageBox.Show("Please fill in all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
-        return true;
+        _patientService!.UpdatePatient(_newPatient!);           
+        RefreshPatientDetails();
     }
 
     private bool ValidateGender()
     {
         if (cmbNewGender.SelectedItem is Gender)        
             return true;        
-        else        
-            MessageBox.Show("Please select a gender", "Incomplete details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
         return false;            
     }
 
-    private Patient? GetPatientFromControls()
-    {
-        if (cmbNewGender.SelectedItem is Gender gender)
-        {
-            return new Patient(
-                txtNewFirstName.Text,
-                txtNewLastName.Text,
-                txtNewNHSNumber.Text,
-                gender,
-                txtNewGPName.Text,
-                dtpNewDateOfBirth.Value);
-        }
-
-        return null;
-    }
-
     private void btnCancel_Click(object sender, EventArgs e) => Close();
-
-    private void cmbNewGender_SelectedIndexChanged(object sender, EventArgs e)
-    { 
-        if (cmbNewGender.SelectedItem is Gender.NonBinary)        
-            txtNewGender.Visible = true;        
-        else        
-            txtNewGender.Visible = false;        
-    }
 
     private void RefreshPatientDetails()
     {
-        _patient = _patientService!.GetPatientById(_patient!.Id);
+        _oldPatient = _patientService!.GetPatientById(_oldPatient!.Id);
         SetPatientDetails();
+        RefreshNewPatientDetails();
+    }
+
+    private void RefreshNewPatientDetails()
+    {
+        foreach (TextBox tb in new TextBox[] { txtNewFirstName, txtNewLastName, txtNewNHSNumber, txtNewGPName })
+            tb.Clear();
+
+        cmbNewGender.SelectedIndex = -1;
     }
 }
