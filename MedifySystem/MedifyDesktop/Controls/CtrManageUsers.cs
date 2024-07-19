@@ -136,12 +136,9 @@ public partial class CtrManageUsers : UserControl
     {
         if (AddNewUserFromFields())
         {
+            ClearAddUserFields();
             RefreshAllUsers();
             RefreshUsersListView();
-        }
-        else
-        {
-            MessageBox.Show("Failed to add new user", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -162,8 +159,6 @@ public partial class CtrManageUsers : UserControl
         newUser.PasswordHash = PasswordHelper.HashPassword(newUser, "password");
 
         _userService!.InsertUser(newUser);
-
-        ClearAddUserFields();
 
         return true;
     }
