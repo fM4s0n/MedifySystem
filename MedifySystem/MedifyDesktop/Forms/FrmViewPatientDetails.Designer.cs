@@ -82,7 +82,6 @@ partial class FrmViewPatientDetails
         cmbNewGender.Name = "cmbNewGender";
         cmbNewGender.Size = new Size(244, 24);
         cmbNewGender.TabIndex = 20;
-        cmbNewGender.SelectedIndexChanged += cmbNewGender_SelectedIndexChanged;
         // 
         // lblNHSNumber
         // 
