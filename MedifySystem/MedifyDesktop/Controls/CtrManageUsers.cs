@@ -57,7 +57,13 @@ public partial class CtrManageUsers : UserControl
         cmbRole.DataSource = Enum.GetValues(typeof(UserRole));
         cmbRole.SelectedIndex = -1;
 
-        cmbGender.DataSource = Enum.GetValues(typeof(Gender));
+        foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+        {
+            if (gender == Gender.None)
+                continue;
+
+            cmbGender.Items.Add(gender);
+        }
         cmbGender.SelectedIndex = -1;
     }
 
@@ -85,8 +91,11 @@ public partial class CtrManageUsers : UserControl
 
     private void ClearAddUserFields()
     {
-        txtFirstName.Text = "";
-        txtLastName.Text = "";
+        txtFirstName.Text = string.Empty;
+        txtLastName.Text = string.Empty;
+        txtEmail.Text = string.Empty;
+
+        cmbGender.SelectedIndex = 0;
         cmbRole.SelectedIndex = 0;
     }
 
