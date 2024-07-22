@@ -1,9 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 using MedifySystem.MedifyCommon.DataAccess;
 using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyCommon.Services.Implementations;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace MedifySystem;
 
@@ -39,21 +41,28 @@ internal static class Program
 
     static IHostBuilder CreateHostBuilder()
     {
-        return Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) =>
+        return Host.CreateDefaultBuilder().ConfigureAppConfiguration((context, config) =>
+        {
+            config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        })
+        .ConfigureServices((context, services) =>
+        {
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IPatientService, PatientService>();
+            services.AddSingleton<IPatientAdmittanceService, PatientAdmittanceService>();
+            services.AddSingleton<IPatientRecordService, PatientRecordService>();
+            services.AddSingleton<IAppointmentService, AppointmentService>();
+
+            var configuration = context.Configuration;
+            var connectionString = configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
+            services.AddDbContext<MedifyDatabaseContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            services.AddSingleton<IDBService>(provider =>
             {
-                services.AddSingleton<IUserService, UserService>();
-                services.AddSingleton<IPatientService, PatientService>();
-                services.AddSingleton<IPatientAdmittanceService, PatientAdmittanceService>();
-                services.AddSingleton<IPatientRecordService, PatientRecordService>();
-                services.AddSingleton<IAppointmentService, AppointmentService>();
-                services.AddDbContext<MedifyDatabaseContext>(options =>
-                    options.UseSqlite("Data Source=MedifyDB.db"));
-                services.AddSingleton<IDBService>(provider =>
-                {
-                    var dbContext = provider.GetRequiredService<MedifyDatabaseContext>();
-                    return new DBService(dbContext);
-                });
+                var dbContext = provider.GetRequiredService<MedifyDatabaseContext>();
+                return new DBService(dbContext);
             });
+        });
     }
 }
