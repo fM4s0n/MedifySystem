@@ -40,7 +40,7 @@ partial class FrmManagePatientRecord
         cmbFilterType = new ComboBox();
         lblFilterType = new Label();
         btnSearch = new FontAwesome.Sharp.IconButton();
-        btnReset = new FontAwesome.Sharp.IconButton();
+        btnResetShowAll = new FontAwesome.Sharp.IconButton();
         txtSearch = new TextBox();
         lblSearchText = new Label();
         grpAddDataEntry.SuspendLayout();
@@ -171,18 +171,18 @@ partial class FrmManagePatientRecord
         btnSearch.UseVisualStyleBackColor = true;
         btnSearch.Click += btnSearch_Click;
         // 
-        // btnReset
+        // btnResetShowAll
         // 
-        btnReset.IconChar = FontAwesome.Sharp.IconChar.None;
-        btnReset.IconColor = Color.Black;
-        btnReset.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        btnReset.Location = new Point(348, 130);
-        btnReset.Name = "btnReset";
-        btnReset.Size = new Size(75, 33);
-        btnReset.TabIndex = 8;
-        btnReset.Text = "Reset";
-        btnReset.UseVisualStyleBackColor = true;
-        btnReset.Click += btnReset_Click;
+        btnResetShowAll.IconChar = FontAwesome.Sharp.IconChar.None;
+        btnResetShowAll.IconColor = Color.Black;
+        btnResetShowAll.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnResetShowAll.Location = new Point(348, 130);
+        btnResetShowAll.Name = "btnResetShowAll";
+        btnResetShowAll.Size = new Size(147, 33);
+        btnResetShowAll.TabIndex = 8;
+        btnResetShowAll.Text = "Reset and Show All";
+        btnResetShowAll.UseVisualStyleBackColor = true;
+        btnResetShowAll.Click += btnReset_Click;
         // 
         // txtSearch
         // 
@@ -208,7 +208,7 @@ partial class FrmManagePatientRecord
         ClientSize = new Size(964, 586);
         Controls.Add(lblSearchText);
         Controls.Add(txtSearch);
-        Controls.Add(btnReset);
+        Controls.Add(btnResetShowAll);
         Controls.Add(btnSearch);
         Controls.Add(lblFilterType);
         Controls.Add(cmbFilterType);
@@ -240,7 +240,7 @@ partial class FrmManagePatientRecord
     private ComboBox cmbFilterType;
     private Label lblFilterType;
     private FontAwesome.Sharp.IconButton btnSearch;
-    private FontAwesome.Sharp.IconButton btnReset;
+    private FontAwesome.Sharp.IconButton btnResetShowAll;
     private TextBox txtSearch;
     private Label lblSearchText;
 }

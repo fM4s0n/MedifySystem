@@ -38,6 +38,7 @@ public partial class FrmManagePatientRecord : Form
     {
         SetPatientRecord();
         SetPanelItems();
+        InitFilterComboBox();
 
         cmbType.DataSource = Enum.GetValues(typeof(PatientRecordDataEntryType));
 
