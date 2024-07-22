@@ -5,7 +5,6 @@ using MedifySystem.MedifyCommon.DataAccess;
 using MedifySystem.MedifyCommon.Services;
 using MedifySystem.MedifyCommon.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace MedifySystem;
 
