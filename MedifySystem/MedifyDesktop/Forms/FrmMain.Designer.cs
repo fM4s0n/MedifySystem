@@ -73,10 +73,10 @@ partial class FrmMain
         // 
         // pbLogo
         // 
-        pbLogo.Image = Properties.Resources.RectangleTransparentBackground;
-        pbLogo.Location = new Point(12, 0);
+        pbLogo.Image = Properties.Resources.MedifyLogo;
+        pbLogo.Location = new Point(55, 3);
         pbLogo.Name = "pbLogo";
-        pbLogo.Size = new Size(180, 79);
+        pbLogo.Size = new Size(80, 80);
         pbLogo.SizeMode = PictureBoxSizeMode.StretchImage;
         pbLogo.TabIndex = 0;
         pbLogo.TabStop = false;

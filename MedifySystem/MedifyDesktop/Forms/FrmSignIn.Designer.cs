@@ -48,10 +48,10 @@ partial class FrmSignIn
         // 
         // pbLogo
         // 
-        pbLogo.Image = Properties.Resources.RectangleTransparentBackground;
-        pbLogo.Location = new Point(72, 12);
+        pbLogo.Image = Properties.Resources.MedifyLogo;
+        pbLogo.Location = new Point(189, 12);
         pbLogo.Name = "pbLogo";
-        pbLogo.Size = new Size(359, 130);
+        pbLogo.Size = new Size(130, 130);
         pbLogo.SizeMode = PictureBoxSizeMode.Zoom;
         pbLogo.TabIndex = 0;
         pbLogo.TabStop = false;
