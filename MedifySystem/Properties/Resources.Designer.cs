@@ -69,15 +69,5 @@ namespace MedifySystem.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap RectangleTransparentBackground {
-            get {
-                object obj = ResourceManager.GetObject("RectangleTransparentBackground", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
