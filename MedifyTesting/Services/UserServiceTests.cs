@@ -70,7 +70,7 @@ public class UserServiceTests
         _userService!.DeleteUser(user);
 
         // Assert
-        Assert.IsNull(_dbService.GetEntity<User>(user.Id));
+        Assert.ThrowsException<KeyNotFoundException>(() => _dbService.GetEntity<User>(user.Id));
     }
 
     [TestMethod]
@@ -181,11 +181,8 @@ public class UserServiceTests
         User expected = new();
         _dbService!.InsertEntity(expected);
 
-        // Act
-        User? actual = _userService!.GetUserById(Guid.NewGuid().ToString());
-
-        // Assert
-        Assert.IsNull(actual);
+        // Act & Assert
+        Assert.ThrowsException<KeyNotFoundException>(() => _dbService.GetEntity<User>(Guid.NewGuid().ToString()));
     }
 
     [TestMethod]
@@ -222,7 +219,7 @@ public class UserServiceTests
         _userService!.InsertUser(null);
 
         // Assert
-        Assert.IsNull(_dbService!.GetEntity<User>(user.Id));
+        Assert.ThrowsException<KeyNotFoundException> (() => _dbService!.GetEntity<User>(user.Id));
     }
 
     [TestMethod]

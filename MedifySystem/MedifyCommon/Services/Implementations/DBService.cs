@@ -10,29 +10,15 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
     //<inheritdoc/>
     public void InsertEntity<T>(T entity) where T : class
     {
-        try
-        {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        _dbContext.Set<T>().Add(entity);
+        _dbContext.SaveChanges();
     }
 
     //<inheritdoc/>
     public void DeleteEntity<T>(T entity) where T : class
     {
-        try
-        {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }        
+        _dbContext.Set<T>().Remove(entity);
+        _dbContext.SaveChanges();        
     }
 
     //<inheritdoc/>
@@ -55,61 +41,30 @@ public class DBService(MedifyDatabaseContext medifyDatabaseContext) : IDBService
 
     //<inheritdoc/>
     public T? GetEntity<T>(string id) where T : class
-    {
-        try
-        {
-            var entity = _dbContext.Set<T>().Find(id);
+    {        
+        var entity = _dbContext.Set<T>().Find(id);
 
-            return entity ?? throw new KeyNotFoundException("Entity not found");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return null;
-        }
+        return entity ?? throw new KeyNotFoundException("Entity not found");       
     }
 
     //<inheritdoc/>
     public void UpdateEntity<T>(T entity) where T : class
     {
-        try
-        {
-            _dbContext.Set<T>().Update(entity);
-            _dbContext.SaveChanges();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        _dbContext.Set<T>().Update(entity);
+        _dbContext.SaveChanges();        
     }
 
     //<inheritdoc/>
     public void InsertRange<T>(IEnumerable<T> entities) where T : class
     {
-        try
-        {
-            _dbContext.Set<T>().AddRange(entities);
-            _dbContext.SaveChanges();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        _dbContext.Set<T>().AddRange(entities);
+        _dbContext.SaveChanges();
     }
 
     //<inheritdoc/>
     public List<T>? GetEntitiesByType<T>() where T : class
     {
-        try
-        {
-            List<T>? entities = [.. _dbContext.Set<T>()];
-
-            return entities ?? throw new KeyNotFoundException("Entity not found");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return null;
-        }
+        List<T>? entities = [.. _dbContext.Set<T>()];
+        return entities ?? throw new KeyNotFoundException("Entity not found");
     }
 }
