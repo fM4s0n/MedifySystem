@@ -41,6 +41,7 @@ public partial class FrmManagePatientRecord : Form
         InitFilterComboBox();
 
         cmbType.DataSource = Enum.GetValues(typeof(PatientRecordDataEntryType));
+        lblPatientName.Text = _patient!.FullName;
 
         txtData.Focus();
     }
