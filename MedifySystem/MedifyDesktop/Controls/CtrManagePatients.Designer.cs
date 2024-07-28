@@ -1,7 +1,4 @@
-﻿
-
-
-namespace MedifySystem.MedifyDesktop.Controls;
+﻿namespace MedifySystem.MedifyDesktop.Controls;
 
 partial class CtrManagePatients
 {
@@ -18,6 +15,7 @@ partial class CtrManagePatients
     {
         if (disposing && (components != null))
         {
+            lvPatients.Resize -= lvPatients_Resize;
             components.Dispose();
         }
         base.Dispose(disposing);

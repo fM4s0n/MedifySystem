@@ -11,6 +11,15 @@ public partial class CtrManagePatients : UserControl
     private readonly List<Patient> _allPatients = [];
     private readonly List<Patient> _lvPatientDataSource = [];
 
+    private readonly ColumnHeader[] _lvPatientsColumns =
+    [
+        new ColumnHeader { Text = "Full Name"},
+        new ColumnHeader { Text = "NHS Number"},
+        new ColumnHeader { Text = "Gender"},
+        new ColumnHeader { Text = "GP Name" },
+        new ColumnHeader { Text = "Admitted" },
+    ];
+
     public CtrManagePatients()
     {
         InitializeComponent();
@@ -51,20 +60,22 @@ public partial class CtrManagePatients : UserControl
 
     private void InitListView()
     {
-        int width = lvPatients.Width / 3;
-
         lvPatients.Columns.Clear();
-        lvPatients.Columns.Add("Full Name", width);
-        lvPatients.Columns.Add("GP Name", width);
-        lvPatients.Columns.Add("Admitted", width);
+        lvPatients.Columns.AddRange(_lvPatientsColumns);
 
-        lvPatients.Resize += (s, e) =>
-        {
-            width = lvPatients.Width / 3;
+        int colWidth = lvPatients.Width / _lvPatientsColumns.Length;
+        foreach (ColumnHeader column in lvPatients.Columns)
+            column.Width = colWidth;
 
-            foreach (ColumnHeader column in lvPatients.Columns)
-                column.Width = width;
-        };
+        lvPatients.Resize += lvPatients_Resize;
+    }
+
+    private void lvPatients_Resize(object? sender, EventArgs e)
+    {
+        int colWidth = lvPatients.Width / _lvPatientsColumns.Length;
+
+        foreach (ColumnHeader column in lvPatients.Columns)
+            column.Width = colWidth;
     }
 
     private void btnShowAll_Click(object sender, EventArgs e) => Search(true);
@@ -100,7 +111,8 @@ public partial class CtrManagePatients : UserControl
         foreach (Patient patient in _lvPatientDataSource)
         {
             ListViewItem lvi = new(patient.FullName);
-
+            lvi.SubItems.Add(patient.NHSNumber);
+            lvi.SubItems.Add(patient.Gender.ToString());
             lvi.SubItems.Add(patient.GPName);
             lvi.SubItems.Add(patient.IsCurrentlyAdmitted() ? "Yes" : "No");
             lvi.Tag = patient;
