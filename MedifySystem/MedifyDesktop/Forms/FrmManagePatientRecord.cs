@@ -74,6 +74,8 @@ public partial class FrmManagePatientRecord : Form
 
     private void SetPanelItems(string search = "")
     {
+        search = search.Trim();
+
         flpPatientRecordDataEntries.Controls.Clear();
 
         if (_patientRecord!.DataEntries.Count == 0)
@@ -90,6 +92,10 @@ public partial class FrmManagePatientRecord : Form
         {
             filteredDataEntries = _patientRecord.DataEntries.Where(d => d.Type == type).ToList();            
         }
+        else
+        {
+           filteredDataEntries = _patientRecord.DataEntries;
+        }
 
         if (filteredDataEntries.Count == 0)
         {
@@ -99,7 +105,7 @@ public partial class FrmManagePatientRecord : Form
 
         if (string.IsNullOrWhiteSpace(search) == false)
         {
-            filteredDataEntries = _patientRecord.DataEntries
+            filteredDataEntries = filteredDataEntries
                 .Where(d => d.Data.Contains(search, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
@@ -112,7 +118,7 @@ public partial class FrmManagePatientRecord : Form
 
         for (int i = 0; i < filteredDataEntries.Count; i++)
         {
-            PatientRecordDataEntry dataEntry = _patientRecord.DataEntries[i];
+            PatientRecordDataEntry dataEntry = filteredDataEntries[i];
 
             CtrPatientRecordDataEntryPanelItem panelItem = new(i, dataEntry);
             flpPatientRecordDataEntries.Controls.Add(panelItem);
@@ -164,13 +170,16 @@ public partial class FrmManagePatientRecord : Form
     {
         ClearAddDataEntryGroupBox();
 
+        RefreshPatientRecord();
         _patientRecord!.DataEntries = _patientRecord.DataEntries.OrderByDescending(d => d.EntryDate).ToList();
+
         flpPatientRecordDataEntries.Controls.Clear();
         SetPanelItems();
 
         txtData.Text = string.Empty;
         txtSearch.Text = string.Empty;
         cmbNewEntryType.SelectedIndex = 0;
+        cmbFilterType.SelectedIndex = 0;
 
         txtData.Focus();
     }
@@ -189,4 +198,11 @@ public partial class FrmManagePatientRecord : Form
     }
 
     private void btnReset_Click(object sender, EventArgs e) => RefreshForm();
+
+    private void RefreshPatientRecord()
+    {
+        _patientRecord ??= _patientService!.GetPatientRecord(_patient!.Id);
+    }
+
+    private void cmbFilterType_SelectedIndexChanged(object sender, EventArgs e) => SetPanelItems(txtSearch.Text);
 }

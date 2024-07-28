@@ -145,6 +145,7 @@ partial class FrmManagePatientRecord
         cmbFilterType.Name = "cmbFilterType";
         cmbFilterType.Size = new Size(176, 24);
         cmbFilterType.TabIndex = 5;
+        cmbFilterType.SelectedIndexChanged += cmbFilterType_SelectedIndexChanged;
         // 
         // lblFilterType
         // 
