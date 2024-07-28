@@ -111,10 +111,15 @@ public partial class CtrManagePatients : UserControl
         foreach (Patient patient in _lvPatientDataSource)
         {
             ListViewItem lvi = new(patient.FullName);
-            lvi.SubItems.Add(patient.NHSNumber);
-            lvi.SubItems.Add(patient.Gender.ToString());
-            lvi.SubItems.Add(patient.GPName);
-            lvi.SubItems.Add(patient.IsCurrentlyAdmitted() ? "Yes" : "No");
+
+            lvi.SubItems.AddRange(new[]
+            {
+                patient.NHSNumber,
+                patient.Gender.ToString(),
+                patient.GPName,
+                patient.IsCurrentlyAdmitted() ? "Yes" : "No"
+            });
+
             lvi.Tag = patient;
 
             lvPatients.Items.Add(lvi);
