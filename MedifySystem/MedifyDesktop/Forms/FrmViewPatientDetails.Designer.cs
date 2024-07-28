@@ -268,6 +268,7 @@ partial class FrmViewPatientDetails
         Controls.Add(lblFirstName);
         Font = new Font("Verdana", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Name = "FrmViewPatientDetails";
+        StartPosition = FormStartPosition.CenterParent;
         Text = "Medify | Patient Details";
         ResumeLayout(false);
         PerformLayout();
