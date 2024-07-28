@@ -35,7 +35,7 @@ partial class FrmManagePatientRecord
         grpAddDataEntry = new GroupBox();
         lblData = new Label();
         lblType = new Label();
-        cmbType = new ComboBox();
+        cmbNewEntryType = new ComboBox();
         txtData = new TextBox();
         cmbFilterType = new ComboBox();
         lblFilterType = new Label();
@@ -94,7 +94,7 @@ partial class FrmManagePatientRecord
         // 
         grpAddDataEntry.Controls.Add(lblData);
         grpAddDataEntry.Controls.Add(lblType);
-        grpAddDataEntry.Controls.Add(cmbType);
+        grpAddDataEntry.Controls.Add(cmbNewEntryType);
         grpAddDataEntry.Controls.Add(txtData);
         grpAddDataEntry.Controls.Add(btnAddDataEntry);
         grpAddDataEntry.Location = new Point(12, 100);
@@ -124,11 +124,11 @@ partial class FrmManagePatientRecord
         // 
         // cmbType
         // 
-        cmbType.FormattingEnabled = true;
-        cmbType.Location = new Point(51, 27);
-        cmbType.Name = "cmbType";
-        cmbType.Size = new Size(273, 24);
-        cmbType.TabIndex = 5;
+        cmbNewEntryType.FormattingEnabled = true;
+        cmbNewEntryType.Location = new Point(51, 27);
+        cmbNewEntryType.Name = "cmbType";
+        cmbNewEntryType.Size = new Size(273, 24);
+        cmbNewEntryType.TabIndex = 5;
         // 
         // txtData
         // 
@@ -235,7 +235,7 @@ partial class FrmManagePatientRecord
     private GroupBox grpAddDataEntry;
     private TextBox txtData;
     private Label lblType;
-    private ComboBox cmbType;
+    private ComboBox cmbNewEntryType;
     private Label lblData;
     private ComboBox cmbFilterType;
     private Label lblFilterType;

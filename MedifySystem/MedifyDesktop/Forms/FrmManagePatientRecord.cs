@@ -48,9 +48,9 @@ public partial class FrmManagePatientRecord : Form
 
     private void InitNewEntryTypeComboBox()
     {
-        cmbType.Items.Clear();
-        cmbType.Items.AddRange(Enum.GetValues(typeof(PatientRecordDataEntryType)).Cast<object>().ToArray());
-        cmbType.SelectedIndex = 0;
+        cmbNewEntryType.Items.Clear();
+        cmbNewEntryType.Items.AddRange(Enum.GetValues(typeof(PatientRecordDataEntryType)).Cast<object>().ToArray());
+        cmbNewEntryType.SelectedIndex = 0;
     }
 
     private void InitFilterComboBox()
@@ -86,7 +86,7 @@ public partial class FrmManagePatientRecord : Form
 
         filteredDataEntries = _patientRecord!.DataEntries;
 
-        if (cmbType.SelectedItem is PatientRecordDataEntryType type)
+        if (cmbFilterType.SelectedItem is PatientRecordDataEntryType type)
         {
             filteredDataEntries = _patientRecord.DataEntries.Where(d => d.Type == type).ToList();            
         }
@@ -134,7 +134,7 @@ public partial class FrmManagePatientRecord : Form
 
     private void btnAddDataEntry_Click(object sender, EventArgs e)
     {
-        if (cmbType.SelectedItem is PatientRecordDataEntryType type
+        if (cmbNewEntryType.SelectedItem is PatientRecordDataEntryType type
             && ValidateDataEntry())
         {
             PatientRecordDataEntry dataEntry = new(_patientRecord!.Id, txtData.Text, type, DateTime.Now);
@@ -158,7 +158,7 @@ public partial class FrmManagePatientRecord : Form
         return true;
     }
 
-    private void ClearAddDataEntryGroupBox() => cmbType.SelectedIndex = 0;
+    private void ClearAddDataEntryGroupBox() => cmbNewEntryType.SelectedIndex = 0;
 
     private void RefreshForm()
     {
@@ -170,7 +170,7 @@ public partial class FrmManagePatientRecord : Form
 
         txtData.Text = string.Empty;
         txtSearch.Text = string.Empty;
-        cmbType.SelectedIndex = 0;
+        cmbNewEntryType.SelectedIndex = 0;
 
         txtData.Focus();
     }
