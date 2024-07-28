@@ -197,13 +197,14 @@ public partial class FrmBookAppointment : Form
 
     private void btnShowTimes_Click(object sender, EventArgs e)
     {
+        SetAvailableTimeslots();
+
         if (_availableSlots.Count == 0)
         {
             MessageBox.Show("No available timeslots for the selected date.", "No Times", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
 
-        SetAvailableTimeslots();
         RefreshCmbSelectTime();
         SetFieldsVisible(true, true);
     }
@@ -251,6 +252,8 @@ public partial class FrmBookAppointment : Form
 
         foreach (TimeSpan slot in availableSlots)
             _availableSlots.Add(new AppointmentTimeslot(selectedDate.Add(slot), TimeSpan.FromMinutes(60)));
+
+        RefreshCmbSelectTime();
     }
 
     private void RefreshCmbSelectTime()
