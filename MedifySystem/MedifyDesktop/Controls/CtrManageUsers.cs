@@ -6,7 +6,7 @@ using MedifySystem.MedifyCommon.Services;
 namespace MedifySystem.MedifyDesktop.Controls;
 
 /// <summary>
-/// 
+/// Manage Users control for system admins
 /// </summary>
 public partial class CtrManageUsers : UserControl
 {
@@ -64,6 +64,7 @@ public partial class CtrManageUsers : UserControl
 
             cmbGender.Items.Add(gender);
         }
+
         cmbGender.SelectedIndex = -1;
     }
 
@@ -72,6 +73,10 @@ public partial class CtrManageUsers : UserControl
     private void RefreshAllUsers()
     {
         _allUsers = _userService!.GetAllUsers();
+        _allUsers = _allUsers!.OrderBy(u => u.LastName).ToList();
+
+        _lvUsersDataSource.Clear();
+        _lvUsersDataSource.AddRange(_allUsers!);
     }
 
     private void btnSearch_Click(object sender, EventArgs e)
@@ -86,6 +91,8 @@ public partial class CtrManageUsers : UserControl
 
     private void btnShowAll_Click(object sender, EventArgs e)
     {
+        txtUserSearch.Text = string.Empty;
+
         ShowAllUsers();
     }
 
@@ -95,8 +102,8 @@ public partial class CtrManageUsers : UserControl
         txtLastName.Text = string.Empty;
         txtEmail.Text = string.Empty;
 
-        cmbGender.SelectedIndex = 0;
-        cmbRole.SelectedIndex = 0;
+        cmbGender.SelectedIndex = -1;
+        cmbRole.SelectedIndex = -1;
     }
 
     private void Search(string searchText)
@@ -136,6 +143,8 @@ public partial class CtrManageUsers : UserControl
     {
         if (AddNewUserFromFields())
         {
+            MessageBox.Show("User added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             ClearAddUserFields();
             RefreshAllUsers();
             RefreshUsersListView();
@@ -154,7 +163,6 @@ public partial class CtrManageUsers : UserControl
             return false;
 
         User newUser = new(txtEmail.Text, role, txtFirstName.Text, txtLastName.Text, gender);
-
         // default password for new user is "password" - will force user to change password on first login
         newUser.PasswordHash = PasswordHelper.HashPassword(newUser, "password");
 
