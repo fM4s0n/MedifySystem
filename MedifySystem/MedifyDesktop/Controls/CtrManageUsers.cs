@@ -36,19 +36,17 @@ public partial class CtrManageUsers : UserControl
 
     private void InitListView()
     {
-        int width = lvUsers.Width / 3;
+        int width = lvUsers.Width / 4;
+
         lvUsers.Columns.Add("Full Name", width);
         lvUsers.Columns.Add("Role", width);
         lvUsers.Columns.Add("Active Patients", width);
+        lvUsers.Columns.Add("Email", width);
 
         lvUsers.Resize += (s, e) =>
         {
-            if (lvUsers.Columns.Count == 3)
-            {
-                lvUsers.Columns[0].Width = lvUsers.Width / 3;
-                lvUsers.Columns[1].Width = lvUsers.Width / 3;
-                lvUsers.Columns[2].Width = lvUsers.Width / 3;
-            }
+            foreach (ColumnHeader column in lvUsers.Columns)            
+                column.Width = lvUsers.Width / 4;            
         };
     }
 
@@ -134,6 +132,7 @@ public partial class CtrManageUsers : UserControl
 
             item.SubItems.Add(user.Role.ToString());
             item.SubItems.Add(activePatients.ToString());
+            item.SubItems.Add(user.Email);
 
             lvUsers.Items.Add(item);
         }
@@ -164,7 +163,7 @@ public partial class CtrManageUsers : UserControl
 
         User newUser = new(txtEmail.Text, role, txtFirstName.Text, txtLastName.Text, gender);
         // default password for new user is "password" - will force user to change password on first login
-        newUser.PasswordHash = PasswordHelper.HashPassword(newUser, "password");
+        newUser.PasswordHash = PasswordHelper.HashPassword(newUser, "Password");
 
         _userService!.InsertUser(newUser);
 
