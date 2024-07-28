@@ -163,6 +163,8 @@ public partial class CtrManagePatients : UserControl
                 MessageBoxIcon.Information);
 
             ClearNewPatientFields();
+            RefreshAllPatientsList();
+            Search(true);
         }
     }
 
