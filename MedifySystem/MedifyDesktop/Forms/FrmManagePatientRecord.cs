@@ -38,19 +38,27 @@ public partial class FrmManagePatientRecord : Form
     {
         SetPatientRecord();
         SetPanelItems();
+        InitNewEntryTypeComboBox();
         InitFilterComboBox();
 
-        cmbType.DataSource = Enum.GetValues(typeof(PatientRecordDataEntryType));
         lblPatientName.Text = _patient!.FullName;
 
         txtData.Focus();
     }
 
-    private void InitFilterComboBox()
+    private void InitNewEntryTypeComboBox()
     {
-        cmbType.Items.Add("All");
+        cmbType.Items.Clear();
         cmbType.Items.AddRange(Enum.GetValues(typeof(PatientRecordDataEntryType)).Cast<object>().ToArray());
         cmbType.SelectedIndex = 0;
+    }
+
+    private void InitFilterComboBox()
+    {
+        cmbFilterType.Items.Clear();
+        cmbFilterType.Items.Add("All");
+        cmbFilterType.Items.AddRange(Enum.GetValues(typeof(PatientRecordDataEntryType)).Cast<object>().ToArray());
+        cmbFilterType.SelectedIndex = 0;
     }
 
     private void SetPatientRecord()
