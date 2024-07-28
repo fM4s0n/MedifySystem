@@ -251,7 +251,11 @@ public partial class FrmBookAppointment : Form
         _availableSlots.Clear();
 
         foreach (TimeSpan slot in availableSlots)
-            _availableSlots.Add(new AppointmentTimeslot(selectedDate.Add(slot), TimeSpan.FromMinutes(60)));
+        {
+            _availableSlots.Add(
+                new AppointmentTimeslot(selectedDate.Add(slot),
+                TimeSpan.FromMinutes(60)));
+        }
 
         RefreshCmbSelectTime();
     }
