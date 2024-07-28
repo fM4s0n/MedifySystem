@@ -32,7 +32,7 @@ public partial class CtrManagePatients : UserControl
 
     private void Init()
     {
-        RefreshPatients();
+        RefreshAllPatientsList();
         InitDateTimePicker();
         InitListView();
         InitGenderComboBox();
@@ -137,7 +137,14 @@ public partial class CtrManagePatients : UserControl
             return;
 
         FrmViewPatientDetails frmViewPatientDetails = new(selectedPatient);
+        frmViewPatientDetails.PatientUpdatedEvent += FrmViewPatientDetails_PatientUpdatedEvent;
         frmViewPatientDetails.ShowDialog(this);
+    }
+
+    private void FrmViewPatientDetails_PatientUpdatedEvent(object sender, EventArgs e)
+    {
+        RefreshAllPatientsList();
+        Search(true);
     }
 
     private void btnRegisterPatient_Click(object sender, EventArgs e)
@@ -272,7 +279,7 @@ public partial class CtrManagePatients : UserControl
 
     private void txtSearch_TextChanged(object sender, EventArgs e) => Search(false);    
 
-    private void RefreshPatients()
+    internal void RefreshAllPatientsList()
     {
         _allPatients.Clear();
         _allPatients.AddRange(_patientService!.GetAllPatients() ?? []);

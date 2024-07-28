@@ -11,6 +11,10 @@ public partial class FrmViewPatientDetails : Form
 {
     private readonly IPatientService? _patientService = Program.ServiceProvider!.GetService(typeof(IPatientService)) as IPatientService;
 
+    // patient updated event so other forms can listen and update their views accordingly
+    public delegate void PatientUpdatedHandler(object sender, EventArgs e);
+    public event PatientUpdatedHandler? PatientUpdatedEvent;
+
     private Patient? _oldPatient;
     private readonly Patient? _newPatient;
 
@@ -75,16 +79,10 @@ public partial class FrmViewPatientDetails : Form
         if (cmbNewGender.SelectedItem is Gender newGender)
             _newPatient!.Gender = newGender;
 
-        _patientService!.UpdatePatient(_newPatient!);           
+        _patientService!.UpdatePatient(_newPatient!);     
+        
+        PatientUpdatedEvent?.Invoke(this, EventArgs.Empty);
         RefreshPatientDetails();
-    }
-
-    private bool ValidateGender()
-    {
-        if (cmbNewGender.SelectedItem is Gender)        
-            return true;        
-
-        return false;            
     }
 
     private void btnCancel_Click(object sender, EventArgs e) => Close();
